@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<todo version="0.1.20">
+    <note priority="medium" time="1679011080" done="1679140979">
+        fix layout issue with body overhang on left side
+    </note>
+    <note priority="medium" time="1679011083">
+        add favicon
+    </note>
+    <note priority="medium" time="1679011087">
+        fill about section
+    </note>
+    <note priority="medium" time="1679011100">
+        cool p5js background
+    </note>
+</todo>
