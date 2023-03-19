@@ -1,0 +1,6 @@
+canvas {
+    position: fixed;
+}
+.page__body {
+    backdrop-filter: blur(10px);
+}
