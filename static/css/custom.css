@@ -1,0 +1,41 @@
+/* Override this file to customise the theme's CSS for your site */
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0px;
+}
+.page {
+    height: 100%;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-auto-rows: min-content auto min-content;
+}
+.page__footer {
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: 2vw;
+    z-index: 0;
+}
+.page__header {
+    margin-left: 2vw;
+    z-index: 0;
+}
+.page__body {
+    margin-left: 2vw;
+    background-color: #3c3836c4;
+    z-index: 0;
+}
+.page__body p {
+    margin-left: 1vw;
+    margin-top: 1vw;
+}
+.page__body h1 {
+    margin-left: 1vw;
+    margin-top: 1vw;
+}
+.page__aside {
+   z-index: 0;
+}
