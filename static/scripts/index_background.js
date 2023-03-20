@@ -32,7 +32,6 @@ function setup() {
 }
 
 function draw() {
-  console.log(width.toString() + ", " + height.toString());
   background(40, 40, 40);
   //loop over all boids and draw
   for (let i = 0; i < N_BOIDS; i++) {
@@ -56,11 +55,11 @@ function draw() {
       locality_count = 0;
       for (let j = 0; j < N_BOIDS; j++) {
         // if in locality
-	dist = p5.Vector.sub(boids[j].pos, boids[i].pos);
-	dist_mag = dist.mag()
+        dist = p5.Vector.sub(boids[j].pos, boids[i].pos);
+        dist_mag = dist.mag();
         if (dist_mag < LOCALITY_R) {
           // add inverse mag dist to total
-	  stroke(251, 241, 199, (1 - dist_mag / LOCALITY_R) * 255);
+          stroke(251, 241, 199, (1 - dist_mag / LOCALITY_R) * 255);
           line(boids[i].pos.x, boids[i].pos.y, boids[j].pos.x, boids[j].pos.y);
           dist = dist.setMag(dist.mag() ** -10);
           dist_tot.add(dist);

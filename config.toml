@@ -44,12 +44,6 @@ url = "mailto:hectorjbrown@protonmail.com"
 [menu]
 
   [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 10
-
-  [[menu.main]]
     identifier = "blog"
     name = "Blog"
     url = "/blog/"
