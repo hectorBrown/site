@@ -1,0 +1,8 @@
+<li>
+	<a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
+	<br/>
+	<p style="margin: 0">{{ .Summary | plainify }}</p>
+	{{ if .Truncated }}
+	...
+	{{ end }}
+</li>
