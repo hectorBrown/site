@@ -24,7 +24,7 @@ body {
     z-index: 0;
 }
 .page__body {
-    background-color: #3c383684;
+    background-color: #3c3836a4;
     z-index: 0;
 }
 .page__body p {
@@ -32,12 +32,12 @@ body {
     margin-top: 1vw;
     margin-right: 1vw;
 }
-.page__body ul {
+.page__body ul, .page__body ol {
     margin-left: 1vw;
     margin-right: 1vw;
     margin-top: 1vw;
 }
-.page__body h1 {
+.page__body h1, .page__body h2, .page__body h3, .page__body h4, .page__body h5 {
     margin-left: 1vw;
     margin-right: 1vw;
     margin-top: 1vw;
@@ -45,4 +45,8 @@ body {
 }
 .page__aside {
    z-index: 0;
+}
+.page__body li p {
+    margin-left: 0;
+    margin-right: 0;
 }
