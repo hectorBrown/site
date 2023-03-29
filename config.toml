@@ -41,6 +41,9 @@ icon = "fa-solid fa-envelope"
 title = "Email"
 url = "mailto:hectorjbrown@protonmail.com"
 
+[markup.highlight]
+noClasses = false
+
 [menu]
 
   #[[menu.main]]
