@@ -29,6 +29,7 @@ body {
 }
 .page__body p {
     margin-left: 1vw;
+    margin-top: 1vw;
 }
 .page__body ul {
     margin-left: 1vw;
