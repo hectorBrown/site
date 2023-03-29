@@ -11,20 +11,19 @@ body {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 2vw;
+    padding-right: 2vw;
     grid-auto-rows: min-content auto min-content;
 }
 .page__footer {
     margin-top: 0;
     margin-bottom: 10px;
-    margin-left: 2vw;
     z-index: 0;
 }
 .page__header {
-    margin-left: 2vw;
     z-index: 0;
 }
 .page__body {
-    margin-left: 2vw;
     background-color: #3c3836c4;
     z-index: 0;
 }
