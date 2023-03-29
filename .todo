@@ -12,14 +12,14 @@
     <note priority="medium" time="1679261429" done="1680041508">
         zoning for boid background to incr number
     </note>
+    <note priority="medium" time="1680042503" done="1680102269">
+        margins on mobile screens
+    </note>
     <note priority="medium" time="1679011083">
         add favicon
     </note>
     <note priority="medium" time="1680042492">
         icon for bio
-    </note>
-    <note priority="medium" time="1680042503" done="1680102269">
-        margins on mobile screens
     </note>
     <note priority="medium" time="1680042520">
         n_boids should have a bias for small screens, and LOCALITY_R should scale too
@@ -27,7 +27,7 @@
     <note priority="medium" time="1680042534">
         blog post about p5js background
     </note>
-    <note priority="medium" time="1680042547">
+    <note priority="medium" time="1680042547" done="1680102690">
         blur on central div should be less, opacity less too?
     </note>
 </todo>
