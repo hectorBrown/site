@@ -1,5 +1,5 @@
 ---
-title: "Blog"
+title: "Blog [<i class='fa fa-rss'></i>](/blog/index.xml)"
 date: 2023-03-29T16:41:14+01:00
 draft: false
 ---
