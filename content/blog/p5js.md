@@ -81,7 +81,7 @@ The first thing you'll notice if you try to create a canvas on a page that
 already has content is that it'll just drop it at the end. We obviously want to
 be able to position the animation as a normal html element:
 <ol>
-    <li><p>Create a containing {{< highlight html "hl_inline=true" >}}<div>{{< /highlight >}} at the very top of your page, and make it's position
+    <li><p>Create a containing {{< highlight html "hl_inline=true" >}}<div>{{< /highlight >}} at the very top of your page, and make its position
     fixed:</p>
     {{< highlight html >}}
     ...
