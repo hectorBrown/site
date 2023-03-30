@@ -3,6 +3,9 @@
     <note priority="medium" time="1679011080" done="1679140979">
         fix layout issue with body overhang on left side
     </note>
+    <note priority="medium" time="1679011083" done="1680198822">
+        add favicon
+    </note>
     <note priority="medium" time="1679011087" done="1679319814">
         fill about section
     </note>
@@ -12,22 +15,22 @@
     <note priority="medium" time="1679261429" done="1680041508">
         zoning for boid background to incr number
     </note>
+    <note priority="medium" time="1680042492" done="1680198823">
+        icon for bio
+    </note>
     <note priority="medium" time="1680042503" done="1680102269">
         margins on mobile screens
     </note>
-    <note priority="medium" time="1679011083">
-        add favicon
-    </note>
-    <note priority="medium" time="1680042492">
-        icon for bio
-    </note>
-    <note priority="medium" time="1680042520">
-        n_boids should have a bias for small screens, and LOCALITY_R should scale too
-    </note>
-    <note priority="medium" time="1680042534">
+    <note priority="medium" time="1680042534" done="1680198835">
         blog post about p5js background
     </note>
     <note priority="medium" time="1680042547" done="1680102690">
         blur on central div should be less, opacity less too?
+    </note>
+    <note priority="medium" time="1680042520">
+        n_boids should have a bias for small screens, and LOCALITY_R should scale too
+    </note>
+    <note priority="medium" time="1680198844">
+        blog post on boids
     </note>
 </todo>
