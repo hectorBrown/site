@@ -10,7 +10,6 @@ SPEED = 4;
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  //TODO: redo zones
 }
 
 function sigmoid(x) {
@@ -162,10 +161,13 @@ function draw() {
             (8 / 360) *
             2 *
             PI *
-            sigmoid(p5.Vector.dot(perpVect, total) / SIG_SCALING);
+            sigmoid(Math.abs(p5.Vector.dot(perpVect, total) / SIG_SCALING));
         } else if (p5.Vector.dot(perpVect, total) < 0) {
           boid.dir -=
-            (8 / 360) * 2 * PI * sigmoid(p5.Vector.dot(perpVect, total));
+            (8 / 360) *
+            2 *
+            PI *
+            sigmoid(Math.abs(p5.Vector.dot(perpVect, total) / SIG_SCALING));
         }
         boid.dir += (random(-RAN_SCALE, RAN_SCALE) / 360) * 2 * PI;
         boid.pos.x += SPEED * sin(boid.dir);
