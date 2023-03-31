@@ -45,10 +45,10 @@ icon = "fa-brands fa-stack-overflow"
 title = "Stack Overflow"
 url = "https://stackoverflow.com/users/2984708/hex"
 
-[[params.socialLinks]]
-icon = "fa-brands fa-paypal"
-title = "PayPal"
-url = "https://paypal.me/hexne"
+#[[params.socialLinks]]
+#icon = "fa-brands fa-paypal"
+#title = "PayPal"
+#url = "https://paypal.me/hexne"
 
 [[params.socialLinks]]
 icon = "fa-brands fa-linkedin"
@@ -57,8 +57,8 @@ url = "https://www.linkedin.com/in/hector-brown-25a907252/"
 
 [[params.socialLinks]]
 icon = "fa-solid fa-key"
-title = "GPG Key"
-url = "/gpg.txt"
+title = "PGP Key"
+url = "/pgp.txt"
 
 [markup.highlight]
 noClasses = false
