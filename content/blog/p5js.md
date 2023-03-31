@@ -68,13 +68,11 @@ renders to:
 <script src="/scripts/blog/p5js/eg-1.js"></script>
 
 _I have omitted some of the lines that deal with canvas sizing and placement,
-but I'll come on to that in a second. There's also some differences associated
-with creating multiple sketches in one page: explained best
-[here](https://github.com/processing/p5.js/wiki/Global-and-instance-mode). For
+but I'll come on to that in a second. For
 the sake of interest, [this](/scripts/blog/p5js/eg-1.js) is the full script._
 
 So that's awesome, we can now animate whatever relatively painlessly. I'll omit
-the details on how I created the boids now, and move on to:
+the details on [how](/blog/boids) I created the boids now, and move on to:
 
 ## But how do I make it a background
 The first thing you'll notice if you try to create a canvas on a page that
