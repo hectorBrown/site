@@ -49,16 +49,27 @@ The interaction boils down to deciding which way to steer each boid at every ste
 
 Boids only interact with their neighbours too, so these vectors will only depend on the other boids that are within some fixed radius of the one we are steering.
 
+<style>
+   .rule-images {
+      float: right;
+      width: 50%;
+   }
+   @media screen and (max-width: 600px) {
+      .rule-images {
+         width: 100%;
+      }
+   }
+</style>
 <ol>
-   <li><div style="overflow: auto"><b>Separation</b><br><img src="/images/blog/boids/separation.png" style="float: right; width: 50%"/>
+   <li><div style="overflow: auto"><b>Separation</b><br><img src="/images/blog/boids/separation.png" class="rule-images"/>
    The separation vector is probably the most complicated. It is calculated by taking the distance vectors (displayed in blue) to each neighbour, and weighting them by the inverse of their magnitudes. This step ensures that boids that are very close have more of an effect on the final steer, which preserves the spirit of the rule: to avoid overcrowding.
 
    These inverse distances are summed, and the negative of the resultant vector is taken (displayed in orange).
    </div></li>
-   <li><div style="overflow: auto"><b>Alignment</b><br><img src="/images/blog/boids/alignment.png" style="float: right; width: 50%"/>
+   <li><div style="overflow: auto"><b>Alignment</b><br><img src="/images/blog/boids/alignment.png" class="rule-images"/>
    This one is much easier. It's as simple as finding vectors corresponding to each neighbouring boid's direction (blue) and then taking an average (orange).
    </div></li>
-   <li><div style="overflow: auto"><b>Cohesion</b><br><img src="/images/blog/boids/cohesion.png" style="float: right; width: 50%"/>
+   <li><div style="overflow: auto"><b>Cohesion</b><br><img src="/images/blog/boids/cohesion.png" class="rule-images"/>
    Again, pretty simple. We find the average position of the neigbours (blue dot) and steer towards it.
    </div></li>
 </ol>
