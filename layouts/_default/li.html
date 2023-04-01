@@ -1,7 +1,7 @@
 <li>
 	<a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
 	<br/>
-	<p style="margin: 0">{{ replaceRE `<a( [A-z]+=".*")*>(.*)<\/a>` `$2` .Summary | safeHTML }}</p>
+	<p>{{ replaceRE `<a( [A-z]+=".*")*>(.*)<\/a>` `$2` .Summary | safeHTML }}</p>
 	{{ if .Truncated }}
 	...
 	{{ end }}
