@@ -10,6 +10,9 @@ felt that [Processing](https://processing.org/) was a nice way to
 write graphics, and was pretty excited to find a JavaScript library,
 [p5js](https://p5js.org/), that seemed to function in practically the same way.
 <!--more-->
+
+{{< toc >}}
+
 ## Starting with p5js
 p5js uses, similarly to Processing, just 2 routines: {{< highlight js
 "hl_inline=true" >}}setup(){{< /highlight >}}, which is run once at the very
