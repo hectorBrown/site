@@ -52,3 +52,8 @@ body {
     margin-left: 0;
     margin-right: 0;
 }
+
+.page__body pre {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
