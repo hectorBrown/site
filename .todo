@@ -27,13 +27,19 @@
     <note priority="medium" time="1680042547" done="1680102690">
         blur on central div should be less, opacity less too?
     </note>
-    <note priority="medium" time="1680042520">
-        n_boids should have a bias for small screens, and LOCALITY_R should scale too
-    </note>
     <note priority="medium" time="1680198844" done="1680367125">
         blog post on boids
     </note>
     <note priority="medium" time="1680271405" done="1680367125">
         source for site in footer
+    </note>
+    <note priority="medium" time="1680042520">
+        n_boids should have a bias for small screens, and LOCALITY_R should scale too
+    </note>
+    <note priority="medium" time="1681481343">
+        wolfram looks bad in best-sites
+    </note>
+    <note priority="medium" time="1681481355">
+        wttr.in pre broken formatting in best-sites
     </note>
 </todo>
