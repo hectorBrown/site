@@ -42,4 +42,7 @@
     <note priority="medium" time="1681481355">
         wttr.in pre broken formatting in best-sites
     </note>
+    <note priority="medium" time="1681482219">
+        boids should use deltatime to avoid slowing down
+    </note>
 </todo>

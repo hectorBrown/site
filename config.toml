@@ -71,11 +71,11 @@ noClasses = false
     url = "/blog/"
     weight = 10
 
-  #[[menu.main]]
-  #  identifier = "phys"
-  #  name = "Phys"
-  #  url = "/phys/"
-  #  weight = 10
+  [[menu.main]]
+    identifier = "phys"
+    name = "Phys"
+    url = "/phys/"
+    weight = 10
 
 [taxonomies]
 category = "categories"
