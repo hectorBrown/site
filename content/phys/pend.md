@@ -1,7 +1,7 @@
 ---
 title: "Pendulums"
 date: 2023-04-14T15:10:56+01:00
-draft: true
+draft: false
 ---
 
 <div id="pend-parent" style="width: 100%; height: auto;"></div>
