@@ -45,4 +45,10 @@
     <note priority="medium" time="1681482219">
         boids should use deltatime to avoid slowing down
     </note>
+    <note priority="medium" time="1681661503">
+        add interface to phys/pend: trace toggle, parameter sliders, info with angles and energies ,(zoom)?
+    </note>
+    <note priority="medium" time="1681661662">
+        blog post on pend
+    </note>
 </todo>
