@@ -33,6 +33,9 @@
     <note priority="medium" time="1680271405" done="1680367125">
         source for site in footer
     </note>
+    <note priority="medium" time="1681661503" done="1681696081">
+        add interface to phys/pend: trace toggle, parameter sliders, info with angles and energies ,(zoom)?
+    </note>
     <note priority="medium" time="1680042520">
         n_boids should have a bias for small screens, and LOCALITY_R should scale too
     </note>
@@ -42,11 +45,8 @@
     <note priority="medium" time="1681481355">
         wttr.in pre broken formatting in best-sites
     </note>
-    <note priority="medium" time="1681482219">
+    <note priority="medium" time="1681482219" done="1681730769">
         boids should use deltatime to avoid slowing down
-    </note>
-    <note priority="medium" time="1681661503" done="1681696081">
-        add interface to phys/pend: trace toggle, parameter sliders, info with angles and energies ,(zoom)?
     </note>
     <note priority="medium" time="1681661662">
         blog post on pend

@@ -6,7 +6,7 @@ COH_SCALE = 5;
 RAN_SCALE = 8;
 MOUSE_SCALE = 1000;
 PPB = 8645;
-SPEED = 4;
+SPEED = 4 / 33;
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -170,8 +170,8 @@ function draw() {
             sigmoid(Math.abs(p5.Vector.dot(perpVect, total) / SIG_SCALING));
         }
         boid.dir += (random(-RAN_SCALE, RAN_SCALE) / 360) * 2 * PI;
-        boid.pos.x += SPEED * sin(boid.dir);
-        boid.pos.y += -SPEED * cos(boid.dir);
+        boid.pos.x += SPEED * sin(boid.dir) * deltaTime;
+        boid.pos.y += -SPEED * cos(boid.dir) * deltaTime;
       }
     }
   }
