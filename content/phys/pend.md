@@ -11,7 +11,7 @@ draft: false
 <style>
     #control-panel {
         display: grid;
-        grid-row-gap: 0.5rem;
+        grid-row-gap: 1rem;
         grid-template-columns: 3fr 1fr;
         grid-column-gap: 1rem;
     }
