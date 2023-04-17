@@ -65,6 +65,7 @@ draft: false
         <p>\( \frac{d\phi}{dt} \): <span id="beta"></span></p>
         <p>\( T \): <span id="T"></span></p>
         <p>\( V \): <span id="V"></span></p>
+        <br/>
         <label class="checkbox">Trace: <input type="checkbox" checked="checked" id="trace"></input><span class="checkmark"></span></label>
 </div>
 
