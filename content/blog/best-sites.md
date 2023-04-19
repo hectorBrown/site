@@ -63,9 +63,7 @@ In conclusion, RTFM!
 
 <img src="/images/blog/best-sites/wolfram-alpha.png" style="width: 100%"></img>
 
-Wolfram Alpha is singlehandedly doing my degree for me. Hand it pretty much any mathematical, scientific, technological, or general trivia question (in natural language, by the way), and it'll hand you an answer. Try it:
-
-<script id="WolframAlphaScript" src="//www.wolframalpha.com/input/embed/?type=large" type="text/javascript"></script>
+Wolfram Alpha is singlehandedly doing my degree for me. Hand it pretty much any mathematical, scientific, technological, or general trivia question (in natural language, by the way), and it'll hand you an answer.
 
 It's particularly good at maths, and especially useful for calculating integrals, solving systems of equations, inverting matrices, etc.. Basically, tasks that you don't want to do by hand, and can't be bothered to read documentation for.
 
