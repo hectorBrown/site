@@ -3,6 +3,6 @@
 	<br/>
 	<p>{{ replaceRE `<a( [A-z]+=".*")*>(.*)<\/a>` `$2` .Summary | safeHTML }}</p>
 	{{ if .Truncated }}
-	...
+	<p>...</p>
 	{{ end }}
 </li>
