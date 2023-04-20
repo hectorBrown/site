@@ -6,7 +6,7 @@ draft: false
 
 The last [post](/blog/p5js) completely ignored the actual animation my
 [homepage](/) is running... mostly because I wanted to focus on the general
-idea, rather than my implementation. However,
+idea rather than my implementation. However,
 [boids](https://en.wikipedia.org/wiki/Boids) are pretty interesting, and maybe
 simpler than they look, so I thought I'd write about how I set them up.
 <!--more-->
