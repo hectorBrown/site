@@ -278,3 +278,12 @@ don't have the same bugs as mine, and there are likely libraries that would have
 made large parts of the process much easier and more stable. Despite that, I'm
 glad I stuck with it, and I'm glad I tried the pendulum before I knew any of
 this stuff. It feels good and is much more rewarding to implement everything by yourself. I'd really recommend it, in general.
+
+Finally, a note on Lagrangian mechanics. There's something kind of strange and
+maybe a bit disturbing about seing "real-looking" motion emerge from the series
+of inscrutable equations above. Normally when I model a system, it comes
+together in pieces, and I can see what each force is doing. Here, there's no
+such process. I worked out the equations of motion on paper, inputted them, and
+watched the pendulum come to life. I'm not really sure what my point is here,
+apart from that least action is weird, and I think it's worth experiencing it
+for yourself.
