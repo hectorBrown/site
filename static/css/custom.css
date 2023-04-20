@@ -112,3 +112,7 @@ body {
 .checkbox input:checked ~ .checkmark {
     background: var(--base0B);
 }
+
+.MathJax_Display {
+    overflow: scroll;
+}
