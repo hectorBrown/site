@@ -6,7 +6,7 @@ draft: false
 
 Years ago I simulated a pendulum for the site that was originally at this domain.
 I, not knowing better, used Newtoniam mechanics; modelling all the forces applied to the bob, and then a very primitive forward-difference method to propagate the system in time.
-This worked better than you would think, in the end the pendulum looked pretty good. The [code](/scripts/blog/pend/pendulum.js) was messy, though. I had to constantly bump the bob back into a fixed radius of the anchor, since errors (floating point, forward-difference approximation) would cause the bar connecting them to telescope outwards.
+This worked better than you would think, in the end the pendulum looked pretty good. The [code](/scripts/blog/pend/old_pendulum.js) was messy, though. I had to constantly bump the bob back into a fixed radius of the anchor, since errors (floating point, forward-difference approximation) would cause the bar connecting them to telescope outwards.
 
 <!--more-->
 
