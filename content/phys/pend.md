@@ -68,5 +68,4 @@ draft: false
         <br/>
         <label class="checkbox">Trace: <input type="checkbox" checked="checked" id="trace"></input><span class="checkmark"></span></label>
 </div>
-
-[Source](/scripts/phys/pend/pend.js)
+</div>
