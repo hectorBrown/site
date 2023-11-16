@@ -28,7 +28,7 @@ let pend = new p5((sketch) => {
     output.push(
       -(m1 + m2) * g * l1 * sketch.sin(state[0]) -
         m2 * g * l2 * sketch.sin(state[0] + state[1]) +
-        m2 * l1 * l2 * state[3] ** 2 * sketch.sin(state[1])
+        m2 * l1 * l2 * state[3] ** 2 * sketch.sin(state[1]),
     );
     //A
     output.push((m1 + m2) * l1 ** 2);
@@ -168,12 +168,12 @@ let pend = new p5((sketch) => {
 
     bob1 = sketch.createVector(
       anchor.x + l1_pix * sketch.sin(theta),
-      anchor.y + l1_pix * sketch.cos(theta)
+      anchor.y + l1_pix * sketch.cos(theta),
     );
 
     bob2 = sketch.createVector(
       bob1.x + l2_pix * sketch.sin(theta + phi),
-      bob1.y + l2_pix * sketch.cos(theta + phi)
+      bob1.y + l2_pix * sketch.cos(theta + phi),
     );
 
     sketch.strokeWeight(2);
@@ -270,7 +270,7 @@ let pend = new p5((sketch) => {
     df = [];
     k1.forEach((element, index) => {
       df.push(
-        (1 / 6) * (k1[index] + 2 * k2[index] + 2 * k3[index] + k4[index])
+        (1 / 6) * (k1[index] + 2 * k2[index] + 2 * k3[index] + k4[index]),
       );
     });
 

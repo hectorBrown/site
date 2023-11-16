@@ -32,7 +32,7 @@ let eg4 = new p5((sketch) => {
       boids.push({
         pos: sketch.createVector(
           sketch.random(0, sketch.width),
-          sketch.random(0, sketch.height)
+          sketch.random(0, sketch.height),
         ),
         dir: (2 * sketch.PI * sketch.random(0, 360)) / 360,
         focus: i == 0,
@@ -53,11 +53,11 @@ let eg4 = new p5((sketch) => {
       boid = boids[i];
       zone_x = Math.max(
         0,
-        Math.min(zones.length - 1, Math.floor(boid.pos.x / LOCALITY_R))
+        Math.min(zones.length - 1, Math.floor(boid.pos.x / LOCALITY_R)),
       );
       zone_y = Math.max(
         0,
-        Math.min(zones[zone_x].length - 1, Math.floor(boid.pos.y / LOCALITY_R))
+        Math.min(zones[zone_x].length - 1, Math.floor(boid.pos.y / LOCALITY_R)),
       );
       zones[zone_x][zone_y].push(boid);
     }
@@ -78,7 +78,7 @@ let eg4 = new p5((sketch) => {
             0,
             0,
             boid_sprite.width / 4,
-            boid_sprite.height / 4
+            boid_sprite.height / 4,
           );
           sketch.pop();
 
@@ -129,13 +129,13 @@ let eg4 = new p5((sketch) => {
                         251,
                         241,
                         199,
-                        (1 - dist_mag / LOCALITY_R) * 255
+                        (1 - dist_mag / LOCALITY_R) * 255,
                       );
                       sketch.line(
                         boid.pos.x,
                         boid.pos.y,
                         boid_i.pos.x,
-                        boid_i.pos.y
+                        boid_i.pos.y,
                       );
                       dist = dist.setMag(dist.mag() ** -1);
                       dist_tot.add(dist);
@@ -143,8 +143,8 @@ let eg4 = new p5((sketch) => {
                       dir_tot.add(
                         sketch.createVector(
                           sketch.sin(boid_i.dir),
-                          -sketch.cos(boid_i.dir)
-                        )
+                          -sketch.cos(boid_i.dir),
+                        ),
                       );
 
                       pos_tot.add(boid_i.pos);
@@ -181,14 +181,14 @@ let eg4 = new p5((sketch) => {
           } else {
             total = p5.Vector.sub(
               boid.pos,
-              sketch.createVector(sketch.width / 2, sketch.height / 2)
+              sketch.createVector(sketch.width / 2, sketch.height / 2),
             );
             total.setMag(total.mag() * -10000);
           }
 
           var perpVect = sketch.createVector(
             sketch.cos(boid.dir),
-            sketch.sin(boid.dir)
+            sketch.sin(boid.dir),
           );
           if (p5.Vector.dot(perpVect, total) > 0) {
             boid.dir += (8 / 360) * 2 * sketch.PI;

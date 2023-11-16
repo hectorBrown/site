@@ -32,7 +32,7 @@ let eg3 = new p5((sketch) => {
       boids.push({
         pos: sketch.createVector(
           sketch.random(0, sketch.width),
-          sketch.random(0, sketch.height)
+          sketch.random(0, sketch.height),
         ),
         dir: (2 * sketch.PI * sketch.random(0, 360)) / 360,
       });
@@ -53,7 +53,7 @@ let eg3 = new p5((sketch) => {
         0,
         0,
         boid_sprite.width / 4,
-        boid_sprite.height / 4
+        boid_sprite.height / 4,
       );
       sketch.pop();
 
@@ -88,8 +88,8 @@ let eg3 = new p5((sketch) => {
               dir_tot.add(
                 sketch.createVector(
                   sketch.sin(boid_i.dir),
-                  -sketch.cos(boid_i.dir)
-                )
+                  -sketch.cos(boid_i.dir),
+                ),
               );
 
               pos_tot.add(boid_i.pos);
@@ -112,14 +112,14 @@ let eg3 = new p5((sketch) => {
       } else {
         total = p5.Vector.sub(
           boid.pos,
-          sketch.createVector(sketch.width / 2, sketch.height / 2)
+          sketch.createVector(sketch.width / 2, sketch.height / 2),
         );
         total.setMag(total.mag() * -10000);
       }
 
       var perpVect = sketch.createVector(
         sketch.cos(boid.dir),
-        sketch.sin(boid.dir)
+        sketch.sin(boid.dir),
       );
       if (p5.Vector.dot(perpVect, total) > 0) {
         boid.dir += (8 / 360) * 2 * sketch.PI;

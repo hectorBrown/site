@@ -52,11 +52,11 @@ function draw() {
     boid = boids[i];
     zone_x = Math.max(
       0,
-      Math.min(zones.length - 1, Math.floor(boid.pos.x / LOCALITY_R))
+      Math.min(zones.length - 1, Math.floor(boid.pos.x / LOCALITY_R)),
     );
     zone_y = Math.max(
       0,
-      Math.min(zones[zone_x].length - 1, Math.floor(boid.pos.y / LOCALITY_R))
+      Math.min(zones[zone_x].length - 1, Math.floor(boid.pos.y / LOCALITY_R)),
     );
     zones[zone_x][zone_y].push(boid);
   }
@@ -117,7 +117,7 @@ function draw() {
                     dist_tot.add(dist);
 
                     dir_tot.add(
-                      createVector(sin(boid_i.dir), -cos(boid_i.dir))
+                      createVector(sin(boid_i.dir), -cos(boid_i.dir)),
                     );
 
                     pos_tot.add(boid_i.pos);
