@@ -40,7 +40,7 @@ Some comics are related to projects that are much more than just an image, like 
 
 The best idea, if you want to stay up-to-date, is to subscribe to the [RSS feed](https://xkcd.com/rss.xml), or <a href="https://xkcd.com/newsletter/" target="_blank">mailing list</a>.
 
-_For real dorks, there's also the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xkcd.html" target="_blank">matplotlib xkcd mode</a>._
+_There's also the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xkcd.html" target="_blank">matplotlib xkcd mode</a>._
 </div>
 
 ## 10minutemail <a href="https://10minutemail.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
@@ -56,8 +56,6 @@ A bit of a departure from the last one, this one is very practical, but has save
 It's hard to overstate how valuable of a resource the ArchWiki is for any Linux user, even if you don't use Arch, although, honestly, the wiki is reason enough to install it. I can't think of another website that has taught me as much as this one about software. Every article is specific, well layed out, and thorough. It's rare that you have a question that the site can't answer. I wish that I had developed the instinct to check it first sooner, it would have saved me hours of aimless searching.
 
 The forums are also an honourable mention here. Obviously, they have a bit of a bad reputation, and while users aren't always overly friendly or polite to new users, they are, in my experience, always helpful.
-
-In conclusion, RTFM!
 
 ## Wolfram Alpha <a href="https://www.wolframalpha.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
