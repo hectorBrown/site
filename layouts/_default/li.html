@@ -1,5 +1,6 @@
 <li>
 	<a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
+  <span style="float: right; color: var(--muted)">{{.Date.Format "2006-01-02" }}</span>
 	<br/>
 	<p>{{ replaceRE `<a( [A-z]+=".*")*>(.*)<\/a>` `$2` .Summary | safeHTML }}</p>
 	{{ if .Truncated }}
