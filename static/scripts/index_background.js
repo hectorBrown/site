@@ -111,8 +111,10 @@ function draw() {
                   dist_mag = dist.mag();
                   if (dist_mag < LOCALITY_R) {
                     // add inverse mag dist to total
-                    stroke(251, 241, 199, (1 - dist_mag / LOCALITY_R) * 255);
-                    line(boid.pos.x, boid.pos.y, boid_i.pos.x, boid_i.pos.y);
+                    if (boid_i.pos.x <= boid.pos.x) {
+                      stroke(251, 241, 199, (1 - dist_mag / LOCALITY_R) * 255);
+                      line(boid.pos.x, boid.pos.y, boid_i.pos.x, boid_i.pos.y);
+                    }
                     dist = dist.setMag(dist.mag() ** -1);
                     dist_tot.add(dist);
 
