@@ -25,7 +25,7 @@ palette = "gruvbox-dark"
 # Sidebar: about/bio
 [params.about]
 title = "Hector Brown"
-description = "Hi. I'm a Physics student in London who's interested in Unix/Linux, terminal-centric workflows, vim and FOSS in general. Mainly, I write in Python, but I'm interested in Rust, functional languages like Haskell, and shellscript. Take a look at my Github, or email me if you want to get in contact:"
+description = "Hi. I was a Physics student in London, now unemployed and travelling around New Zealand. I'm interested in Unix/Linux, terminal-centric workflows, vim and FOSS in general. Mainly, I write in Python, but I'm interested in Rust, functional languages like Haskell, and shellscript. Take a look at my Github, or email me if you want to get in contact:"
 #logo = "favicon.ico"
 
 # Sidebar: social links
