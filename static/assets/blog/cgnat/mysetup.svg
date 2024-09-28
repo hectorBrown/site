@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="2"
-     inkscape:cx="297"
-     inkscape:cy="434.75"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="149.19953"
+     inkscape:cy="377.94857"
      inkscape:window-width="1900"
      inkscape:window-height="1060"
      inkscape:window-x="10"
@@ -314,7 +314,7 @@
          y="117.87749">(172.16.0.0)</tspan></text>
     <g
        id="g3"
-       transform="translate(-1.5450084,0.49283201)">
+       transform="translate(-1.5712903,1.432604)">
       <rect
          style="fill:#fbf1c7;stroke:#bdae93;stroke-width:1.09926"
          id="rect1-1-1-6"
@@ -350,7 +350,7 @@
     </g>
     <g
        id="g3-4"
-       transform="translate(-1.5450043,-18.816059)">
+       transform="translate(-1.5712929,-20.462103)">
       <rect
          style="fill:#fbf1c7;stroke:#bdae93;stroke-width:1.09926"
          id="rect1-1-1-6-8"
