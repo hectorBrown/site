@@ -116,3 +116,10 @@ body {
 .MathJax_Display {
     overflow: scroll;
 }
+
+img[src$='#center'] {
+  display: block;
+  margin: 1.0rem auto;
+  max-width: 90%;
+  height: auto;
+}

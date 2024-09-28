@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
+   sodipodi:docname="nat.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="304.05592"
+     inkscape:cy="374.41304"
+     inkscape:window-width="1900"
+     inkscape:window-height="1060"
+     inkscape:window-x="10"
+     inkscape:window-y="10"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="ArrowWide"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path1" />
+    </marker>
+    <rect
+       x="49.518439"
+       y="269.37095"
+       width="232.05632"
+       height="159.88914"
+       id="rect3" />
+    <rect
+       x="92.821651"
+       y="306.46288"
+       width="147.11303"
+       height="16.562824"
+       id="rect2" />
+    <rect
+       x="92.821648"
+       y="306.46289"
+       width="165.1964"
+       height="16.795189"
+       id="rect2-7" />
+    <rect
+       x="92.821648"
+       y="306.46289"
+       width="165.1964"
+       height="16.795189"
+       id="rect2-7-0" />
+    <rect
+       x="92.821648"
+       y="306.46289"
+       width="176.94947"
+       height="13.522516"
+       id="rect2-9" />
+    <marker
+       style="overflow:visible"
+       id="ArrowWide-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path1-3" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#fbf1c7;stroke:#bdae93;stroke-width:1.09926"
+       id="rect1"
+       width="52.426647"
+       height="9.2020893"
+       x="10.892895"
+       y="78.12558" />
+    <rect
+       style="fill:#fbf1c7;stroke:#bdae93;stroke-width:1.09926"
+       id="rect1-1"
+       width="52.426647"
+       height="9.2020893"
+       x="74.479065"
+       y="87.436455" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-6.3109152,-0.34867632)"
+       id="text1"
+       style="font-size:12px;white-space:pre;shape-inside:url(#rect2);fill:#504945;fill-opacity:1;stroke:none;stroke-width:3.25039"><tspan
+         x="92.822266"
+         y="317.38139"
+         id="tspan5">Your PC (192.168.xxx.xxx)</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,53.847858,9.0193486)"
+       id="text1-0"
+       style="font-size:12px;white-space:pre;shape-inside:url(#rect2-9);display:inline;fill:#504945;fill-opacity:1;stroke:none;stroke-width:3.25039"><tspan
+         x="92.822266"
+         y="317.38139"
+         id="tspan6">Your modem (xxx.xxx.xxx.xxx)</tspan></text>
+    <rect
+       style="fill:#fbf1c7;stroke:#bdae93;stroke-width:1.09926"
+       id="rect1-3"
+       width="52.426647"
+       height="9.2020893"
+       x="10.892894"
+       y="87.436455" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-9.1414251,8.889177)"
+       id="text1-5"
+       style="font-size:12px;white-space:pre;shape-inside:url(#rect2-7);display:inline;fill:#504945;fill-opacity:1;stroke:none;stroke-width:3.25039"><tspan
+         x="92.822266"
+         y="317.38139"
+         id="tspan7">Your phone (192.168.xxx.xxx)</tspan></text>
+    <rect
+       style="fill:#fbf1c7;stroke:#bdae93;stroke-width:1.09926"
+       id="rect1-3-3"
+       width="52.426647"
+       height="9.2020893"
+       x="10.892894"
+       y="96.638542" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-9.1414243,18.091267)"
+       id="text1-5-6"
+       style="font-size:12px;white-space:pre;shape-inside:url(#rect2-7-0);display:inline;fill:#504945;fill-opacity:1;stroke:none;stroke-width:3.25039"><tspan
+         x="92.822266"
+         y="317.38139"
+         id="tspan8">Your server (192.168.xxx.xxx)</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text2"
+       style="fill:#504945;stroke-width:3.2503937;font-size:12px;stroke:none;fill-opacity:1;white-space:pre;shape-inside:url(#rect3)" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#83a598;stroke-width:0.821852;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ArrowWide)"
+       d="m 63.869171,92.037497 9.445349,6e-6"
+       id="path3"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#83a598;stroke-width:0.821852;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ArrowWide-7)"
+       d="m 127.28366,92.037493 9.44535,6e-6"
+       id="path3-1"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:#83a598;fill-opacity:1;stroke:#83a598;stroke-width:0.757007;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4"
+       width="24.504446"
+       height="28.057306"
+       x="137.89412"
+       y="77.954453" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;fill:#fbf1c7;fill-opacity:1;stroke:none;stroke-width:0.859999;stroke-dasharray:none;stroke-opacity:1"
+       x="140.90074"
+       y="93.173729"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="fill:#fbf1c7;stroke:none;stroke-width:0.86"
+         x="140.90074"
+         y="93.173729">The Internet</tspan></text>
+  </g>
+</svg>
