@@ -1,7 +1,7 @@
 ---
 title: "A data hoarder's guide to mail and calendars"
 date: 2024-09-28T16:41:26+01:00
-draft: true
+draft: false
 ---
 
 I'm a self admitted data hoarder. If it's useless, hidden behind a confusing
@@ -77,3 +77,120 @@ set query_command = "mutt-ldap-query '%s'"
 
 in your mutt config, you can search an outlook address book for tab completion
 when writing a new mail.
+
+This is what my `~/.config/mutt-ldap-query/config.yml` looks like:
+
+```config
+:host: 127.0.0.1
+:port: 1389
+:base: ou=people
+:auth:
+  :method: :simple
+  :username: [email here]
+  :password: [password here]
+```
+
+## Daenarys, more like khal-is-easy
+
+[khal](https://github.com/pimutils/khal) is my terminal-based calendar program.
+It's admittedly a bit clunky compared to traditional calendar programs, but it
+is very responsive and avoids me having to use a web interface. Plus, of course,
+I can use my calendars offline. I use khal with
+[vdirsyncer](https://github.com/pimutils/vdirsyncer) and a private Nextcloud
+installation (which hosts a [CalDAV](https://en.wikipedia.org/wiki/CalDAV)
+server) to keep my calendars in sync.
+
+The first step is to install and configure vdirsyncer. My config looks like:
+
+```config
+[general]
+status_path="~/.vdirsyncer/status/"
+
+[pair nc]
+a = "nc_local"
+b = "nc_remote"
+collections = ["from a", "from b"]
+
+[storage nc_local]
+type = "filesystem"
+path = "/home/hex/.calendars/nc"
+fileext = ".ics"
+
+[storage nc_remote]
+type = "caldav"
+url = "https://nc.hexn.live/remote.php/dav/calendars/admin"
+username = "admin"
+password.fetch = ["command", "pass", "app_nextcloud"]
+```
+
+It's pretty standard. It's worth noting that I avoid storing my Nextcloud app
+password in a config file by instead encrypting it with pass and getting
+vdirsyncer to pull it when needed. My GPG key is password protected but I use [a
+GPG agent which is unlocked at login](https://github.com/cruegge/pam-gnupg) to
+bypass interactive authentication so vdirsyncer can be run automatically as a
+cron job. Run `vdirsyncer discover` and then `vdirsyncer sync` and then setup
+khal similarly:
+
+```config
+[calendars]
+
+[[personal]]
+path = /home/hex/.calendars/nc/personal
+type = calendar
+
+[locale]
+timeformat = %H:%M
+dateformat = %d/%m/%Y
+longdateformat = %d/%m/%Y
+datetimeformat = %d/%m/%Y %H:%M
+longdatetimeformat = %d/%m/%Y %H:%M
+
+[default]
+default_calendar = personal
+```
+
+And everything should work (fingers crossed).
+
+## Periodic sync isn't good enough
+
+Everything was initially setup so that synchronisation jobs were run by cron, at
+regular intervals (pretty regularly on machines that were plugged into the
+mains, and less so with batteries). I'm actually quite happy with this for
+sending me mail and calendar notifications, I don't often care about receiving
+an email 30m after it was actually sent. The only thing that bothered me was the
+idea that I might edit calendars or move mail, and then shut down my PC without
+synchronising, maybe leaving those changes untracked for weeks. This was, by
+far, the slipperiest problem to solve here, but finally I came up with this:
+
+```bash
+$ which mutt
+mutt () {
+ nohup bash -c "sleep 1
+    while ps -a | grep neomutt; do
+      sleep 1
+    done
+    if ping -c 1 1.1.1.1; then
+      notify-send -t 2000 'Syncing mail'
+      mailsync || notify-send -u critical 'There was some issue while syncing mail. Try to sync manually.'
+      notify-send -t 2000 'Mail synced'
+    else
+      notify-send -u critical 'No internet connection. Make sure to sync mail manually.'
+    fi" &> /dev/null &
+ neomutt
+}
+```
+
+This ugly little script is how I make sure that my mail (in this case, there is
+an almost identical one for khal) is synced with the remote server whenever I
+close mutt, no matter how I do so.
+
+Firstly, `nohup` makes sure that the script runs in the background and is
+disconnected from the terminal, so that if I close the window, the mail will be
+synchronised regardless. Secondly, we wait for the neomutt process to finish,
+then we ping 1.1.1.1 to make sure we are online. Finally, if we are, we run `mailsync`
+(which is packaged with mutt-wizard). This function is registered in my `.zshrc`
+and replaces mutt. It has worked perfectly for me so far.
+
+I'm still working on a way to sync contacts from my CardDAV server, and
+hopefully be able to query them from mutt, so that I can maintain just a single
+address book (dreamy, I know).
