@@ -194,3 +194,32 @@ and replaces mutt. It has worked perfectly for me so far.
 I'm still working on a way to sync contacts from my CardDAV server, and
 hopefully be able to query them from mutt, so that I can maintain just a single
 address book (dreamy, I know).
+
+*[Update 2024-10-05]*
+
+[khard](https://github.com/lucc/khard) is the way to get contacts working.
+Writing this kind of inspired me to take another look, and now I have mutt
+running, my phone, and my Nextcloud instance all sharing one address book.
+
+khard is easy to use, pretty self explanatory (and works with vdirsyncer like
+khal). Here is the alias I use to make it slightly more convenient:
+
+```bash
+khard() {
+  if [[ "$1" == "edit" ]]; then
+    command khard edit $(command khard list --parsable | fzf -d '\t' --with-nth 2 | cut -f 1)
+    vdirsyncer sync nc_con
+  else
+    command khard show $(command khard list --parsable | fzf -d '\t' --with-nth 2 | cut -f 1)
+  fi
+}
+```
+
+And then stick this in your `~/.config/mutt/muttrc`
+
+```config
+macro index,pager a "<pipe-message>command khard add-email && vdirsyncer sync nc_con<return>" "add the sender address to khard"
+set query_command="echo %s | xargs khard email --parsable --"
+```
+
+And all should be well.
