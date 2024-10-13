@@ -4,6 +4,8 @@ resolution = 512;
 // defined as an amplitude
 wire = new Array(resolution).fill(0);
 dft = new Array(resolution).fill(0);
+update_fft = false;
+first_run = true;
 
 function fft(input, samples) {
   if (samples == 1) {
@@ -68,6 +70,7 @@ let waves = new p5((sketch) => {
 
     document.getElementById("reset_button").onclick = function () {
       wire = new Array(resolution).fill(0);
+      first_run = true;
     };
   };
 
@@ -94,6 +97,7 @@ let waves = new p5((sketch) => {
   sketch.mouseDragged = () => {
     // when the mouse is dragged, repeatedly assign the segment aligned with its
     // x coordinate to its y coordinate
+    update_fft = true;
     if (sketch.mouseButton == sketch.LEFT) {
       let seg = Math.round(
         (sketch.mouseX - wave_canvas.width / 10) / seg_length,
@@ -137,6 +141,7 @@ let waves = new p5((sketch) => {
   sketch.mouseReleased = () => {
     if (sketch.mouseButton == sketch.LEFT) {
       last_mouse = null;
+      update_fft = false;
     }
   };
 });
@@ -159,6 +164,7 @@ let ft = new p5((sketch) => {
   };
 
   sketch.draw = () => {
+    first_run = true;
     sketch.background(52, 50, 48);
     sketch.fill(189, 174, 147);
     sketch.strokeWeight(3);
@@ -170,17 +176,19 @@ let ft = new p5((sketch) => {
       fft_canvas.height,
     );
     var seg_length = ((0.8 * fft_canvas.width) / (resolution - 1)) * 4;
-    dft = fft(wire, resolution);
-    norm_dft = new Array(resolution);
-    for (i = 0; i < resolution; i++) {
-      norm_dft[i] = Math.sqrt(dft[0][i] ** 2 + dft[1][i] ** 2);
+    if (update_fft || first_run) {
+      dft = fft(wire, resolution);
+      norm_dft = new Array(resolution);
+      for (i = 0; i < resolution; i++) {
+        norm_dft[i] = Math.sqrt(dft[i][0] ** 2 + dft[i][1] ** 2);
+      }
+      scale =
+        Math.max.apply(Math, norm_dft.slice(0, resolution / 4)) >
+        fft_canvas.height - 50
+          ? (fft_canvas.height - 50) /
+            Math.max.apply(Math, norm_dft.slice(0, resolution / 4))
+          : 1;
     }
-    scale =
-      Math.max.apply(Math, norm_dft.slice(0, resolution / 4)) >
-      fft_canvas.height - 50
-        ? (fft_canvas.height - 50) /
-          Math.max.apply(Math, norm_dft.slice(0, resolution / 4))
-        : 1;
     //draw each dft segment
     sketch.stroke(213, 196, 161);
     sketch.strokeWeight(4);
@@ -192,5 +200,6 @@ let ft = new p5((sketch) => {
         fft_canvas.height - norm_dft[index + 1] * scale,
       );
     });
+    first_run = false;
   };
 });
