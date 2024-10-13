@@ -2,14 +2,18 @@
 // the fft)
 resolution = 512;
 // defined as an amplitude
-wire = new Array(resolution).fill(0);
 dft = new Array(resolution).fill(0);
+wire = new Array(resolution);
+for (i = 0; i < resolution; i++) {
+  wire[i] = [0, 0];
+}
+
 update_fft = false;
 first_run = true;
 
 function fft(input, samples) {
   if (samples == 1) {
-    return [input, [0]];
+    return input;
   }
   var even = [];
   var odd = [];
@@ -23,30 +27,33 @@ function fft(input, samples) {
   var even_fft = fft(even, samples / 2);
   var odd_fft = fft(odd, samples / 2);
   // real, imaginary
-  var output = [new Array(samples), new Array(samples)];
-  var re_factors = [];
-  var im_factors = [];
+  var output = new Array(samples);
+
+  //find imaginary factors to the nth root of unity, where n=samples
+  var factors = [];
   for (k = 0; k < samples; k += 1) {
-    re_factors.push(Math.cos((2 * Math.PI * k) / samples));
-    im_factors.push(Math.sin((2 * Math.PI * k) / samples));
+    factors.push([
+      Math.cos((2 * Math.PI * k) / samples),
+      Math.sin((2 * Math.PI * k) / samples),
+    ]);
   }
   for (i = 0; i < samples / 2; i += 1) {
-    output[0][i] =
-      even_fft[0][i] +
-      re_factors[i] * odd_fft[0][i] -
-      im_factors[i] * odd_fft[1][i];
-    output[1][i] =
-      even_fft[1][i] +
-      im_factors[i] * odd_fft[0][i] +
-      re_factors[i] * odd_fft[1][i];
-    output[0][i + samples / 2] =
-      even_fft[0][i] -
-      re_factors[i] * odd_fft[0][i] -
-      im_factors[i] * odd_fft[1][i];
-    output[1][i + samples / 2] =
-      even_fft[1][i] -
-      im_factors[i] * odd_fft[0][i] +
-      re_factors[i] * odd_fft[1][i];
+    output[i] = [
+      even_fft[i][0] +
+        factors[i][0] * odd_fft[i][0] -
+        factors[i][1] * odd_fft[i][1],
+      even_fft[i][1] +
+        factors[i][1] * odd_fft[i][0] +
+        factors[i][0] * odd_fft[i][1],
+    ];
+    output[i + samples / 2] = [
+      even_fft[i][0] -
+        factors[i][0] * odd_fft[i][0] -
+        factors[i][1] * odd_fft[i][1],
+      even_fft[i][1] -
+        factors[i][1] * odd_fft[i][0] +
+        factors[i][0] * odd_fft[i][1],
+    ];
   }
   return output;
 }
@@ -79,13 +86,17 @@ let waves = new p5((sketch) => {
     sketch.stroke(213, 196, 161);
     seg_length = (0.8 * wave_canvas.width) / resolution;
     //draw each wire segment
+    re_wire = [];
     wire.forEach((segment, index, array) => {
+      re_wire[index] = segment[0];
+    });
+    re_wire.forEach((segment, index, array) => {
       sketch.line(
         wave_canvas.width / 10 + seg_length * index,
         wave_canvas.height / 2 + segment,
         wave_canvas.width / 10 + seg_length * (index + 1),
         index + 1 < resolution
-          ? wave_canvas.height / 2 + wire[index + 1]
+          ? wave_canvas.height / 2 + re_wire[index + 1]
           : wave_canvas.height / 2,
       );
     });
@@ -104,11 +115,11 @@ let waves = new p5((sketch) => {
       );
       if (seg < resolution - 1 && seg > 0) {
         if (sketch.mouseY > 0 && sketch.mouseY < wave_canvas.height) {
-          wire[seg] = sketch.mouseY - wave_canvas.height / 2;
+          wire[seg][0] = sketch.mouseY - wave_canvas.height / 2;
         } else if (sketch.mouseY > wave_canvas.height) {
-          wire[seg] = wave_canvas.height / 2;
+          wire[seg][0] = wave_canvas.height / 2;
         } else if (sketch.mouseY < 0) {
-          wire[seg] = -wave_canvas.height / 2;
+          wire[seg][0] = -wave_canvas.height / 2;
         }
 
         // this routine only takes a sample of the mouse's position every so often
@@ -124,10 +135,10 @@ let waves = new p5((sketch) => {
               i++
             ) {
               if (i != 0 && i != resolution - 1) {
-                wire[i] =
+                wire[i][0] =
                   ((sketch.mouseY - last_mouse[1]) * (i - last_seg)) /
                     (seg - last_seg) +
-                  wire[last_seg];
+                  wire[last_seg][0];
               }
             }
           }
