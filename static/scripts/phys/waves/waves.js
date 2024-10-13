@@ -74,10 +74,21 @@ let waves = new p5((sketch) => {
     sketch.frameRate(60);
     sketch.strokeWeight(4);
     last_mouse = null;
+    motion = false;
 
     document.getElementById("reset_button").onclick = function () {
       wire = new Array(resolution).fill(0);
       first_run = true;
+    };
+    document.getElementById("play_button").onclick = function () {
+      play_button = document.getElementById("play_button");
+      if (play_button.innerHTML == "Play") {
+        motion = true;
+        play_button.innerHTML = "Pause";
+      } else {
+        motion = false;
+        play_button.innerHTML = "Play";
+      }
     };
   };
 
