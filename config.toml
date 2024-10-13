@@ -2,7 +2,6 @@ baseURL = "https://hexn.live/"
 theme = "risotto"
 title = "hex"
 author = "Hector Brown"
-paginate = 3
 languageCode = "en"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
@@ -115,3 +114,6 @@ disableInlineCSS = true
 
 [services.twitter]
 disableInlineCSS = true
+
+[pagination]
+pagerSize = 3
