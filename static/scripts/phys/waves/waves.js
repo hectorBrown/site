@@ -62,7 +62,7 @@ let waves = new p5((sketch) => {
     );
 
     wave_canvas.parent("waves-parent");
-    sketch.frameRate(120);
+    sketch.frameRate(60);
     sketch.strokeWeight(4);
     last_mouse = null;
 
@@ -154,7 +154,7 @@ let ft = new p5((sketch) => {
     );
 
     fft_canvas.parent("fft-parent");
-    sketch.frameRate(120);
+    sketch.frameRate(60);
     last_mouse = null;
   };
 
