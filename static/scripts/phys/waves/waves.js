@@ -11,10 +11,14 @@ for (i = 0; i < resolution; i++) {
 update_fft = false;
 first_run = true;
 
+// this actually does the dft
 function fft(input, samples) {
+  // if we have a single point, return it in the real domain
   if (samples == 1) {
     return input;
   }
+
+  //collect even and odd indexed terms
   var even = [];
   var odd = [];
   for (i = 0; i < samples; i += 1) {
@@ -24,6 +28,7 @@ function fft(input, samples) {
       odd.push(input[i]);
     }
   }
+  //take ffts of both of these
   var even_fft = fft(even, samples / 2);
   var odd_fft = fft(odd, samples / 2);
   // real, imaginary
@@ -37,6 +42,8 @@ function fft(input, samples) {
       Math.sin((2 * Math.PI * k) / samples),
     ]);
   }
+  //combine the sub-ffts (with twiddle factors) to produce the dft
+  // these calculations are just simple complex multiplication
   for (i = 0; i < samples / 2; i += 1) {
     output[i] = [
       even_fft[i][0] +
