@@ -1,6 +1,7 @@
 // number of line segments to draw (will determine the maximum frequency of
 // the fft)
-resolution = 512;
+resolution = 4;
+dispersion = new Array(resolution).fill(1);
 // defined as an amplitude
 dft = new Array(resolution).fill(0);
 wire = new Array(resolution);
@@ -12,7 +13,7 @@ update_fft = false;
 first_run = true;
 
 // this actually does the dft
-function fft(input, samples) {
+function fft(input, samples, inverse = false) {
   // if we have a single point, return it in the real domain
   if (samples == 1) {
     return input;
@@ -29,8 +30,8 @@ function fft(input, samples) {
     }
   }
   //take ffts of both of these
-  var even_fft = fft(even, samples / 2);
-  var odd_fft = fft(odd, samples / 2);
+  var even_fft = fft(even, samples / 2, inverse);
+  var odd_fft = fft(odd, samples / 2, inverse);
   // real, imaginary
   var output = new Array(samples);
 
@@ -38,8 +39,8 @@ function fft(input, samples) {
   var factors = [];
   for (k = 0; k < samples; k += 1) {
     factors.push([
-      Math.cos((2 * Math.PI * k) / samples),
-      Math.sin((2 * Math.PI * k) / samples),
+      Math.cos(((inverse ? -1 : 1) * (2 * Math.PI * k)) / samples),
+      Math.sin(((inverse ? -1 : 1) * (2 * Math.PI * k)) / samples),
     ]);
   }
   //combine the sub-ffts (with twiddle factors) to produce the dft
@@ -62,7 +63,14 @@ function fft(input, samples) {
         factors[i][0] * odd_fft[i][1],
     ];
   }
-  return output;
+  scaled_output = new Array(samples);
+  output.forEach((element, index) => {
+    scaled_output[index] = [
+      element[0] * (inverse ? resolution : 1),
+      element[1] / (inverse ? resolution : 1),
+    ];
+  });
+  return scaled_output;
 }
 
 let waves = new p5((sketch) => {
@@ -84,7 +92,10 @@ let waves = new p5((sketch) => {
     motion = false;
 
     document.getElementById("reset_button").onclick = function () {
-      wire = new Array(resolution).fill(0);
+      wire = new Array(resolution);
+      for (i = 0; i < resolution; i++) {
+        wire[i] = [0, 0];
+      }
       first_run = true;
     };
     document.getElementById("play_button").onclick = function () {
@@ -105,10 +116,10 @@ let waves = new p5((sketch) => {
     seg_length = (0.8 * wave_canvas.width) / resolution;
     //draw each wire segment
     re_wire = [];
-    wire.forEach((segment, index, array) => {
+    wire.forEach((segment, index, _) => {
       re_wire[index] = segment[0];
     });
-    re_wire.forEach((segment, index, array) => {
+    re_wire.forEach((segment, index, _) => {
       sketch.line(
         wave_canvas.width / 10 + seg_length * index,
         wave_canvas.height / 2 + segment,
@@ -118,6 +129,9 @@ let waves = new p5((sketch) => {
           : wave_canvas.height / 2,
       );
     });
+    if (motion) {
+      wire = fft(fft(wire, resolution), resolution, (inverse = true));
+    }
     sketch.fill(189, 174, 147);
     sketch.circle(wave_canvas.width / 10, wave_canvas.height / 2, 10);
     sketch.circle((wave_canvas.width / 10) * 9, wave_canvas.height / 2, 10);
@@ -131,7 +145,7 @@ let waves = new p5((sketch) => {
       let seg = Math.round(
         (sketch.mouseX - wave_canvas.width / 10) / seg_length,
       );
-      if (seg < resolution - 1 && seg > 0) {
+      if (seg < resolution && seg > 0) {
         if (sketch.mouseY > 0 && sketch.mouseY < wave_canvas.height) {
           wire[seg][0] = sketch.mouseY - wave_canvas.height / 2;
         } else if (sketch.mouseY > wave_canvas.height) {
