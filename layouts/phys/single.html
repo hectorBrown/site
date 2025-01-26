@@ -5,7 +5,7 @@
     <div class="content__body">
         {{ .Content }}
         <hr/>
-        <p>Check out the <a href="/scripts/phys/{{ substr .File 5 -3 }}/{{ substr .File 5 -3 }}.js">source</a>, or back to <a href="/phys">other simulations</a>?</p>
+        <p>Check out the <a href="/scripts/phys/{{ .File }}/{{ .File }}.js">source</a>, or back to <a href="/phys">other simulations</a>?</p>
     </div>
     <footer class="content__footer"></footer>
 {{ end }}

@@ -1,19 +1,21 @@
 // number of line segments to draw (will determine the maximum frequency of
 // the fft)
 resolution = 512;
+dispersion = new Array(resolution).fill(1);
 // defined as an amplitude
-dft = new Array(resolution).fill(0);
+dft = new Array(resolution).fill(math.complex(0, 0));
 wire = new Array(resolution);
 for (i = 0; i < resolution; i++) {
-  wire[i] = [0, 0];
+  wire[i] = math.complex(0, 0);
 }
 
 update_fft = false;
 first_run = true;
 
 // this actually does the dft
-function fft(input, samples) {
-  // if we have a single point, return it in the real domain
+function fft(input, inverse = false) {
+  // if we have a single point, return it
+  var samples = input.length;
   if (samples == 1) {
     return input;
   }
@@ -21,7 +23,7 @@ function fft(input, samples) {
   //collect even and odd indexed terms
   var even = [];
   var odd = [];
-  for (i = 0; i < samples; i += 1) {
+  for (var i = 0; i < samples; i += 1) {
     if (i % 2 == 0) {
       even.push(input[i]);
     } else {
@@ -29,38 +31,28 @@ function fft(input, samples) {
     }
   }
   //take ffts of both of these
-  var even_fft = fft(even, samples / 2);
-  var odd_fft = fft(odd, samples / 2);
-  // real, imaginary
+  var even_fft = fft(even, inverse);
+  var odd_fft = fft(odd, inverse);
+
   var output = new Array(samples);
 
   //find imaginary factors to the nth root of unity, where n=samples
-  var factors = [];
-  for (k = 0; k < samples; k += 1) {
-    factors.push([
-      Math.cos((2 * Math.PI * k) / samples),
-      Math.sin((2 * Math.PI * k) / samples),
-    ]);
-  }
+  var angle = ((2 * math.PI) / samples) * (inverse ? 1 : -1);
+  var step = math.complex(math.cos(angle), math.sin(angle));
+  var twiddle = math.complex(1, 0);
   //combine the sub-ffts (with twiddle factors) to produce the dft
   // these calculations are just simple complex multiplication
-  for (i = 0; i < samples / 2; i += 1) {
-    output[i] = [
-      even_fft[i][0] +
-        factors[i][0] * odd_fft[i][0] -
-        factors[i][1] * odd_fft[i][1],
-      even_fft[i][1] +
-        factors[i][1] * odd_fft[i][0] +
-        factors[i][0] * odd_fft[i][1],
-    ];
-    output[i + samples / 2] = [
-      even_fft[i][0] -
-        factors[i][0] * odd_fft[i][0] -
-        factors[i][1] * odd_fft[i][1],
-      even_fft[i][1] -
-        factors[i][1] * odd_fft[i][0] +
-        factors[i][0] * odd_fft[i][1],
-    ];
+  for (var i = 0; i < samples / 2; i += 1) {
+    output[i] = math.add(even_fft[i], math.multiply(twiddle, odd_fft[i]));
+    output[i + samples / 2] = math.subtract(
+      even_fft[i],
+      math.multiply(twiddle, odd_fft[i]),
+    );
+    if (inverse) {
+      output[i] = math.divide(output[i], 2);
+      output[i + samples / 2] = math.divide(output[i + samples / 2], 2);
+    }
+    twiddle = math.multiply(twiddle, step);
   }
   return output;
 }
@@ -84,19 +76,22 @@ let waves = new p5((sketch) => {
     motion = false;
 
     document.getElementById("reset_button").onclick = function () {
-      wire = new Array(resolution).fill(0);
+      wire = new Array(resolution);
+      for (i = 0; i < resolution; i++) {
+        wire[i] = math.complex(0, 0);
+      }
       first_run = true;
     };
-    document.getElementById("play_button").onclick = function () {
-      play_button = document.getElementById("play_button");
-      if (play_button.innerHTML == "Play") {
-        motion = true;
-        play_button.innerHTML = "Pause";
-      } else {
-        motion = false;
-        play_button.innerHTML = "Play";
-      }
-    };
+    // document.getElementById("play_button").onclick = function () {
+    //   play_button = document.getElementById("play_button");
+    //   if (play_button.innerHTML == "Play") {
+    //     motion = true;
+    //     play_button.innerHTML = "Pause";
+    //   } else {
+    //     motion = false;
+    //     play_button.innerHTML = "Play";
+    //   }
+    // };
   };
 
   sketch.draw = () => {
@@ -105,10 +100,10 @@ let waves = new p5((sketch) => {
     seg_length = (0.8 * wave_canvas.width) / resolution;
     //draw each wire segment
     re_wire = [];
-    wire.forEach((segment, index, array) => {
-      re_wire[index] = segment[0];
+    wire.forEach((segment, index, _) => {
+      re_wire[index] = segment.re;
     });
-    re_wire.forEach((segment, index, array) => {
+    re_wire.forEach((segment, index, _) => {
       sketch.line(
         wave_canvas.width / 10 + seg_length * index,
         wave_canvas.height / 2 + segment,
@@ -118,6 +113,17 @@ let waves = new p5((sketch) => {
           : wave_canvas.height / 2,
       );
     });
+    if (motion) {
+      // this is cooked
+      init_fft = fft(wire);
+      output_fft = [];
+      for (var i = 0; i < init_fft.length; i++) {
+        output_fft.push(
+          math.multiply(init_fft[i], math.complex((r = 1), (phi = 0.1))),
+        );
+      }
+      wire = fft(output_fft, (inverse = true));
+    }
     sketch.fill(189, 174, 147);
     sketch.circle(wave_canvas.width / 10, wave_canvas.height / 2, 10);
     sketch.circle((wave_canvas.width / 10) * 9, wave_canvas.height / 2, 10);
@@ -131,14 +137,17 @@ let waves = new p5((sketch) => {
       let seg = Math.round(
         (sketch.mouseX - wave_canvas.width / 10) / seg_length,
       );
-      if (seg < resolution - 1 && seg > 0) {
+      if (seg < resolution && seg > 0) {
+        // scale up while maintaining phase -- honestly i can't justify this it just feels right atm
+        var amplitude;
         if (sketch.mouseY > 0 && sketch.mouseY < wave_canvas.height) {
-          wire[seg][0] = sketch.mouseY - wave_canvas.height / 2;
+          amplitude = sketch.mouseY - wave_canvas.height / 2;
         } else if (sketch.mouseY > wave_canvas.height) {
-          wire[seg][0] = wave_canvas.height / 2;
+          amplitude = wave_canvas.height / 2;
         } else if (sketch.mouseY < 0) {
-          wire[seg][0] = -wave_canvas.height / 2;
+          amplitude = -wave_canvas.height / 2;
         }
+        wire[seg] = math.complex(amplitude, 0);
 
         // this routine only takes a sample of the mouse's position every so often
         // if we find that the mouse has not been released since the last time it
@@ -153,10 +162,12 @@ let waves = new p5((sketch) => {
               i++
             ) {
               if (i != 0 && i != resolution - 1) {
-                wire[i][0] =
+                wire[i] = math.complex(
                   ((sketch.mouseY - last_mouse[1]) * (i - last_seg)) /
                     (seg - last_seg) +
-                  wire[last_seg][0];
+                    wire[last_seg].re,
+                  0,
+                );
               }
             }
           }
@@ -206,10 +217,10 @@ let ft = new p5((sketch) => {
     );
     var seg_length = ((0.8 * fft_canvas.width) / (resolution - 1)) * 4;
     if (update_fft || first_run) {
-      dft = fft(wire, resolution);
+      dft = fft(wire);
       norm_dft = new Array(resolution);
       for (i = 0; i < resolution; i++) {
-        norm_dft[i] = Math.sqrt(dft[i][0] ** 2 + dft[i][1] ** 2);
+        norm_dft[i] = Math.sqrt(dft[i].re ** 2 + dft[i].im ** 2);
       }
       scale =
         Math.max.apply(Math, norm_dft.slice(0, resolution / 4)) >
