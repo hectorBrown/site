@@ -83,7 +83,7 @@ draft: false
   <div>
     <div style="margin: 1vw">
         <button id="reset_button" role="button">Reset</button>
-        <!-- <button id="play_button" role="button">Play</button> -->
+        <button id="play_button" role="button">Play</button>
     </div>
   </div>
 </div>

@@ -82,16 +82,16 @@ let waves = new p5((sketch) => {
       }
       first_run = true;
     };
-    // document.getElementById("play_button").onclick = function () {
-    //   play_button = document.getElementById("play_button");
-    //   if (play_button.innerHTML == "Play") {
-    //     motion = true;
-    //     play_button.innerHTML = "Pause";
-    //   } else {
-    //     motion = false;
-    //     play_button.innerHTML = "Play";
-    //   }
-    // };
+    document.getElementById("play_button").onclick = function () {
+      play_button = document.getElementById("play_button");
+      if (play_button.innerHTML == "Play") {
+        motion = true;
+        play_button.innerHTML = "Pause";
+      } else {
+        motion = false;
+        play_button.innerHTML = "Play";
+      }
+    };
   };
 
   sketch.draw = () => {
@@ -114,7 +114,8 @@ let waves = new p5((sketch) => {
       );
     });
     if (motion) {
-      // this is cooked
+      // what we are trying to do here is a phase rotation in the fourier domain in order to linearly translate the signal
+      // eventually you will be able to define a variable phase rotation to simulate a custom dispersion relation in the medium
       init_fft = fft(wire);
       output_fft = [];
       for (var i = 0; i < init_fft.length; i++) {
