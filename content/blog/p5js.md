@@ -9,6 +9,7 @@ background for the [homepage](/), and maybe some other pages (pending). I always
 felt that [Processing](https://processing.org/) was a nice way to
 write graphics, and was pretty excited to find a JavaScript library,
 [p5js](https://p5js.org/), that seemed to function in practically the same way.
+
 <!--more-->
 
 {{< toc >}}
@@ -27,39 +28,39 @@ For example, this program:
 
 {{< highlight js "linenos=inline" >}}
 function setup() {
-  //create canvas
-  createCanvas();
+//create canvas
+createCanvas();
 
-  //set constant framerate -- this is important for consistent speed across devices
-  frameRate(30);
+//set constant framerate -- this is important for consistent speed across devices
+frameRate(30);
 
-  //setup the shape object we will draw
-  shape = {
-    pos: createVector(0, 0),
-    dir: createVector(5, 4),
-    size: width / 10,
-  };
+//setup the shape object we will draw
+shape = {
+pos: createVector(0, 0),
+dir: createVector(5, 4),
+size: width / 10,
+};
 }
 
 function draw() {
-  //setup colours
-  background(102, 92, 84);
-  stroke(169, 172, 38);
-  fill(169, 172, 38);
+//setup colours
+background(102, 92, 84);
+stroke(169, 172, 38);
+fill(169, 172, 38);
 
-  //draw square
-  square(shape.pos.x, shape.pos.y, shape.size);
+//draw square
+square(shape.pos.x, shape.pos.y, shape.size);
 
-  //move square
-  shape.pos.add(shape.dir);
+//move square
+shape.pos.add(shape.dir);
 
-  //bounce off of walls
-  if (shape.pos.x < 0 || shape.pos.x + shape.size > width) {
-    shape.dir.x *= -1;
-  }
-  if (shape.pos.y < 0 || shape.pos.y + shape.size > height) {
-    shape.dir.y *= -1;
-  }
+//bounce off of walls
+if (shape.pos.x < 0 || shape.pos.x + shape.size > width) {
+shape.dir.x _= -1;
+}
+if (shape.pos.y < 0 || shape.pos.y + shape.size > height) {
+shape.dir.y_= -1;
+}
 }
 
 {{< / highlight >}}
@@ -83,9 +84,10 @@ the details on [how](/blog/boids) I created the boids now, and move on to:
 The first thing you'll notice if you try to create a canvas on a page that
 already has content is that it'll just drop it at the end. We obviously want to
 be able to position the animation as a normal HTML element:
+
 <ol>
-    <li><p>Create a containing 
-    {{< highlight html "hl_inline=true" >}}<div>{{< /highlight >}} 
+    <li><p>Create a containing
+    {{< highlight html "hl_inline=true" >}}<div>{{< /highlight >}}
     at the very top of your page, and make its position
     fixed:</p>
     {{< highlight html >}}
@@ -103,7 +105,7 @@ be able to position the animation as a normal HTML element:
     }
     {{< /highlight >}}
     </li>
-    <li><p>Identify this 
+    <li><p>Identify this
     {{< highlight html "hl_inline=true" >}}<div>{{< /highlight >}}
     as the parent element of your canvas in the sketch code, making sure to
     specify that the width and height of your canvas should be the same as that of
@@ -137,9 +139,9 @@ opacity property, however this doesn't work very well (or at all) with the
 blurring, so instead we can just set the background color to have some alpha,
 and use the backdrop-filter property to get the blur:
 {{< highlight css >}}
-.page__body {
-    background-color: #3c3836a4;
-    backdrop-filter: blur(10px);
+.page\_\_body {
+background-color: #3c3836a4;
+backdrop-filter: blur(10px);
 }
 {{< /highlight >}}
 
@@ -147,3 +149,9 @@ And that's it! I didn't mention a lot of the quirks of getting all this to work
 with hugo, and a custom theme, but that probably wouldn't have been so difficult
 if I understood hugo better. I think the effect looks really nice, although
 admittedly it might be a bit distracting for anything but a splash page.
+
+_[Update 2025-10-31]_
+
+The background has now been rewritten in Rust and WASM. It's (upsettingly) not
+much faster at the moment, but hopefully will be easier to rewrite in an
+efficient way in future.
