@@ -1,4 +1,5 @@
 use macroquad::prelude::*;
+use macroquad::time;
 use std::f32::consts::PI;
 const LOCALITY_R: f32 = 100.0;
 const SIG_SCALING: u8 = 10;
@@ -6,6 +7,7 @@ const SEP_SCALE: u8 = 32;
 const ALI_SCALE: u8 = 64;
 const COH_SCALE: u8 = 128;
 const RAN_SCALE: u8 = 8;
+const MOUSE_SCALE: u16 = u16::MAX;
 const PPB: u16 = 8645;
 const SPEED: f32 = 100.0;
 
@@ -162,8 +164,17 @@ async fn main() {
                 let locality_boids = get_boids_in_locality(&zones, boid.zone);
                 let (dist_tot, dir_tot, pos_tot) = get_influences(boid, &locality_boids);
 
+                let (mouse_x, mouse_y) = mouse_position();
+                draw_text(
+                    format!("{},{}", mouse_x, mouse_y).as_str(),
+                    100.0,
+                    100.0,
+                    30.0,
+                    WHITE,
+                );
 
                 totals.push(dist_tot + dir_tot + pos_tot);
+                // totals.push(dist_tot + dir_tot + pos_tot);
             } else {
                 totals.push(-10000.0 * (boid.pos - Vec2::new(width / 2.0, height / 2.0)));
             }
@@ -208,6 +219,7 @@ async fn main() {
         }
         last_frame_time = end_time;
 
+        time::draw_fps();
 
         next_frame().await;
     }
