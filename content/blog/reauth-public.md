@@ -23,7 +23,6 @@ sudo ip link set "$INTERFACE" down || exit 1
 sudo macchanger -a "$INTERFACE" || exit 1
 sudo hostnamectl set-hostname random-hostname-"$(date +%s)"
 sudo systemd-resolve --flush-caches
-sudo dhclient -r "$INTERFACE" || exit 1
 nmcli radio wifi on
 sudo systemctl restart NetworkManager
 sudo ip link set "$INTERFACE" up
@@ -31,10 +30,10 @@ while [[ $(nmcli dev wifi list | wc -l) -eq 1 ]]; do
  sleep 0.5
 done
 nmcli dev wifi connect "$SSID"
-sudo dhclient wlp1s0
 while ping -c 1 1.1.1.1 2>&1 | grep -q 'Network is unreachable'; do
  sleep 0.5
 done
+sudo dhclient -r "$INTERFACE" || exit 1
 ```
 
 This script relies on `macchanger`, and `dhclient`, as well as you using
