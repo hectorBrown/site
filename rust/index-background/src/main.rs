@@ -154,11 +154,7 @@ async fn main() {
 
         let mut totals = Vec::new();
         for boid in boids.iter() {
-            if boid.pos.x > 0 as f32
-                && boid.pos.y > 0 as f32
-                && boid.pos.x < width
-                && boid.pos.y < height
-            {
+            if boid.pos.x > 0.0 && boid.pos.y > 0.0 && boid.pos.x < width && boid.pos.y < height {
                 let locality_boids = get_boids_in_locality(&zones, boid.zone);
                 let (dist_tot, dir_tot, pos_tot) = get_influences(boid, &locality_boids);
 
