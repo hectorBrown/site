@@ -6,6 +6,8 @@ const SEP_SCALE: u8 = 32;
 const ALI_SCALE: u8 = 64;
 const COH_SCALE: u8 = 128;
 const RAN_SCALE: u8 = 8;
+const MOUSE_SCALE: u16 = 2048;
+const MOUSE_TOT_MAX: u16 = 300;
 const PPB: u16 = 8645;
 const SPEED: f32 = 100.0;
 
@@ -86,15 +88,16 @@ fn get_boids_in_locality<'a>(
     locality_boids
 }
 
-fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2) {
+fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2, Vec2) {
     let mut dist_tot = Vec2::new(0.0, 0.0);
     let mut dir_tot = Vec2::new(0.0, 0.0);
     let mut pos_tot = Vec2::new(0.0, 0.0);
+    let mut mouse_tot;
     let mut locality_count: usize = 0;
     for other_boid in in_locality.iter() {
         if other_boid != &boid {
             let mut dist = other_boid.pos - boid.pos;
-            if dist.length() < LOCALITY_R as f32 {
+            if dist.length() < LOCALITY_R {
                 if other_boid.pos.x <= boid.pos.x {
                     draw_line(
                         boid.pos.x,
@@ -102,7 +105,7 @@ fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2) {
                         other_boid.pos.x,
                         other_boid.pos.y,
                         2.0,
-                        Color::new(0.984, 0.945, 0.780, 1.0 - dist.length() / LOCALITY_R as f32),
+                        Color::new(0.984, 0.945, 0.780, 1.0 - dist.length() / LOCALITY_R),
                     )
                 }
                 dist = -dist.normalize() * dist.length().powf(-1.0);
@@ -116,14 +119,19 @@ fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2) {
             }
         }
     }
+    let (mouse_x, mouse_y) = mouse_position();
+    mouse_tot = boid.pos - Vec2::new(mouse_x, mouse_y);
+
     dist_tot *= SEP_SCALE as f32 * locality_count.pow(2) as f32;
     dir_tot *= ALI_SCALE as f32 / locality_count as f32;
     pos_tot /= locality_count as f32;
     pos_tot -= boid.pos;
     pos_tot = pos_tot.normalize();
     pos_tot *= COH_SCALE as f32;
+    mouse_tot = mouse_tot.normalize();
+    mouse_tot *= (MOUSE_TOT_MAX as f32).min(MOUSE_SCALE as f32 * mouse_tot.length().powf(-1.0));
 
-    (dist_tot, dir_tot, pos_tot)
+    (dist_tot, dir_tot, pos_tot, mouse_tot)
 }
 
 #[macroquad::main("index-background")]
@@ -156,9 +164,25 @@ async fn main() {
         for boid in boids.iter() {
             if boid.pos.x > 0.0 && boid.pos.y > 0.0 && boid.pos.x < width && boid.pos.y < height {
                 let locality_boids = get_boids_in_locality(&zones, boid.zone);
-                let (dist_tot, dir_tot, pos_tot) = get_influences(boid, &locality_boids);
+                let (dist_tot, dir_tot, pos_tot, mouse_tot) = get_influences(boid, &locality_boids);
 
-                totals.push(dist_tot + dir_tot + pos_tot);
+                let mouse_tot_color = Color::new(0.722, 0.733, 0.149, 1.0);
+                draw_line(
+                    boid.pos.x,
+                    boid.pos.y,
+                    boid.pos.x + mouse_tot.x,
+                    boid.pos.y + mouse_tot.y,
+                    3.0,
+                    mouse_tot_color,
+                );
+                draw_circle(
+                    (boid.pos + mouse_tot).x,
+                    (boid.pos + mouse_tot).y,
+                    mouse_tot.length().min(4.0),
+                    mouse_tot_color,
+                );
+
+                totals.push(dist_tot + dir_tot + pos_tot + mouse_tot);
             } else {
                 totals.push(-10000.0 * (boid.pos - Vec2::new(width / 2.0, height / 2.0)));
             }
