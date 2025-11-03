@@ -128,8 +128,8 @@ fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2, Vec2
     pos_tot -= boid.pos;
     pos_tot = pos_tot.normalize();
     pos_tot *= COH_SCALE as f32;
-    mouse_tot = mouse_tot.normalize();
-    mouse_tot *= (MOUSE_TOT_MAX as f32).min(MOUSE_SCALE as f32 * mouse_tot.length().powf(-1.0));
+    mouse_tot = mouse_tot.normalize()
+        * (MOUSE_TOT_MAX as f32).min(MOUSE_SCALE as f32 * mouse_tot.length().powf(-1.0));
 
     (dist_tot, dir_tot, pos_tot, mouse_tot)
 }
