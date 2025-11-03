@@ -158,7 +158,6 @@ async fn main() {
                 let locality_boids = get_boids_in_locality(&zones, boid.zone);
                 let (dist_tot, dir_tot, pos_tot) = get_influences(boid, &locality_boids);
 
-
                 totals.push(dist_tot + dir_tot + pos_tot);
             } else {
                 totals.push(-10000.0 * (boid.pos - Vec2::new(width / 2.0, height / 2.0)));
@@ -199,11 +198,13 @@ async fn main() {
             boid.dir += rand::gen_range(-(RAN_SCALE as f32), RAN_SCALE as f32) / 360.0
                 * 2.0
                 * std::f32::consts::PI;
-            boid.pos.x += SPEED * boid.dir.sin() * (end_time - last_frame_time) as f32;
-            boid.pos.y += -SPEED * boid.dir.cos() * (end_time - last_frame_time) as f32;
+            let deltatime = end_time - last_frame_time;
+            if deltatime < 0.1 {
+                boid.pos.x += SPEED * boid.dir.sin() * (end_time - last_frame_time) as f32;
+                boid.pos.y += -SPEED * boid.dir.cos() * (end_time - last_frame_time) as f32;
+            }
         }
         last_frame_time = end_time;
-
 
         next_frame().await;
     }
