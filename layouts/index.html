@@ -10,7 +10,12 @@
       <link rel="stylesheet" href="css/index.css">
       <canvas id="glcanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; display: block;" tabindex='1'></canvas>
       <script src="https://not-fl3.github.io/miniquad-samples/mq_js_bundle.js"></script>
-      <script>load("/wasm/index-background.wasm");</script> <!-- Your compiled wasm file -->
+      <script type="module">
+        import init from "/wasm/index-background/index_background.js";
+        init().then(() => {
+          console.log("WASM Loaded");
+        });
+      </script>
         <div class="page">
 
             <header class="page__header">
