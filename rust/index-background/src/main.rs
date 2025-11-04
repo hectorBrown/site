@@ -88,7 +88,7 @@ fn get_boids_in_locality<'a>(
     locality_boids
 }
 
-fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2, Vec2) {
+fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2, Vec2, Vec2) {
     let mut dist_tot = Vec2::new(0.0, 0.0);
     let mut dir_tot = Vec2::new(0.0, 0.0);
     let mut pos_tot = Vec2::new(0.0, 0.0);
@@ -120,7 +120,8 @@ fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2, Vec2
         }
     }
     let (mouse_x, mouse_y) = mouse_position();
-    mouse_tot = boid.pos - Vec2::new(mouse_x, mouse_y);
+    let mouse_pos = Vec2::new(mouse_x, mouse_y);
+    mouse_tot = boid.pos - mouse_pos;
 
     dist_tot *= SEP_SCALE as f32 * locality_count.pow(2) as f32;
     dir_tot *= ALI_SCALE as f32 / locality_count as f32;
@@ -131,7 +132,7 @@ fn get_influences(boid: &Boid, in_locality: &[&Boid]) -> (Vec2, Vec2, Vec2, Vec2
     mouse_tot = mouse_tot.normalize()
         * (MOUSE_TOT_MAX as f32).min(MOUSE_SCALE as f32 * mouse_tot.length().powf(-1.0));
 
-    (dist_tot, dir_tot, pos_tot, mouse_tot)
+    (dist_tot, dir_tot, pos_tot, mouse_tot, mouse_pos)
 }
 
 #[macroquad::main("index-background")]
@@ -151,6 +152,8 @@ async fn main() {
 
     let mut last_frame_time = get_time();
 
+    let mut mouse_on = false;
+
     loop {
         clear_background(background_color);
         width = screen_width();
@@ -164,25 +167,41 @@ async fn main() {
         for boid in boids.iter() {
             if boid.pos.x > 0.0 && boid.pos.y > 0.0 && boid.pos.x < width && boid.pos.y < height {
                 let locality_boids = get_boids_in_locality(&zones, boid.zone);
-                let (dist_tot, dir_tot, pos_tot, mouse_tot) = get_influences(boid, &locality_boids);
+                let (dist_tot, dir_tot, pos_tot, mouse_tot, mouse_pos) =
+                    get_influences(boid, &locality_boids);
+                if mouse_pos.x != 0.0 || mouse_pos.y != 0.0 {
+                    mouse_on = true;
+                }
 
-                let mouse_tot_color = Color::new(0.722, 0.733, 0.149, 1.0);
-                draw_line(
-                    boid.pos.x,
-                    boid.pos.y,
-                    boid.pos.x + mouse_tot.x,
-                    boid.pos.y + mouse_tot.y,
-                    3.0,
-                    mouse_tot_color,
-                );
-                draw_circle(
-                    (boid.pos + mouse_tot).x,
-                    (boid.pos + mouse_tot).y,
-                    mouse_tot.length().min(4.0),
-                    mouse_tot_color,
-                );
+                if mouse_on {
+                    let mouse_tot_color = Color::new(0.722, 0.733, 0.149, 1.0);
+                    draw_line(
+                        boid.pos.x,
+                        boid.pos.y,
+                        boid.pos.x + mouse_tot.x,
+                        boid.pos.y + mouse_tot.y,
+                        3.0,
+                        mouse_tot_color,
+                    );
+                    draw_circle(
+                        (boid.pos + mouse_tot).x,
+                        (boid.pos + mouse_tot).y,
+                        mouse_tot.length().min(4.0),
+                        mouse_tot_color,
+                    );
+                    draw_circle_lines(
+                        mouse_pos.x,
+                        mouse_pos.y,
+                        8.0,
+                        4.0,
+                        // Color::new(0.557, 0.753, 0.486, 1.0),
+                        mouse_tot_color,
+                    );
 
-                totals.push(dist_tot + dir_tot + pos_tot + mouse_tot);
+                    totals.push(dist_tot + dir_tot + pos_tot + mouse_tot);
+                } else {
+                    totals.push(dist_tot + dir_tot + pos_tot);
+                }
             } else {
                 totals.push(-10000.0 * (boid.pos - Vec2::new(width / 2.0, height / 2.0)));
             }
