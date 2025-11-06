@@ -1,0 +1,5 @@
+[build]
+target = "wasm32-unknown-unknown"
+
+[alias]
+build-and-serve = "build && cp target/wasm32-unknown-unknown/release/index_background.wasm ../static/index_background.wasm"
