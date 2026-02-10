@@ -51,7 +51,7 @@ Despite this, this very website was hosted on a server that sat behind a CGNAT
 table for the best part of 2 years, and functioned without issue. How, you may
 ask, could that be possible? The answer lies in VPNs and VPSs.
 
-## Wireguard, more like FIREguard
+## Guarding the wires
 
 The first issue is access to a dedicated public IPv4. For this I rent a very
 cheap low-power VPS (virtual private server) from
