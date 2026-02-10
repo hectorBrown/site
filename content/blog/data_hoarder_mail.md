@@ -90,7 +90,7 @@ This is what my `~/.config/mutt-ldap-query/config.yml` looks like:
   :password: [password here]
 ```
 
-## Daenarys, more like khal-is-easy
+## khal is easy
 
 [khal](https://github.com/pimutils/khal) is my terminal-based calendar program.
 It's admittedly a bit clunky compared to traditional calendar programs, but it
@@ -195,7 +195,7 @@ I'm still working on a way to sync contacts from my CardDAV server, and
 hopefully be able to query them from mutt, so that I can maintain just a single
 address book (dreamy, I know).
 
-*[Update 2024-10-05]*
+_[Update 2024-10-05]_
 
 [khard](https://github.com/lucc/khard) is the way to get contacts working.
 Writing this kind of inspired me to take another look, and now I have mutt

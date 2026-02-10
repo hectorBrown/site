@@ -4,4 +4,4 @@ date: 2023-03-16T22:48:23Z
 draft: false
 ---
 
-I'm Hector, I write code sometimes…
+I'm Hector. I write code for fun, and I'd like to do it professionally too.
