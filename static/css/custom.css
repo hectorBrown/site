@@ -119,8 +119,11 @@ body {
     background: var(--base0B);
 }
 
-.MathJax_Display {
-    overflow: scroll;
+
+.MathJax, .MJXc-display, mjx-container {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    max-width: 100%;
 }
 
 img[src$='#center'] {
