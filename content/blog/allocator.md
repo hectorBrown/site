@@ -115,7 +115,7 @@ trick as before to copy the contents of the block we are allocating to the
 `free_start` pointer, effectively following the trail in the block's data to the
 next block.
 
-# Deallocating memory
+## Deallocating memory
 
 Let's fast forward a bit to the state of the allocator after three allocations,
 which is shown below.
