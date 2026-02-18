@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="120.22118mm"
+   height="70.0653mm"
+   viewBox="0 0 120.22118 70.0653"
    version="1.1"
    id="svg1"
-   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
    sodipodi:docname="mysetup.svg"
    inkscape:export-filename="../../../images/blog/cgnat/mysetup.png"
    inkscape:export-xdpi="200"
@@ -26,13 +26,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="149.19953"
-     inkscape:cy="377.94857"
-     inkscape:window-width="1900"
-     inkscape:window-height="1060"
-     inkscape:window-x="10"
-     inkscape:window-y="10"
+     inkscape:zoom="0.66357926"
+     inkscape:cx="-129.60019"
+     inkscape:cy="60.279159"
+     inkscape:window-width="1876"
+     inkscape:window-height="976"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -58,15 +58,15 @@
          id="path2" />
     </marker>
     <rect
-       x="49.518439"
-       y="269.37095"
+       x="49.51844"
+       y="269.37094"
        width="232.05632"
        height="159.88914"
        id="rect3" />
     <rect
-       x="92.821651"
-       y="306.46288"
-       width="147.11303"
+       x="92.821648"
+       y="306.46289"
+       width="147.11304"
        height="16.562824"
        id="rect2" />
     <rect
@@ -191,9 +191,10 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-43.907242,-75.306839)">
     <rect
-       style="fill:none;fill-opacity:1;stroke:#fe8019;stroke-width:0.86;stroke-dasharray:0.86000001,1.72000003;stroke-opacity:1;stroke-dashoffset:0"
+       style="fill:none;fill-opacity:1;stroke:#fe8019;stroke-width:0.86;stroke-dasharray:0.86, 1.72;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5"
        width="85.305573"
        height="53.812195"
@@ -222,11 +223,11 @@
        y="0"><tspan
          x="122.789"
          y="317.38139"
-         id="tspan3">My VPS
+         id="tspan1">My VPS
 </tspan><tspan
          x="93.766979"
          y="332.38139"
-         id="tspan9">(194.164.121.226)</tspan></text>
+         id="tspan5">(194.164.121.226)</tspan></text>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
@@ -331,11 +332,11 @@
          y="0"><tspan
            x="110.25501"
            y="317.38139"
-           id="tspan10">My Server 2
+           id="tspan9">My Server 2
 </tspan><tspan
            x="104.06299"
            y="332.38139"
-           id="tspan11">(192.168.1.54)</tspan></text>
+           id="tspan14">(192.168.1.54)</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:3.175px;text-align:center;text-anchor:middle;fill:#fe8019;fill-opacity:1;stroke:none;stroke-width:0.859999;stroke-dasharray:none"
@@ -367,11 +368,11 @@
          y="0"><tspan
            x="110.25501"
            y="317.38139"
-           id="tspan12">My Server 1
+           id="tspan15">My Server 1
 </tspan><tspan
            x="104.06299"
            y="332.38139"
-           id="tspan13">(192.168.1.98)</tspan></text>
+           id="tspan16">(192.168.1.98)</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:3.175px;text-align:center;text-anchor:middle;fill:#fe8019;fill-opacity:1;stroke:none;stroke-width:0.859999;stroke-dasharray:none"

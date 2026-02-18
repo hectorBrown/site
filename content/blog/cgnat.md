@@ -18,7 +18,7 @@ server difficult, but not impossible.
 
 Traditionally your packets go through NAT (network address translation) once on
 their way to the internet.
-![Diagram of traditional single NAT](/images/blog/cgnat/nat.png#center)
+![Diagram of traditional single NAT](/images/blog/cgnat/nat.svg#center)
 Let's say you wanted to ping 1.1.1.1. The
 [ICMP](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol) packages
 emerge from a device in your private home network, with their source IP set to a
@@ -38,7 +38,7 @@ CGNAT (carrier grade NAT) does this twice, so that your modem is also part of a
 private network where its peers are your neighbours' modems. These addresses are
 then translated again to a single public IP that is shared by your whole
 building.
-![Diagram of CGNAT](/images/blog/cgnat/cgnat.png#center)
+![Diagram of CGNAT](/images/blog/cgnat/cgnat.svg#center)
 This setup works fine for normal activity - outgoing connections - since the NAT
 router maintains a list of connections and dynamically allocates ports to your
 modem IP so that you can accept traffic from Netflix, Instagram, whoever.
@@ -60,7 +60,7 @@ worked great for me - no complaints). The server is weak and weedy, but comes
 with that oh-so-precious public IPv4 address and enough power to handle routing
 packets for me. That server acts as a router for my VPN, which includes (most
 importantly) both of my servers, and some client devices.
-![Diagram of my personal server setup](/images/blog/cgnat/mysetup.png#center)
+![Diagram of my personal server setup](/images/blog/cgnat/mysetup.svg#center)
 When an incoming, let's say HTTPS, packet enters my VPS, it is forwarded to the
 server over the VPN, and appears to be local traffic. The server replies over
 the VPN again, the packet is translated by the VPS and returned to the client.
