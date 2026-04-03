@@ -160,3 +160,22 @@ allocations and deallocations against an identical program, with
 
 Obviously, this is just a toy example, but a ~20% speed increase is pretty good,
 and the fact that we are doing 25% fewer instructions is pretty interesting.
+
+_[Update 2026-04-04]_
+
+Caught myself thinking about this project again recently and wasn't happy with
+the outcome; 20% is something, but it doesn't feel like much. So I did some
+digging and found that a lot of the time elapsed was due to my use of
+`std::vector.pop()` and `std::vector.push_back()`, so I replaced these lines by
+instantiating a `vector` of fixed size and then referencing it by index to much
+success. The new results look like this:
+
+| Allocator       | Time elapsed (s) | Instructions (B) | CPU Cycles (B) |
+| --------------- | ---------------- | ---------------- | -------------- |
+| malloc/free     | 6.45             | 78.0             | 23.4           |
+| quick-allocator | 3.50             | 23.4             | 12.6           |
+
+184% faster, this is a lot more like what you would expect to see, and this is
+with the optimisation (working against us) that comes with using `free` and
+`malloc` on small assignments, and in order. With churn I'd expect to see even
+more improvement. Now I can rest easy!
