@@ -10,7 +10,7 @@ draft: false
 ---
 
 The background is accelerated with [WebGPU](https://webgpu.org/), you can learn
-about how it was made [here](./blog/webgpu).
+about [how I used WebGPU](./blog/webgpu) or [what boids are](./blog/boids).
 
 <style>
 #control-panel {
