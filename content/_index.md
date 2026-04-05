@@ -4,8 +4,7 @@ date: 2023-03-16T22:48:23Z
 draft: false
 ---
 
-<p style="height: 33%">
-I'm Hector. I write code for fun, and I'd like to do it professionally too.
+<p style="height: 10%">
 </p>
 
 ---
@@ -15,13 +14,14 @@ about how it was made [here](./blog/webgpu).
 
 <style>
 #control-panel {
-    display: grid;
     grid-template-columns: auto 1fr;
     gap: 1vw 2vw;
     margin: 1vw;
   }
   .control-row {
-    display: contents; /* allows grid children to be direct grid items */
+    display: flex; /* allows grid children to be direct grid items */
+    align-items: center; /* vertically centers the label and slider */
+    gap: 1em;
     margin: 1vw;
   }
 </style>
