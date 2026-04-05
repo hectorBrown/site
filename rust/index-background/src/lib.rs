@@ -1,124 +1,21 @@
-use std::sync::Arc;
-use wgpu::util::DeviceExt;
-
+mod app;
+mod boid_sprite;
+mod boids;
+mod rng;
 mod texture;
+mod thick_line;
+mod vertex;
 
-use winit::{
-    application::ApplicationHandler,
-    event::*,
-    event_loop::{ActiveEventLoop, EventLoop},
-    keyboard::{KeyCode, PhysicalKey},
-    window::Window,
-};
+use crate::app::App;
+use crate::boids::{Boid, BoidRaw};
+use crate::thick_line::LineRaw;
+use crate::vertex::{SimpleVertex, Vertex};
 
+use std::sync::Arc;
 use wasm_bindgen::prelude::*;
-
-#[repr(C)]
-#[derive(Copy, Clone, Debug, bytemuck::Pod, bytemuck::Zeroable)]
-struct Vertex {
-    position: [f32; 3],
-    tex_coords: [f32; 2],
-}
-
-impl Vertex {
-    fn desc() -> wgpu::VertexBufferLayout<'static> {
-        wgpu::VertexBufferLayout {
-            array_stride: std::mem::size_of::<Vertex>() as wgpu::BufferAddress,
-            step_mode: wgpu::VertexStepMode::Vertex,
-            attributes: &[
-                wgpu::VertexAttribute {
-                    offset: 0,
-                    shader_location: 0,
-                    format: wgpu::VertexFormat::Float32x3,
-                },
-                wgpu::VertexAttribute {
-                    offset: std::mem::size_of::<[f32; 3]>() as wgpu::BufferAddress,
-                    shader_location: 1,
-                    format: wgpu::VertexFormat::Float32x2,
-                },
-            ],
-        }
-    }
-}
-
-const VERTICES: &[Vertex] = &[
-    // Changed
-    Vertex {
-        position: [-0.0868241, 0.49240386, 0.0],
-        tex_coords: [0.4131759, 0.00759614],
-    }, // A
-    Vertex {
-        position: [-0.49513406, 0.06958647, 0.0],
-        tex_coords: [0.0048659444, 0.43041354],
-    }, // B
-    Vertex {
-        position: [-0.21918549, -0.44939706, 0.0],
-        tex_coords: [0.28081453, 0.949397],
-    }, // C
-    Vertex {
-        position: [0.35966998, -0.3473291, 0.0],
-        tex_coords: [0.85967, 0.84732914],
-    }, // D
-    Vertex {
-        position: [0.44147372, 0.2347359, 0.0],
-        tex_coords: [0.9414737, 0.2652641],
-    }, // E
-];
-
-const INDICES: &[u16] = &[0, 1, 4, 1, 2, 4, 2, 3, 4];
-
-#[rustfmt::skip]
-pub const OPENGL_TO_WGPU_MATRIX: cgmath::Matrix4<f32> = cgmath::Matrix4::from_cols(
-    cgmath::Vector4::new(1.0, 0.0, 0.0, 0.0),
-    cgmath::Vector4::new(0.0, 1.0, 0.0, 0.0),
-    cgmath::Vector4::new(0.0, 0.0, 0.5, 0.0),
-    cgmath::Vector4::new(0.0, 0.0, 0.5, 1.0),
-);
-
-struct Camera {
-    eye: cgmath::Point3<f32>,
-    target: cgmath::Point3<f32>,
-    up: cgmath::Vector3<f32>,
-    aspect: f32,
-    fovy: f32,
-    znear: f32,
-    zfar: f32,
-}
-
-impl Camera {
-    fn build_view_projection_matrix(&self) -> cgmath::Matrix4<f32> {
-        // 1.
-        let view = cgmath::Matrix4::look_at_rh(self.eye, self.target, self.up);
-        // 2.
-        let proj = cgmath::perspective(cgmath::Deg(self.fovy), self.aspect, self.znear, self.zfar);
-
-        // 3.
-        OPENGL_TO_WGPU_MATRIX * proj * view
-    }
-}
-
-// We need this for Rust to store our data correctly for the shaders
-#[repr(C)]
-// This is so we can store this in a buffer
-#[derive(Debug, Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
-struct CameraUniform {
-    // We can't use cgmath with bytemuck directly, so we'll have
-    // to convert the Matrix4 into a 4x4 f32 array
-    view_proj: [[f32; 4]; 4],
-}
-
-impl CameraUniform {
-    fn new() -> Self {
-        use cgmath::SquareMatrix;
-        Self {
-            view_proj: cgmath::Matrix4::identity().into(),
-        }
-    }
-
-    fn update_view_proj(&mut self, camera: &Camera) {
-        self.view_proj = camera.build_view_projection_matrix().into();
-    }
-}
+use web_sys::{HtmlElement, HtmlInputElement};
+use wgpu::util::DeviceExt;
+use winit::{event_loop::EventLoop, window::Window};
 
 // This will store the state of our game
 pub struct State {
@@ -128,21 +25,30 @@ pub struct State {
     config: wgpu::SurfaceConfiguration,
     is_surface_configured: bool,
     window: Arc<Window>,
-    render_pipeline: wgpu::RenderPipeline,
-    vertex_buffer: wgpu::Buffer,
-    num_vertices: u32,
-    index_buffer: wgpu::Buffer,
-    num_indices: u32,
-    diffuse_bind_group: wgpu::BindGroup,
-    diffuse_texture: texture::Texture,
-    camera: Camera,
-    camera_uniform: CameraUniform,
-    camera_buffer: wgpu::Buffer,
-    camera_bind_group: wgpu::BindGroup,
+    sprite_render_pipeline: wgpu::RenderPipeline,
+    network_render_pipeline: wgpu::RenderPipeline,
+    sprite_vertex_buffer: wgpu::Buffer,
+    sprite_index_buffer: wgpu::Buffer,
+    line_vertex_buffer: wgpu::Buffer,
+    line_index_buffer: wgpu::Buffer,
+    network_lines: Vec<LineRaw>,
+    network_buffer: wgpu::Buffer,
+    sprite_bind_group: wgpu::BindGroup,
+    screen_size_buffer: wgpu::Buffer,
+    screen_size_bind_group: wgpu::BindGroup,
+    boids: Vec<Boid>,
+    boid_buffer: wgpu::Buffer,
+    last_frame_time: f32,
+    sep_slider: HtmlInputElement,
+    ali_slider: HtmlInputElement,
+    coh_slider: HtmlInputElement,
 }
 
 impl State {
     pub async fn new(window: Arc<Window>) -> anyhow::Result<Self> {
+        //
+        // PREAMBLE
+        //
         let size = window.inner_size();
 
         // The instance is a handle to our GPU
@@ -193,9 +99,44 @@ impl State {
             desired_maximum_frame_latency: 2,
         };
 
-        let diffuse_bytes = include_bytes!("../../../static/assets/boid.png");
-        let diffuse_texture =
-            texture::Texture::from_bytes(&device, &queue, diffuse_bytes, "boid.png")?;
+        //
+        // SETUP BOID INSTANCE BUFFER
+        //
+        let mut rng = rng::get_rng();
+        let document = web_sys::window().unwrap().document().unwrap();
+        let canvas = document.get_element_by_id("glcanvas").unwrap();
+        let canvas: web_sys::HtmlCanvasElement = canvas.dyn_into().unwrap();
+        let boids = boids::gen_boids(
+            (canvas.client_width() as f32, canvas.client_height() as f32),
+            &mut rng,
+        );
+
+        let boid_data: Vec<BoidRaw> = boids.iter().map(Boid::to_raw).collect();
+        let boid_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Boid Buffer"),
+            contents: bytemuck::cast_slice(&boid_data),
+            usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
+        });
+
+        let network_lines: Vec<LineRaw> = boids
+            .iter()
+            .map(|b| LineRaw {
+                position1: [b.pos.x, b.pos.y],
+                position2: [b.pos.x, b.pos.y],
+            })
+            .collect();
+        let network_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Network Buffer"),
+            contents: bytemuck::cast_slice(&network_lines),
+            usage: wgpu::BufferUsages::VERTEX,
+        });
+
+        //
+        // SETUP BOID SPRITE TEXTURE BIND
+        //
+        let sprite_bytes = include_bytes!("../../../static/assets/boid.png");
+        let sprite_texture =
+            texture::Texture::from_bytes(&device, &queue, sprite_bytes, "boid.png")?;
 
         let texture_bind_group_layout =
             device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
@@ -222,46 +163,30 @@ impl State {
                 label: Some("texture_bind_group_layout"),
             });
 
-        let diffuse_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
+        let sprite_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             layout: &texture_bind_group_layout,
             entries: &[
                 wgpu::BindGroupEntry {
                     binding: 0,
-                    resource: wgpu::BindingResource::TextureView(&diffuse_texture.view),
+                    resource: wgpu::BindingResource::TextureView(&sprite_texture.view),
                 },
                 wgpu::BindGroupEntry {
                     binding: 1,
-                    resource: wgpu::BindingResource::Sampler(&diffuse_texture.sampler),
+                    resource: wgpu::BindingResource::Sampler(&sprite_texture.sampler),
                 },
             ],
-            label: Some("diffuse_bind_group"),
+            label: Some("sprite_bind_group"),
         });
 
-        let camera = Camera {
-            // position the camera 1 unit up and 2 units back
-            // +z is out of the screen
-            eye: (0.0, 1.0, 2.0).into(),
-            // have it look at the origin
-            target: (0.0, 0.0, 0.0).into(),
-            // which way is "up"
-            up: cgmath::Vector3::unit_y(),
-            aspect: config.width as f32 / config.height as f32,
-            fovy: 45.0,
-            znear: 0.1,
-            zfar: 100.0,
-        };
-
-        // in new() after creating `camera`
-
-        let mut camera_uniform = CameraUniform::new();
-        camera_uniform.update_view_proj(&camera);
-
-        let camera_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("Camera Buffer"),
-            contents: bytemuck::cast_slice(&[camera_uniform]),
+        //
+        // SCREEN SIZE BUFFER
+        //
+        let screen_size_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Screen Size Buffer"),
+            contents: bytemuck::cast_slice(&[[size.width, size.height, 0, 0]]),
             usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
         });
-        let camera_bind_group_layout =
+        let screen_size_bind_group_layout =
             device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
                 entries: &[wgpu::BindGroupLayoutEntry {
                     binding: 0,
@@ -269,77 +194,160 @@ impl State {
                     ty: wgpu::BindingType::Buffer {
                         ty: wgpu::BufferBindingType::Uniform,
                         has_dynamic_offset: false,
-                        min_binding_size: None,
+                        min_binding_size: wgpu::BufferSize::new(
+                            std::mem::size_of::<[u32; 4]>() as _
+                        ),
                     },
                     count: None,
                 }],
-                label: Some("camera_bind_group_layout"),
+                label: Some("screen_size_bind_group_layout"),
             });
 
-        let camera_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
-            layout: &camera_bind_group_layout,
+        let screen_size_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
+            layout: &screen_size_bind_group_layout,
             entries: &[wgpu::BindGroupEntry {
                 binding: 0,
-                resource: camera_buffer.as_entire_binding(),
+                resource: screen_size_buffer.as_entire_binding(),
             }],
-            label: Some("camera_bind_group"),
+            label: Some("screen_size_bind_group"),
         });
 
-        let shader = device.create_shader_module(wgpu::include_wgsl!("shader.wgsl"));
-        let render_pipeline_layout =
+        let sprite_shader = device.create_shader_module(wgpu::include_wgsl!("sprite.wgsl"));
+        let sprite_render_pipeline_layout =
             device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                label: Some("Render Pipeline Layout"),
-                bind_group_layouts: &[&texture_bind_group_layout, &camera_bind_group_layout],
+                label: Some("Sprite Render Pipeline Layout"),
+                bind_group_layouts: &[&texture_bind_group_layout, &screen_size_bind_group_layout],
                 push_constant_ranges: &[],
             });
-        let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
-            label: Some("Render Pipeline"),
-            layout: Some(&render_pipeline_layout),
-            vertex: wgpu::VertexState {
-                module: &shader,
-                entry_point: Some("vs_main"),
-                buffers: &[Vertex::desc()],
-                compilation_options: wgpu::PipelineCompilationOptions::default(),
-            },
-            fragment: Some(wgpu::FragmentState {
-                module: &shader,
-                entry_point: Some("fs_main"),
-                targets: &[Some(wgpu::ColorTargetState {
-                    format: config.format,
-                    blend: Some(wgpu::BlendState::REPLACE),
-                    write_mask: wgpu::ColorWrites::ALL,
-                })],
-                compilation_options: wgpu::PipelineCompilationOptions::default(),
-            }),
-            primitive: wgpu::PrimitiveState {
-                topology: wgpu::PrimitiveTopology::TriangleList,
-                strip_index_format: None,
-                front_face: wgpu::FrontFace::Ccw,
-                cull_mode: None,
-                unclipped_depth: false,
-                polygon_mode: wgpu::PolygonMode::Fill,
-                conservative: false,
-            },
-            depth_stencil: None,
-            multisample: wgpu::MultisampleState {
-                count: 1,
-                mask: !0,
-                alpha_to_coverage_enabled: false,
-            },
-            multiview: None,
-            cache: None,
-        });
+        let sprite_render_pipeline =
+            device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
+                label: Some("Sprite Render Pipeline"),
+                layout: Some(&sprite_render_pipeline_layout),
+                vertex: wgpu::VertexState {
+                    module: &sprite_shader,
+                    entry_point: Some("vs_main"),
+                    buffers: &[Vertex::desc(), BoidRaw::desc()],
+                    compilation_options: wgpu::PipelineCompilationOptions::default(),
+                },
+                fragment: Some(wgpu::FragmentState {
+                    module: &sprite_shader,
+                    entry_point: Some("fs_main"),
+                    targets: &[Some(wgpu::ColorTargetState {
+                        format: config.format,
+                        blend: Some(wgpu::BlendState::ALPHA_BLENDING),
+                        write_mask: wgpu::ColorWrites::ALL,
+                    })],
+                    compilation_options: wgpu::PipelineCompilationOptions::default(),
+                }),
+                primitive: wgpu::PrimitiveState {
+                    topology: wgpu::PrimitiveTopology::TriangleList,
+                    strip_index_format: None,
+                    front_face: wgpu::FrontFace::Ccw,
+                    cull_mode: None,
+                    unclipped_depth: false,
+                    polygon_mode: wgpu::PolygonMode::Fill,
+                    conservative: false,
+                },
+                depth_stencil: None,
+                multisample: wgpu::MultisampleState {
+                    count: 1,
+                    mask: !0,
+                    alpha_to_coverage_enabled: false,
+                },
+                multiview: None,
+                cache: None,
+            });
 
-        let vertex_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("Vertex Buffer"),
-            contents: bytemuck::cast_slice(VERTICES),
+        let network_shader = device.create_shader_module(wgpu::include_wgsl!("network.wgsl"));
+
+        let network_render_pipeline_layout =
+            device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+                label: Some("Network Render Pipeline Layout"),
+                bind_group_layouts: &[&screen_size_bind_group_layout],
+                push_constant_ranges: &[],
+            });
+        let network_render_pipeline =
+            device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
+                label: Some("Network Render Pipeline"),
+                layout: Some(&network_render_pipeline_layout),
+                vertex: wgpu::VertexState {
+                    module: &network_shader,
+                    entry_point: Some("vs_main"),
+                    buffers: &[SimpleVertex::desc(), LineRaw::desc()],
+                    compilation_options: wgpu::PipelineCompilationOptions::default(),
+                },
+                fragment: Some(wgpu::FragmentState {
+                    module: &network_shader,
+                    entry_point: Some("fs_main"),
+                    targets: &[Some(wgpu::ColorTargetState {
+                        format: config.format,
+                        blend: Some(wgpu::BlendState::ALPHA_BLENDING),
+                        write_mask: wgpu::ColorWrites::ALL,
+                    })],
+                    compilation_options: wgpu::PipelineCompilationOptions::default(),
+                }),
+                primitive: wgpu::PrimitiveState {
+                    topology: wgpu::PrimitiveTopology::TriangleList,
+                    strip_index_format: None,
+                    front_face: wgpu::FrontFace::Ccw,
+                    cull_mode: None,
+                    unclipped_depth: false,
+                    polygon_mode: wgpu::PolygonMode::Fill,
+                    conservative: false,
+                },
+                depth_stencil: None,
+                multisample: wgpu::MultisampleState {
+                    count: 1,
+                    mask: !0,
+                    alpha_to_coverage_enabled: false,
+                },
+                multiview: None,
+                cache: None,
+            });
+
+        let sprite_vertex_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Sprite Vertex Buffer"),
+            contents: bytemuck::cast_slice(boid_sprite::VERTICES),
             usage: wgpu::BufferUsages::VERTEX,
         });
-        let index_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("Index Buffer"),
-            contents: bytemuck::cast_slice(INDICES),
+        let sprite_index_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Sprite Index Buffer"),
+            contents: bytemuck::cast_slice(boid_sprite::INDICES),
             usage: wgpu::BufferUsages::INDEX,
         });
+
+        let line_vertex_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Line Vertex Buffer"),
+            contents: bytemuck::cast_slice(thick_line::VERTICES),
+            usage: wgpu::BufferUsages::VERTEX,
+        });
+        let line_index_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Line Index Buffer"),
+            contents: bytemuck::cast_slice(thick_line::INDICES),
+            usage: wgpu::BufferUsages::INDEX,
+        });
+
+        //
+        // GET DOM ELEMENTS
+        //
+        let sep_slider = document
+            .get_element_by_id("sep-slider")
+            .unwrap()
+            .dyn_into::<HtmlInputElement>()
+            .unwrap();
+        sep_slider.set_value("0.5");
+        let ali_slider = document
+            .get_element_by_id("ali-slider")
+            .unwrap()
+            .dyn_into::<HtmlInputElement>()
+            .unwrap();
+        ali_slider.set_value("0.5");
+        let coh_slider = document
+            .get_element_by_id("coh-slider")
+            .unwrap()
+            .dyn_into::<HtmlInputElement>()
+            .unwrap();
+        coh_slider.set_value("0.5");
 
         Ok(Self {
             surface,
@@ -348,17 +356,23 @@ impl State {
             config,
             is_surface_configured: false,
             window,
-            render_pipeline,
-            vertex_buffer,
-            num_vertices: VERTICES.len() as u32,
-            index_buffer,
-            num_indices: INDICES.len() as u32,
-            diffuse_bind_group,
-            diffuse_texture,
-            camera,
-            camera_uniform,
-            camera_buffer,
-            camera_bind_group,
+            sprite_render_pipeline,
+            network_render_pipeline,
+            sprite_vertex_buffer,
+            sprite_index_buffer,
+            line_vertex_buffer,
+            line_index_buffer,
+            network_lines,
+            network_buffer,
+            sprite_bind_group,
+            screen_size_buffer,
+            screen_size_bind_group,
+            boids,
+            boid_buffer,
+            last_frame_time: 0.0,
+            sep_slider,
+            ali_slider,
+            coh_slider,
         })
     }
 
@@ -366,25 +380,46 @@ impl State {
         if width > 0 && height > 0 {
             self.config.width = width;
             self.config.height = height;
-            self.camera.aspect = width as f32 / height as f32;
             self.surface.configure(&self.device, &self.config);
             self.is_surface_configured = true;
-        }
-    }
-
-    fn handle_key(&mut self, event_loop: &ActiveEventLoop, code: KeyCode, is_pressed: bool) {
-        if code == KeyCode::Escape && is_pressed {
-            event_loop.exit();
+            self.queue.write_buffer(
+                &self.screen_size_buffer,
+                0,
+                bytemuck::cast_slice(&[[width, height, 0, 0]]),
+            );
         }
     }
 
     fn update(&mut self) {
-        self.camera_uniform.update_view_proj(&self.camera);
-        self.queue.write_buffer(
-            &self.camera_buffer,
-            0,
-            bytemuck::cast_slice(&[self.camera_uniform]),
+        let sep_scale = self.sep_slider.value_as_number();
+        let ali_scale = self.ali_slider.value_as_number();
+        let coh_scale = self.coh_slider.value_as_number();
+        (self.last_frame_time, self.network_lines) = boids::update_boids(
+            &mut self.boids,
+            self.config.width as f32,
+            self.config.height as f32,
+            self.last_frame_time,
+            sep_scale as f32,
+            ali_scale as f32,
+            coh_scale as f32,
+            &mut rng::get_rng(),
         );
+
+        self.network_buffer = self
+            .device
+            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                label: Some("Network Buffer"),
+                contents: bytemuck::cast_slice(&self.network_lines),
+                usage: wgpu::BufferUsages::VERTEX,
+            });
+        let boid_data = self
+            .boids
+            .iter()
+            .map(Boid::to_raw)
+            .collect::<Vec<BoidRaw>>();
+
+        self.queue
+            .write_buffer(&self.boid_buffer, 0, bytemuck::cast_slice(&boid_data));
     }
 
     pub fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
@@ -429,12 +464,31 @@ impl State {
                 timestamp_writes: None,
             });
 
-            render_pass.set_pipeline(&self.render_pipeline);
-            render_pass.set_bind_group(0, &self.diffuse_bind_group, &[]);
-            render_pass.set_bind_group(1, &self.camera_bind_group, &[]);
-            render_pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
-            render_pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint16);
-            render_pass.draw_indexed(0..self.num_indices, 0, 0..1);
+            render_pass.set_pipeline(&self.network_render_pipeline);
+            render_pass.set_bind_group(0, &self.screen_size_bind_group, &[]);
+            render_pass.set_vertex_buffer(0, self.line_vertex_buffer.slice(..));
+            render_pass.set_vertex_buffer(1, self.network_buffer.slice(..));
+            render_pass
+                .set_index_buffer(self.line_index_buffer.slice(..), wgpu::IndexFormat::Uint16);
+            render_pass.draw_indexed(
+                0..thick_line::INDICES.len() as u32,
+                0,
+                0..self.network_lines.len() as _,
+            );
+            render_pass.set_pipeline(&self.sprite_render_pipeline);
+            render_pass.set_bind_group(0, &self.sprite_bind_group, &[]);
+            render_pass.set_bind_group(1, &self.screen_size_bind_group, &[]);
+            render_pass.set_vertex_buffer(0, self.sprite_vertex_buffer.slice(..));
+            render_pass.set_vertex_buffer(1, self.boid_buffer.slice(..));
+            render_pass.set_index_buffer(
+                self.sprite_index_buffer.slice(..),
+                wgpu::IndexFormat::Uint16,
+            );
+            render_pass.draw_indexed(
+                0..boid_sprite::INDICES.len() as u32,
+                0,
+                0..self.boids.len() as _,
+            );
         }
 
         // submit will accept anything that implements IntoIter
@@ -442,110 +496,6 @@ impl State {
         output.present();
 
         Ok(())
-    }
-}
-
-pub struct App {
-    proxy: Option<winit::event_loop::EventLoopProxy<State>>,
-    state: Option<State>,
-}
-
-impl App {
-    pub fn new(event_loop: &EventLoop<State>) -> Self {
-        let proxy = Some(event_loop.create_proxy());
-        Self {
-            state: None,
-            #[cfg(target_arch = "wasm32")]
-            proxy,
-        }
-    }
-}
-
-impl ApplicationHandler<State> for App {
-    fn resumed(&mut self, event_loop: &ActiveEventLoop) {
-        let mut window_attributes = Window::default_attributes();
-
-        use wasm_bindgen::JsCast;
-        use winit::platform::web::WindowAttributesExtWebSys;
-
-        const CANVAS_ID: &str = "glcanvas";
-
-        let window = wgpu::web_sys::window().unwrap_throw();
-        let document = window.document().unwrap_throw();
-        let canvas = document.get_element_by_id(CANVAS_ID).unwrap_throw();
-        let html_canvas_element = canvas.unchecked_into();
-        window_attributes = window_attributes.with_canvas(Some(html_canvas_element));
-
-        let window = Arc::new(event_loop.create_window(window_attributes).unwrap());
-
-        // Run the future asynchronously and use the
-        // proxy to send the results to the event loop
-        if let Some(proxy) = self.proxy.take() {
-            wasm_bindgen_futures::spawn_local(async move {
-                assert!(
-                    proxy
-                        .send_event(
-                            State::new(window)
-                                .await
-                                .expect("Unable to create canvas!!!")
-                        )
-                        .is_ok()
-                )
-            });
-        }
-    }
-
-    fn user_event(&mut self, _event_loop: &ActiveEventLoop, mut event: State) {
-        // This is where proxy.send_event() ends up
-
-        event.window.request_redraw();
-        event.resize(
-            event.window.inner_size().width,
-            event.window.inner_size().height,
-        );
-
-        self.state = Some(event);
-    }
-
-    fn window_event(
-        &mut self,
-        event_loop: &ActiveEventLoop,
-        _window_id: winit::window::WindowId,
-        event: WindowEvent,
-    ) {
-        let state = match &mut self.state {
-            Some(canvas) => canvas,
-            None => return,
-        };
-
-        match event {
-            WindowEvent::CloseRequested => event_loop.exit(),
-            WindowEvent::Resized(size) => state.resize(size.width, size.height),
-            WindowEvent::RedrawRequested => {
-                state.update();
-
-                match state.render() {
-                    Ok(_) => (),
-                    Err(wgpu::SurfaceError::Lost | wgpu::SurfaceError::Outdated) => {
-                        let size = state.window.inner_size();
-                        state.resize(size.width, size.height);
-                    }
-                    Err(e) => {
-                        log::error!("Unable to render {}", e);
-                    }
-                }
-            }
-            WindowEvent::KeyboardInput {
-                event:
-                    KeyEvent {
-                        physical_key: PhysicalKey::Code(code),
-                        state: key_state,
-                        ..
-                    },
-                ..
-            } => state.handle_key(event_loop, code, key_state.is_pressed()),
-            _ => {}
-        }
     }
 }
 

@@ -23,9 +23,17 @@ console_log = "1.0"
 wgpu = { version = "27.0.0", features = ["webgl"] }
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4.30"
-web-sys = { version = "0.3", features = ["Document", "Window", "Element"] }
+web-sys = { version = "0.3", features = [
+  "Document",
+  "Window",
+  "Element",
+  "HtmlInputElement",
+] }
 bytemuck = { version = "1.24.0", features = ["derive"] }
 cgmath = "0.18.0"
+rand = "0.10.0"
+getrandom = { version = "0.4.2", features = ["wasm_js"] }
+wasm-timer = "0.2.5"
 
 [dependencies.image]
 version = "0.24"
