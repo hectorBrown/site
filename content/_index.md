@@ -14,12 +14,12 @@ about [how I used WebGPU](./blog/webgpu) or [what boids are](./blog/boids).
 
 <style>
 #control-panel {
+    display: grid;
     grid-template-columns: auto 1fr;
     gap: 1vw 2vw;
     margin: 1vw;
   }
-  .control-row {
-    display: flex; /* allows grid children to be direct grid items */
+  #control-panel {
     align-items: center; /* vertically centers the label and slider */
     gap: 1em;
     margin: 1vw;
@@ -27,16 +27,10 @@ about [how I used WebGPU](./blog/webgpu) or [what boids are](./blog/boids).
 </style>
 
 <div id="control-panel">
-  <div class="control-row">
     <label for="sep-slider">Separation:</label>
     <input type="range" min="0" max="1" value="0.5" step="0.01" class="slider" id="sep-slider">
-  </div>
-  <div class="control-row">
     <label for="sep-slider">Alignment:</label>
     <input type="range" min="0" max="1" value="0.5" step="0.01" class="slider" id="ali-slider">
-  </div>
-  <div class="control-row">
     <label for="sep-slider">Coherence:</label>
     <input type="range" min="0" max="1" value="0.5" step="0.01" class="slider" id="coh-slider">
-  </div>
 </div>
