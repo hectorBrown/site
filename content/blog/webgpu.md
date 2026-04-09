@@ -27,3 +27,18 @@ shaders while implementing this.
 {{< toc >}}
 
 ## An oh-so-brief introduction to shaders
+
+<style>
+   .float-images {
+      float: right;
+      width: 50%;
+   }
+   @media screen and (max-width: 600px) {
+      .float-images {
+         width: 100%;
+      }
+   }
+</style>
+
+<img src="/images/blog/webgpu/tri.svg" class="float-images" alt="A diagram of a
+  triangle being rendered by the GPU">
