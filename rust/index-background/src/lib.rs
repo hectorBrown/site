@@ -13,7 +13,7 @@ use crate::vertex::{SimpleVertex, Vertex};
 
 use std::sync::Arc;
 use wasm_bindgen::prelude::*;
-use web_sys::{HtmlElement, HtmlInputElement};
+use web_sys::HtmlInputElement;
 use wgpu::util::DeviceExt;
 use winit::{event_loop::EventLoop, window::Window};
 
@@ -118,17 +118,26 @@ impl State {
             usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
         });
 
+        // just take a pair of every boid to set an upper bound for the required buffer size
         let network_lines: Vec<LineRaw> = boids
             .iter()
-            .map(|b| LineRaw {
-                position1: [b.pos.x, b.pos.y],
-                position2: [b.pos.x, b.pos.y],
+            .flat_map(|b| {
+                boids.iter().filter_map(|other_boid| {
+                    if b.id < other_boid.id {
+                        Some(LineRaw {
+                            position1: [b.pos.x, b.pos.y],
+                            position2: [other_boid.pos.x, other_boid.pos.y],
+                        })
+                    } else {
+                        None
+                    }
+                })
             })
             .collect();
         let network_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Network Buffer"),
             contents: bytemuck::cast_slice(&network_lines),
-            usage: wgpu::BufferUsages::VERTEX,
+            usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
         });
 
         //
@@ -181,9 +190,10 @@ impl State {
         //
         // SCREEN SIZE BUFFER
         //
+
         let screen_size_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Screen Size Buffer"),
-            contents: bytemuck::cast_slice(&[[size.width, size.height, 0, 0]]),
+            contents: bytemuck::cast_slice(&window_size_matrix(size.width, size.height)),
             usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
         });
         let screen_size_bind_group_layout =
@@ -195,7 +205,7 @@ impl State {
                         ty: wgpu::BufferBindingType::Uniform,
                         has_dynamic_offset: false,
                         min_binding_size: wgpu::BufferSize::new(
-                            std::mem::size_of::<[u32; 4]>() as _
+                            std::mem::size_of::<[[f32; 4]; 4]>() as _,
                         ),
                     },
                     count: None,
@@ -216,7 +226,7 @@ impl State {
         let sprite_render_pipeline_layout =
             device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
                 label: Some("Sprite Render Pipeline Layout"),
-                bind_group_layouts: &[&texture_bind_group_layout, &screen_size_bind_group_layout],
+                bind_group_layouts: &[&screen_size_bind_group_layout, &texture_bind_group_layout],
                 push_constant_ranges: &[],
             });
         let sprite_render_pipeline =
@@ -385,7 +395,7 @@ impl State {
             self.queue.write_buffer(
                 &self.screen_size_buffer,
                 0,
-                bytemuck::cast_slice(&[[width, height, 0, 0]]),
+                bytemuck::cast_slice(&window_size_matrix(width, height)),
             );
         }
     }
@@ -394,24 +404,25 @@ impl State {
         let sep_scale = self.sep_slider.value_as_number();
         let ali_scale = self.ali_slider.value_as_number();
         let coh_scale = self.coh_slider.value_as_number();
-        (self.last_frame_time, self.network_lines) = boids::update_boids(
+        let time_now: f32 = web_sys::window().unwrap().performance().unwrap().now() as f32;
+        self.network_lines = boids::update_boids(
             &mut self.boids,
             self.config.width as f32,
             self.config.height as f32,
             self.last_frame_time,
+            time_now,
             sep_scale as f32,
             ali_scale as f32,
             coh_scale as f32,
             &mut rng::get_rng(),
         );
+        self.last_frame_time = time_now;
 
-        self.network_buffer = self
-            .device
-            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some("Network Buffer"),
-                contents: bytemuck::cast_slice(&self.network_lines),
-                usage: wgpu::BufferUsages::VERTEX,
-            });
+        self.queue.write_buffer(
+            &self.network_buffer,
+            0,
+            bytemuck::cast_slice(&self.network_lines),
+        );
         let boid_data = self
             .boids
             .iter()
@@ -476,8 +487,7 @@ impl State {
                 0..self.network_lines.len() as _,
             );
             render_pass.set_pipeline(&self.sprite_render_pipeline);
-            render_pass.set_bind_group(0, &self.sprite_bind_group, &[]);
-            render_pass.set_bind_group(1, &self.screen_size_bind_group, &[]);
+            render_pass.set_bind_group(1, &self.sprite_bind_group, &[]);
             render_pass.set_vertex_buffer(0, self.sprite_vertex_buffer.slice(..));
             render_pass.set_vertex_buffer(1, self.boid_buffer.slice(..));
             render_pass.set_index_buffer(
@@ -497,6 +507,15 @@ impl State {
 
         Ok(())
     }
+}
+
+fn window_size_matrix(width: u32, height: u32) -> [[f32; 4]; 4] {
+    [
+        [2.0 / width as f32, 0.0, 0.0, -1.0],
+        [0.0, -2.0 / height as f32, 0.0, 1.0],
+        [0.0, 0.0, 1.0, 0.0],
+        [0.0, 0.0, 0.0, 1.0],
+    ]
 }
 
 pub fn run() -> anyhow::Result<()> {

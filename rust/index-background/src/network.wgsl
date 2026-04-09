@@ -6,7 +6,7 @@ struct VertexInput {
 
 struct VertexOutput {
     @builtin(position) clip_position: vec4<f32>,
-    @location(0) length: f32,
+    @location(0) alpha: f32,
 }
 
 struct InstanceInput {
@@ -17,7 +17,7 @@ struct InstanceInput {
 
 
 @group(0) @binding(0)
-var<uniform> screen_size: vec4<u32>;
+var<uniform> to_ndc: mat4x4f;
 
 fn rotate2d(v: vec2<f32>, angle: f32) -> vec2<f32> {
     let c = cos(angle);
@@ -34,6 +34,7 @@ fn vs_main(
     instance: InstanceInput,
 ) -> VertexOutput {
     var out: VertexOutput;
+    //TODO: this whole transformation should be a matrix generated on CPU
     var separation = instance.position2 - instance.position1;
     var line_length = length(separation);
 
@@ -43,13 +44,8 @@ fn vs_main(
     atan2(separation.y, separation.x));
     var pixel_out = rotated + instance.position1;
     
-    out.clip_position = vec4<f32>(
-        (pixel_out.x / f32(screen_size.x)) * 2.0 - 1.0, // 3.
-        (pixel_out.y / f32(screen_size.y)) * -2.0 + 1.0, // 3.
-        0.0,
-        1.0
-    );
-  out.length = line_length;
+    out.clip_position = vec4<f32>(pixel_out.xy, 0.0, 1.0) * to_ndc;
+    out.alpha = (100.0 - line_length) / 100.0;
     return out;
 }
 
@@ -57,6 +53,6 @@ fn vs_main(
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
-    return vec4<f32>(235.0 / 255.0, 219.0 / 255.0, 178.0 / 255.0, (100.0 - in.length) / 100.0);
+    return vec4<f32>(235.0 / 255.0, 219.0 / 255.0, 178.0 / 255.0, in.alpha);
 }
 

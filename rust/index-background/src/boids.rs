@@ -10,15 +10,9 @@ const SEP_SCALE: u8 = 64;
 const ALI_SCALE: u8 = 128;
 const COH_SCALE: u8 = 255;
 const RAN_SCALE: u8 = 8;
-// const PPB: u16 = 8645;
-const PPB: u16 = 4000;
-const SPEED: f32 = 1.0;
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = Date)]
-    fn now() -> f32;
-}
+const PPB: u16 = 8645;
+// const PPB: u16 = 4000;
+const SPEED: f32 = 1.0 * 0.1;
 
 fn sigmoid(x: f32) -> f32 {
     1.0 / (1.0 + (-x).exp())
@@ -157,7 +151,7 @@ fn get_influences(
     for other_boid in in_locality.iter() {
         if other_boid != &boid {
             let mut dist = other_boid.pos - boid.pos;
-            if dist.magnitude() < LOCALITY_R {
+            if dist.x * dist.x + dist.y * dist.y < LOCALITY_R * LOCALITY_R {
                 dist = -dist.normalize() * dist.magnitude().powf(-1.0);
                 dist_tot += dist;
 
@@ -185,11 +179,12 @@ pub fn update_boids(
     width: f32,
     height: f32,
     last_frame_time: f32,
+    time_now: f32,
     sep_scale: f32,
     ali_scale: f32,
     coh_scale: f32,
     rng: &mut SmallRng,
-) -> (f32, Vec<LineRaw>) {
+) -> Vec<LineRaw> {
     let mut network_lines: Vec<LineRaw> = Vec::new();
     update_boid_zones(boids, (width, height));
     let zones = refresh_zones(boids, (width, height));
@@ -220,7 +215,6 @@ pub fn update_boids(
         // RETURN BOIDS
     }
 
-    let end_time = now();
     for (total, boid) in totals.iter().zip(boids.iter_mut()) {
         let perp_vect = Vector2::new(boid.dir.cos(), boid.dir.sin());
 
@@ -241,13 +235,11 @@ pub fn update_boids(
             / 360.0
             * 2.0
             * std::f32::consts::PI;
-        let deltatime = end_time - last_frame_time;
-        if deltatime < 0.1 {
-            boid.pos.x += SPEED * boid.dir.sin() * (end_time - last_frame_time) as f32;
-            boid.pos.y += -SPEED * boid.dir.cos() * (end_time - last_frame_time) as f32;
+        let deltatime = time_now - last_frame_time;
+        if deltatime < 100.0 {
+            boid.pos.x += SPEED * boid.dir.sin() * deltatime;
+            boid.pos.y += -SPEED * boid.dir.cos() * deltatime;
         }
-        boid.pos.x += SPEED * boid.dir.sin();
-        boid.pos.y += -SPEED * boid.dir.cos();
     }
-    (last_frame_time, network_lines)
+    network_lines
 }
