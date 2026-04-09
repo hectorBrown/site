@@ -9,7 +9,9 @@ The last [post](/blog/p5js) completely ignored the actual animation my
 idea rather than my implementation. However,
 [boids](https://en.wikipedia.org/wiki/Boids) are pretty interesting, and maybe
 simpler than they look, so I thought I'd write about how I set them up.
+
 <!--more-->
+
 {{< toc >}}
 
 ## What are they?
@@ -31,6 +33,7 @@ negative feedback that produces the unique motion.
 
 I put together a little sprite, gave the boid a direction, speed and random
 starting position and voilà:
+
 <div id="eg-1-parent" style="width: 100%; height: auto;"></div>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> <!--
 load p5.js from CDN-->
@@ -80,8 +83,9 @@ steering.
    boids that are very close have more of an effect on the final steer, which
    preserves the spirit of the rule: to avoid overcrowding.
 
-   These inverse distances are summed, and the negative of the resultant vector
-   is taken (displayed in orange).
+These inverse distances are summed, and the negative of the resultant vector
+is taken (displayed in orange).
+
    </div></li>
    <li><div style="overflow: auto"><b>Alignment</b><br><img
    src="/images/blog/boids/alignment.png" class="rule-images" alt="Diagram
