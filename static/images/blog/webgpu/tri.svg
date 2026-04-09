@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="90.625145mm"
+   height="59.325844mm"
+   viewBox="0 0 90.625145 59.325844"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid"
+       markerUnits="strokeWidth">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-0"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-2" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-6"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="0.5"
+       markerHeight="0.5"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid"
+       markerUnits="strokeWidth">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-6-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="0.5"
+       markerHeight="0.5"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid"
+       markerUnits="strokeWidth">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-3-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-6-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="0.5"
+       markerHeight="0.5"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid"
+       markerUnits="strokeWidth">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-3-4" />
+    </marker>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-54.320605,-89.475722)">
+    <path
+       style="fill:#665c54;stroke:#665c54;stroke-width:0.997857"
+       d="m 76.484739,93.16457 64.772151,38.47206 -83.247434,13.47608 z"
+       id="path2" />
+    <circle
+       style="fill:#8ec07c;stroke:#8ec07c;stroke-width:0.515411"
+       id="path1"
+       r="3.4311457"
+       cy="93.164574"
+       cx="76.484741" />
+    <circle
+       style="fill:#8ec07c;stroke:#8ec07c;stroke-width:0.515411"
+       id="path1-3"
+       cx="141.2569"
+       cy="131.63663"
+       r="3.4311457" />
+    <circle
+       style="fill:#8ec07c;stroke:#8ec07c;stroke-width:0.515411"
+       id="path1-6"
+       cx="58.009457"
+       cy="145.11272"
+       r="3.4311457" />
+    <path
+       style="fill:#504945;stroke:#d5c4a1;stroke-width:1.047;stroke-dasharray:none;marker-end:url(#Triangle)"
+       d="m 77.24911,93.618576 59.55084,35.370814"
+       id="path3" />
+    <path
+       style="fill:#504945;stroke:#d5c4a1;stroke-width:1.047;stroke-dasharray:none;marker-end:url(#Triangle-0)"
+       d="M 139.11776,131.98291 61.440602,145.11272"
+       id="path3-5" />
+    <path
+       style="fill:#504945;stroke:#d5c4a1;stroke-width:1.047;stroke-dasharray:none;marker-end:url(#Triangle-2)"
+       d="M 57.770567,143.60888 74.834251,96.17267"
+       id="path3-3" />
+    <path
+       style="fill:#665c54;stroke:#665c54;stroke-width:1.047;stroke-dasharray:none"
+       d="m 78.904111,126.49446 0.478278,-5.1654 6.887209,-1.7218"
+       id="path4" />
+    <g
+       id="g6"
+       transform="matrix(1.5515861,0,0,1.5515861,-101.00472,-36.828851)">
+      <path
+         style="fill:none;stroke:#83a598;stroke-width:1.047;stroke-dasharray:none;marker-end:url(#Triangle-6)"
+         d="m 118.19803,102.89465 c 0,0 -0.54984,-3.390667 2.16254,-4.810432"
+         id="path5-6" />
+      <path
+         style="fill:none;stroke:#83a598;stroke-width:1.047;stroke-dasharray:none;marker-end:url(#Triangle-6-3)"
+         d="m 125.27744,97.540636 c 0,0 3.1922,1.268367 3.0185,4.324974"
+         id="path5-6-2" />
+      <path
+         style="fill:none;stroke:#83a598;stroke-width:1.047;stroke-dasharray:none;marker-end:url(#Triangle-6-7)"
+         d="m 125.9587,106.57242 c 0,0 -2.90251,1.83694 -5.27321,-0.1002"
+         id="path5-6-0" />
+    </g>
+  </g>
+</svg>
