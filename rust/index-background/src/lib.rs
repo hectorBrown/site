@@ -43,6 +43,7 @@ pub struct State {
     sep_slider: HtmlInputElement,
     ali_slider: HtmlInputElement,
     coh_slider: HtmlInputElement,
+    staging_belt: wgpu::util::StagingBelt,
 }
 
 impl State {
@@ -357,6 +358,8 @@ impl State {
             .unwrap();
         coh_slider.set_value("0.5");
 
+        let staging_belt = wgpu::util::StagingBelt::new(1024 * 100);
+
         Ok(Self {
             surface,
             device,
@@ -382,6 +385,7 @@ impl State {
             sep_slider,
             ali_slider,
             coh_slider,
+            staging_belt,
         })
     }
 
@@ -417,21 +421,45 @@ impl State {
         );
         self.last_frame_time = time_now;
 
-        // TODO: move to staging belt
-        self.queue.write_buffer(
-            &self.network_buffer,
-            0,
-            bytemuck::cast_slice(&self.network_lines),
-        );
         for (raw, boid) in self.boids_matrices.iter_mut().zip(self.boids.iter()) {
             *raw = boid.to_raw();
         }
 
-        self.queue.write_buffer(
-            &self.boid_buffer,
-            0,
-            bytemuck::cast_slice(&self.boids_matrices),
-        );
+        if !self.network_lines.is_empty() && !self.boids_matrices.is_empty() {
+            let mut encoder = self
+                .device
+                .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                    label: Some("Buffer Update Encoder"),
+                });
+            {
+                let mut network_lines_view = self.staging_belt.write_buffer(
+                    &mut encoder,
+                    &self.network_buffer,
+                    0,
+                    std::num::NonZeroU64::new(
+                        (self.network_lines.len() * std::mem::size_of::<LineRaw>()) as u64,
+                    )
+                    .unwrap(),
+                    &self.device,
+                );
+
+                network_lines_view.copy_from_slice(bytemuck::cast_slice(&self.network_lines));
+                let mut boid_buffer_view = self.staging_belt.write_buffer(
+                    &mut encoder,
+                    &self.boid_buffer,
+                    0,
+                    std::num::NonZeroU64::new(
+                        (self.boids_matrices.len() * std::mem::size_of::<BoidRaw>()) as u64,
+                    )
+                    .unwrap(),
+                    &self.device,
+                );
+                boid_buffer_view.copy_from_slice(bytemuck::cast_slice(&self.boids_matrices));
+            }
+            self.staging_belt.finish();
+            self.queue.submit(std::iter::once(encoder.finish()));
+            self.staging_belt.recall();
+        }
     }
 
     pub fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
