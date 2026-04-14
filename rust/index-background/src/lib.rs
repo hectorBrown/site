@@ -44,6 +44,7 @@ pub struct State {
     ali_slider: HtmlInputElement,
     coh_slider: HtmlInputElement,
     staging_belt: wgpu::util::StagingBelt,
+    rng: rand::rngs::SmallRng,
 }
 
 impl State {
@@ -359,6 +360,7 @@ impl State {
         coh_slider.set_value("0.5");
 
         let staging_belt = wgpu::util::StagingBelt::new(1024 * 100);
+        let rng = rng::get_rng();
 
         Ok(Self {
             surface,
@@ -386,6 +388,7 @@ impl State {
             ali_slider,
             coh_slider,
             staging_belt,
+            rng,
         })
     }
 
@@ -417,7 +420,7 @@ impl State {
             sep_scale as f32,
             ali_scale as f32,
             coh_scale as f32,
-            &mut rng::get_rng(),
+            &mut self.rng,
         );
         self.last_frame_time = time_now;
 
