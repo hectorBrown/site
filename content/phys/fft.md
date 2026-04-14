@@ -1,7 +1,7 @@
 ---
 title: "FFT"
 date: 2024-10-13T13:16:27+01:00
-draft: false
+draft: true
 ---
 
 <div id="waves-parent" style="width: 100%; height: auto;"></div>
