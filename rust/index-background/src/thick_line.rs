@@ -5,19 +5,19 @@ use crate::vertex::Vertex;
 const THICKNESS: f32 = 2.0;
 pub const VERTICES: &[Vertex] = &[
     Vertex {
-        position: [0.0, THICKNESS / 2.0, 0.0],
+        position: [0.0, THICKNESS / 2.0],
         tex_coords: [0.0, 0.0],
     }, // A
     Vertex {
-        position: [0.0, -THICKNESS / 2.0, 0.0],
+        position: [0.0, -THICKNESS / 2.0],
         tex_coords: [1.0, 0.0],
     }, // B
     Vertex {
-        position: [1.0, THICKNESS / 2.0, 0.0],
+        position: [1.0, THICKNESS / 2.0],
         tex_coords: [0.0, 1.0],
     }, // C
     Vertex {
-        position: [1.0, -THICKNESS / 2.0, 0.0],
+        position: [1.0, -THICKNESS / 2.0],
         tex_coords: [1.0, 1.0],
     }, // D
 ];
