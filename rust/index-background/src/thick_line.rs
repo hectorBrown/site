@@ -27,7 +27,7 @@ pub const INDICES: &[u16] = &[0, 2, 3, 0, 3, 1];
 #[repr(C)]
 #[derive(Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct LineRaw {
-    pub transformation: [[f32; 4]; 4],
+    pub transformation: [[f32; 3]; 2],
     pub alpha: f32,
 }
 
@@ -42,10 +42,8 @@ impl LineRaw {
         let length = sep.magnitude();
         LineRaw {
             transformation: [
-                [dir.cos() * length, -dir.sin(), 0.0, position1.x],
-                [dir.sin() * length, dir.cos(), 0.0, position1.y],
-                [0.0, 0.0, 1.0, 0.0],
-                [0.0, 0.0, 0.0, 1.0],
+                [dir.cos() * length, -dir.sin(), position1.x],
+                [dir.sin() * length, dir.cos(), position1.y],
             ],
             alpha: (max_line_length - length) / max_line_length,
         }
@@ -64,26 +62,16 @@ impl LineRaw {
                 wgpu::VertexAttribute {
                     offset: 0,
                     shader_location: 1,
-                    format: wgpu::VertexFormat::Float32x4,
+                    format: wgpu::VertexFormat::Float32x3,
                 },
                 wgpu::VertexAttribute {
-                    offset: mem::size_of::<[f32; 4]>() as wgpu::BufferAddress,
+                    offset: mem::size_of::<[f32; 3]>() as wgpu::BufferAddress,
                     shader_location: 2,
-                    format: wgpu::VertexFormat::Float32x4,
+                    format: wgpu::VertexFormat::Float32x3,
                 },
                 wgpu::VertexAttribute {
-                    offset: mem::size_of::<[[f32; 4]; 2]>() as wgpu::BufferAddress,
+                    offset: mem::size_of::<[[f32; 3]; 2]>() as wgpu::BufferAddress,
                     shader_location: 3,
-                    format: wgpu::VertexFormat::Float32x4,
-                },
-                wgpu::VertexAttribute {
-                    offset: mem::size_of::<[[f32; 4]; 3]>() as wgpu::BufferAddress,
-                    shader_location: 4,
-                    format: wgpu::VertexFormat::Float32x4,
-                },
-                wgpu::VertexAttribute {
-                    offset: mem::size_of::<[[f32; 4]; 4]>() as wgpu::BufferAddress,
-                    shader_location: 5,
                     format: wgpu::VertexFormat::Float32,
                 },
             ],

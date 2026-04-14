@@ -29,10 +29,8 @@ impl Boid {
     pub fn to_raw(&self) -> BoidRaw {
         BoidRaw {
             transformation: [
-                [self.dir.cos(), -self.dir.sin(), 0.0, self.pos.x],
-                [self.dir.sin(), self.dir.cos(), 0.0, self.pos.y],
-                [0.0, 0.0, 1.0, 0.0],
-                [0.0, 0.0, 0.0, 1.0],
+                [self.dir.cos(), -self.dir.sin(), self.pos.x],
+                [self.dir.sin(), self.dir.cos(), self.pos.y],
             ],
         }
     }
@@ -41,7 +39,7 @@ impl Boid {
 #[repr(C)]
 #[derive(Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct BoidRaw {
-    transformation: [[f32; 4]; 4],
+    transformation: [[f32; 3]; 2],
 }
 
 impl BoidRaw {
@@ -61,22 +59,12 @@ impl BoidRaw {
                     // While our vertex shader only uses locations 0, and 1 now, in later tutorials, we'll
                     // be using 2, 3, and 4, for Vertex. We'll start at slot 5, not conflict with them later
                     shader_location: 2,
-                    format: wgpu::VertexFormat::Float32x4,
+                    format: wgpu::VertexFormat::Float32x3,
                 },
                 wgpu::VertexAttribute {
-                    offset: mem::size_of::<[f32; 4]>() as wgpu::BufferAddress,
+                    offset: mem::size_of::<[f32; 3]>() as wgpu::BufferAddress,
                     shader_location: 3,
-                    format: wgpu::VertexFormat::Float32x4,
-                },
-                wgpu::VertexAttribute {
-                    offset: mem::size_of::<[[f32; 4]; 2]>() as wgpu::BufferAddress,
-                    shader_location: 4,
-                    format: wgpu::VertexFormat::Float32x4,
-                },
-                wgpu::VertexAttribute {
-                    offset: mem::size_of::<[[f32; 4]; 3]>() as wgpu::BufferAddress,
-                    shader_location: 5,
-                    format: wgpu::VertexFormat::Float32x4,
+                    format: wgpu::VertexFormat::Float32x3,
                 },
             ],
         }

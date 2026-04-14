@@ -10,26 +10,16 @@ struct VertexOutput {
 }
 
 struct InstanceInput {
-  @location(1) row0: vec4<f32>,
-  @location(2) row1: vec4<f32>,
-  @location(3) row2: vec4<f32>,
-  @location(4) row3: vec4<f32>,
-  @location(5) alpha: f32,
+  @location(1) row0: vec3<f32>,
+  @location(2) row1: vec3<f32>,
+  @location(3) alpha: f32,
 }
 
 
 
 @group(0) @binding(0)
-var<uniform> to_ndc: mat4x4f;
+var<uniform> to_ndc: mat2x4f;
 
-fn rotate2d(v: vec2<f32>, angle: f32) -> vec2<f32> {
-    let c = cos(angle);
-    let s = sin(angle);
-    return vec2<f32>(
-        c * v.x - s * v.y,
-        s * v.x + c * v.y
-    );
-}
 
 @vertex
 fn vs_main(
@@ -37,14 +27,14 @@ fn vs_main(
     instance: InstanceInput,
 ) -> VertexOutput {
     var out: VertexOutput;
-    var instance_matrix = mat4x4f(
+    var instance_matrix = mat2x3f(
         instance.row0,
         instance.row1,
-        instance.row2,
-        instance.row3
     );
     
-    out.clip_position = vec4<f32>(model.pixel_pos.xy, 0.0, 1.0) * instance_matrix * to_ndc;
+    var pixel_pos = vec3<f32>(model.pixel_pos.xy, 1.0) * instance_matrix;
+    var out2 = vec4<f32>(pixel_pos.xy,0.0, 1.0) * to_ndc;
+    out.clip_position = vec4<f32>(out2.xy, 0.0, 1.0);
     out.alpha = instance.alpha;
     return out;
 }

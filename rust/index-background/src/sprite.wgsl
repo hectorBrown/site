@@ -11,15 +11,13 @@ struct VertexOutput {
 }
 
 struct BoidInput {
-    @location(2) row0: vec4<f32>,
-    @location(3) row1: vec4<f32>,
-    @location(4) row2: vec4<f32>,
-    @location(5) row3: vec4<f32>,
+    @location(2) row0: vec3<f32>,
+    @location(3) row1: vec3<f32>,
 };
 
 
 @group(0) @binding(0)
-var<uniform> to_ndc: mat4x4f;
+var<uniform> to_ndc: mat2x4f;
 
 @vertex
 fn vs_main(
@@ -28,14 +26,13 @@ fn vs_main(
 ) -> VertexOutput {
     var out: VertexOutput;
     out.tex_coords = model.tex_coords;
-    var boid_transformation = mat4x4f(
+    var boid_transformation = mat2x3f(
         boid.row0,
         boid.row1,
-        boid.row2,
-        boid.row3
     );
-    
-    out.clip_position = vec4<f32>(model.pixel_pos.xy, 0.0, 1.0) * boid_transformation * to_ndc;
+    var pixel_pos = vec3<f32>(model.pixel_pos.xy, 1.0) * boid_transformation; 
+    var out2 = vec4<f32>(pixel_pos.xy, 0.0, 1.0) * to_ndc;
+    out.clip_position = vec4<f32>(out2.xy, 0.0, 1.0);
     return out;
 }
 

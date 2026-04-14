@@ -204,7 +204,7 @@ impl State {
                         ty: wgpu::BufferBindingType::Uniform,
                         has_dynamic_offset: false,
                         min_binding_size: wgpu::BufferSize::new(
-                            std::mem::size_of::<[[f32; 4]; 4]>() as _,
+                            std::mem::size_of::<[[f32; 4]; 2]>() as _,
                         ),
                     },
                     count: None,
@@ -538,12 +538,10 @@ impl State {
     }
 }
 
-fn window_size_matrix(width: u32, height: u32) -> [[f32; 4]; 4] {
+fn window_size_matrix(width: u32, height: u32) -> [[f32; 4]; 2] {
     [
         [2.0 / width as f32, 0.0, 0.0, -1.0],
         [0.0, -2.0 / height as f32, 0.0, 1.0],
-        [0.0, 0.0, 1.0, 0.0],
-        [0.0, 0.0, 0.0, 1.0],
     ]
 }
 
