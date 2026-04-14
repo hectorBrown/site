@@ -11,34 +11,31 @@ struct VertexOutput {
 }
 
 struct BoidInput {
-    @location(2) position: vec2<f32>,
-    @location(3) rotation: f32,
+    @location(2) row0: vec4<f32>,
+    @location(3) row1: vec4<f32>,
+    @location(4) row2: vec4<f32>,
+    @location(5) row3: vec4<f32>,
 };
 
 
 @group(0) @binding(0)
 var<uniform> to_ndc: mat4x4f;
 
-fn rotate2d(v: vec2<f32>, angle: f32) -> vec2<f32> {
-    let c = cos(angle);
-    let s = sin(angle);
-    return vec2<f32>(
-        c * v.x - s * v.y,
-        s * v.x + c * v.y
-    );
-}
-
 @vertex
 fn vs_main(
     model: VertexInput,
     boid: BoidInput
 ) -> VertexOutput {
-    //TODO: rotate2d should be matrices generated on CPU
     var out: VertexOutput;
     out.tex_coords = model.tex_coords;
-    var pixel_out =  vec4<f32>(rotate2d(model.pixel_pos, boid.rotation) + boid.position, 0.0, 1.0); // 2.
+    var boid_transformation = mat4x4f(
+        boid.row0,
+        boid.row1,
+        boid.row2,
+        boid.row3
+    );
     
-    out.clip_position = pixel_out * to_ndc;
+    out.clip_position = vec4<f32>(model.pixel_pos.xy, 0.0, 1.0) * boid_transformation * to_ndc;
     return out;
 }
 

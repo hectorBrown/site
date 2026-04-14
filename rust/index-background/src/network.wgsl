@@ -10,8 +10,11 @@ struct VertexOutput {
 }
 
 struct InstanceInput {
-  @location(1) position1: vec2<f32>,
-  @location(2) position2: vec2<f32>,
+  @location(1) row0: vec4<f32>,
+  @location(2) row1: vec4<f32>,
+  @location(3) row2: vec4<f32>,
+  @location(4) row3: vec4<f32>,
+  @location(5) alpha: f32,
 }
 
 
@@ -34,18 +37,15 @@ fn vs_main(
     instance: InstanceInput,
 ) -> VertexOutput {
     var out: VertexOutput;
-    //TODO: this whole transformation should be a matrix generated on CPU
-    var separation = instance.position2 - instance.position1;
-    var line_length = length(separation);
-
-    var stretched = vec2<f32>(model.pixel_pos.x * line_length,
-    model.pixel_pos.y);
-    var rotated = rotate2d(stretched,
-    atan2(separation.y, separation.x));
-    var pixel_out = rotated + instance.position1;
+    var instance_matrix = mat4x4f(
+        instance.row0,
+        instance.row1,
+        instance.row2,
+        instance.row3
+    );
     
-    out.clip_position = vec4<f32>(pixel_out.xy, 0.0, 1.0) * to_ndc;
-    out.alpha = (100.0 - line_length) / 100.0;
+    out.clip_position = vec4<f32>(model.pixel_pos.xy, 0.0, 1.0) * instance_matrix * to_ndc;
+    out.alpha = instance.alpha;
     return out;
 }
 

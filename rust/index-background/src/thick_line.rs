@@ -1,3 +1,5 @@
+use cgmath::InnerSpace;
+
 use crate::vertex::Vertex;
 
 const THICKNESS: f32 = 2.0;
@@ -25,11 +27,29 @@ pub const INDICES: &[u16] = &[0, 2, 3, 0, 3, 1];
 #[repr(C)]
 #[derive(Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct LineRaw {
-    pub position1: [f32; 2],
-    pub position2: [f32; 2],
+    pub transformation: [[f32; 4]; 4],
+    pub alpha: f32,
 }
 
 impl LineRaw {
+    pub fn new(
+        position1: cgmath::Vector2<f32>,
+        position2: cgmath::Vector2<f32>,
+        max_line_length: f32,
+    ) -> Self {
+        let sep = position2 - position1;
+        let dir = sep.y.atan2(sep.x);
+        let length = sep.magnitude();
+        LineRaw {
+            transformation: [
+                [dir.cos() * length, -dir.sin(), 0.0, position1.x],
+                [dir.sin() * length, dir.cos(), 0.0, position1.y],
+                [0.0, 0.0, 1.0, 0.0],
+                [0.0, 0.0, 0.0, 1.0],
+            ],
+            alpha: (max_line_length - length) / max_line_length,
+        }
+    }
     pub fn desc() -> wgpu::VertexBufferLayout<'static> {
         use std::mem;
         wgpu::VertexBufferLayout {
@@ -43,15 +63,28 @@ impl LineRaw {
                 // for each vec4. We'll have to reassemble the mat4 in the shader.
                 wgpu::VertexAttribute {
                     offset: 0,
-                    // While our vertex shader only uses locations 0, and 1 now, in later tutorials, we'll
-                    // be using 2, 3, and 4, for Vertex. We'll start at slot 5, not conflict with them later
                     shader_location: 1,
-                    format: wgpu::VertexFormat::Float32x2,
+                    format: wgpu::VertexFormat::Float32x4,
                 },
                 wgpu::VertexAttribute {
-                    offset: mem::size_of::<[f32; 2]>() as wgpu::BufferAddress,
+                    offset: mem::size_of::<[f32; 4]>() as wgpu::BufferAddress,
                     shader_location: 2,
-                    format: wgpu::VertexFormat::Float32x2,
+                    format: wgpu::VertexFormat::Float32x4,
+                },
+                wgpu::VertexAttribute {
+                    offset: mem::size_of::<[[f32; 4]; 2]>() as wgpu::BufferAddress,
+                    shader_location: 3,
+                    format: wgpu::VertexFormat::Float32x4,
+                },
+                wgpu::VertexAttribute {
+                    offset: mem::size_of::<[[f32; 4]; 3]>() as wgpu::BufferAddress,
+                    shader_location: 4,
+                    format: wgpu::VertexFormat::Float32x4,
+                },
+                wgpu::VertexAttribute {
+                    offset: mem::size_of::<[[f32; 4]; 4]>() as wgpu::BufferAddress,
+                    shader_location: 5,
+                    format: wgpu::VertexFormat::Float32,
                 },
             ],
         }

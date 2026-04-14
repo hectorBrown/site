@@ -37,6 +37,7 @@ pub struct State {
     screen_size_buffer: wgpu::Buffer,
     screen_size_bind_group: wgpu::BindGroup,
     boids: Vec<Boid>,
+    boids_matrices: Vec<BoidRaw>,
     boid_buffer: wgpu::Buffer,
     last_frame_time: f32,
     sep_slider: HtmlInputElement,
@@ -54,7 +55,7 @@ impl State {
         // The instance is a handle to our GPU
         // BackendBit::PRIMARY => Vulkan + Metal + DX12 + Browser WebGPU
         let instance = wgpu::Instance::new(&wgpu::InstanceDescriptor {
-            backends: wgpu::Backends::all(),
+            backends: wgpu::Backends::GL,
             ..Default::default()
         });
 
@@ -111,10 +112,10 @@ impl State {
             &mut rng,
         );
 
-        let boid_data: Vec<BoidRaw> = boids.iter().map(Boid::to_raw).collect();
+        let boids_matrices: Vec<BoidRaw> = boids.iter().map(Boid::to_raw).collect();
         let boid_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Boid Buffer"),
-            contents: bytemuck::cast_slice(&boid_data),
+            contents: bytemuck::cast_slice(&boids_matrices),
             usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
         });
 
@@ -124,10 +125,7 @@ impl State {
             .flat_map(|b| {
                 boids.iter().filter_map(|other_boid| {
                     if b.id < other_boid.id {
-                        Some(LineRaw {
-                            position1: [b.pos.x, b.pos.y],
-                            position2: [other_boid.pos.x, other_boid.pos.y],
-                        })
+                        Some(LineRaw::new(b.pos, other_boid.pos, boids::LOCALITY_R))
                     } else {
                         None
                     }
@@ -378,6 +376,7 @@ impl State {
             screen_size_buffer,
             screen_size_bind_group,
             boids,
+            boids_matrices,
             boid_buffer,
             last_frame_time: 0.0,
             sep_slider,
@@ -418,19 +417,21 @@ impl State {
         );
         self.last_frame_time = time_now;
 
+        // TODO: move to staging belt
         self.queue.write_buffer(
             &self.network_buffer,
             0,
             bytemuck::cast_slice(&self.network_lines),
         );
-        let boid_data = self
-            .boids
-            .iter()
-            .map(Boid::to_raw)
-            .collect::<Vec<BoidRaw>>();
+        for (raw, boid) in self.boids_matrices.iter_mut().zip(self.boids.iter()) {
+            *raw = boid.to_raw();
+        }
 
-        self.queue
-            .write_buffer(&self.boid_buffer, 0, bytemuck::cast_slice(&boid_data));
+        self.queue.write_buffer(
+            &self.boid_buffer,
+            0,
+            bytemuck::cast_slice(&self.boids_matrices),
+        );
     }
 
     pub fn render(&mut self) -> Result<(), wgpu::SurfaceError> {

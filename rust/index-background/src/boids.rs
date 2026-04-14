@@ -2,9 +2,8 @@ use crate::rng;
 use crate::thick_line::LineRaw;
 use cgmath::{InnerSpace, Vector2};
 use rand::rngs::SmallRng;
-use wasm_bindgen::prelude::*;
 
-const LOCALITY_R: f32 = 100.0;
+pub const LOCALITY_R: f32 = 100.0;
 const SIG_SCALING: u8 = 10;
 const SEP_SCALE: u8 = 64;
 const ALI_SCALE: u8 = 128;
@@ -29,8 +28,12 @@ pub struct Boid {
 impl Boid {
     pub fn to_raw(&self) -> BoidRaw {
         BoidRaw {
-            position: [self.pos.x, self.pos.y],
-            rotation: self.dir,
+            transformation: [
+                [self.dir.cos(), -self.dir.sin(), 0.0, self.pos.x],
+                [self.dir.sin(), self.dir.cos(), 0.0, self.pos.y],
+                [0.0, 0.0, 1.0, 0.0],
+                [0.0, 0.0, 0.0, 1.0],
+            ],
         }
     }
 }
@@ -38,8 +41,7 @@ impl Boid {
 #[repr(C)]
 #[derive(Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct BoidRaw {
-    position: [f32; 2],
-    rotation: f32,
+    transformation: [[f32; 4]; 4],
 }
 
 impl BoidRaw {
@@ -59,12 +61,22 @@ impl BoidRaw {
                     // While our vertex shader only uses locations 0, and 1 now, in later tutorials, we'll
                     // be using 2, 3, and 4, for Vertex. We'll start at slot 5, not conflict with them later
                     shader_location: 2,
-                    format: wgpu::VertexFormat::Float32x2,
+                    format: wgpu::VertexFormat::Float32x4,
                 },
                 wgpu::VertexAttribute {
-                    offset: mem::size_of::<[f32; 2]>() as wgpu::BufferAddress,
+                    offset: mem::size_of::<[f32; 4]>() as wgpu::BufferAddress,
                     shader_location: 3,
-                    format: wgpu::VertexFormat::Float32,
+                    format: wgpu::VertexFormat::Float32x4,
+                },
+                wgpu::VertexAttribute {
+                    offset: mem::size_of::<[[f32; 4]; 2]>() as wgpu::BufferAddress,
+                    shader_location: 4,
+                    format: wgpu::VertexFormat::Float32x4,
+                },
+                wgpu::VertexAttribute {
+                    offset: mem::size_of::<[[f32; 4]; 3]>() as wgpu::BufferAddress,
+                    shader_location: 5,
+                    format: wgpu::VertexFormat::Float32x4,
                 },
             ],
         }
@@ -195,10 +207,7 @@ pub fn update_boids(
             let locality_boids = get_boids_in_locality(&zones, boid.zone);
             network_lines.extend(locality_boids.iter().filter_map(|l| {
                 if l.id > boid.id {
-                    Some(LineRaw {
-                        position1: [boid.pos.x, boid.pos.y],
-                        position2: [l.pos.x, l.pos.y],
-                    })
+                    Some(LineRaw::new(boid.pos, l.pos, LOCALITY_R))
                 } else {
                     None
                 }
