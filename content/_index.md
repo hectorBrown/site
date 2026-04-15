@@ -9,8 +9,8 @@ draft: false
 
 ---
 
-The background is accelerated with [WebGPU](https://webgpu.org/), you can learn
-about [how I used WebGPU](./blog/webgpu) or [what boids are](./blog/boids).
+The background is accelerated with [WebGL](https://www.khronos.org/webgl/), you can learn
+about [how I used wgpu](./blog/webgpu) or [what boids are](./blog/boids).
 
 <style>
 #control-panel {
