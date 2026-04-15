@@ -1,24 +1,20 @@
 use cgmath::InnerSpace;
 
-use crate::vertex::Vertex;
+use crate::vertex::SimpleVertex;
 
 const THICKNESS: f32 = 2.0;
-pub const VERTICES: &[Vertex] = &[
-    Vertex {
+pub const VERTICES: &[SimpleVertex] = &[
+    SimpleVertex {
         position: [0.0, THICKNESS / 2.0],
-        tex_coords: [0.0, 0.0],
     }, // A
-    Vertex {
+    SimpleVertex {
         position: [0.0, -THICKNESS / 2.0],
-        tex_coords: [1.0, 0.0],
     }, // B
-    Vertex {
+    SimpleVertex {
         position: [1.0, THICKNESS / 2.0],
-        tex_coords: [0.0, 1.0],
     }, // C
-    Vertex {
+    SimpleVertex {
         position: [1.0, -THICKNESS / 2.0],
-        tex_coords: [1.0, 1.0],
     }, // D
 ];
 
