@@ -1,7 +1,7 @@
 ---
 title: "Another unnecessary upgrade to my homepage background"
 date: 2026-04-05T22:19:44+10:00
-draft: true
+draft: false
 ---
 
 Each is more labour-intensive and pointless than the last, but I can't help
