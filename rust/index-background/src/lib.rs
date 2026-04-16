@@ -15,7 +15,7 @@ use std::sync::Arc;
 use wasm_bindgen::prelude::*;
 use web_sys::HtmlInputElement;
 use wgpu::util::DeviceExt;
-use winit::{event_loop::EventLoop, window::Window};
+use winit::{dpi::PhysicalSize, event_loop::EventLoop, window::Window};
 
 // This will store the state of our game
 pub struct State {
@@ -392,16 +392,20 @@ impl State {
         })
     }
 
-    pub fn resize(&mut self, width: u32, height: u32) {
-        if width > 0 && height > 0 {
-            self.config.width = width;
-            self.config.height = height;
+    pub fn resize(&mut self, size: PhysicalSize<u32>, scale_factor: f64) {
+        if size.width > 0 && size.height > 0 {
+            let adjusted_size = size.to_logical::<f32>(scale_factor);
+            self.config.width = adjusted_size.width as u32;
+            self.config.height = adjusted_size.height as u32;
             self.surface.configure(&self.device, &self.config);
             self.is_surface_configured = true;
             self.queue.write_buffer(
                 &self.screen_size_buffer,
                 0,
-                bytemuck::cast_slice(&window_size_matrix(width, height)),
+                bytemuck::cast_slice(&window_size_matrix(
+                    adjusted_size.width as u32,
+                    adjusted_size.height as u32,
+                )),
             );
         }
     }

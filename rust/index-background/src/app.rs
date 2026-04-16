@@ -62,10 +62,7 @@ impl ApplicationHandler<State> for App {
         // This is where proxy.send_event() ends up
 
         event.window.request_redraw();
-        event.resize(
-            event.window.inner_size().width,
-            event.window.inner_size().height,
-        );
+        event.resize(event.window.inner_size(), event.window.scale_factor());
 
         self.state = Some(event);
     }
@@ -83,7 +80,7 @@ impl ApplicationHandler<State> for App {
 
         match event {
             WindowEvent::CloseRequested => event_loop.exit(),
-            WindowEvent::Resized(size) => state.resize(size.width, size.height),
+            WindowEvent::Resized(size) => state.resize(size, state.window.scale_factor()),
             WindowEvent::RedrawRequested => {
                 state.update();
 
@@ -91,7 +88,7 @@ impl ApplicationHandler<State> for App {
                     Ok(_) => (),
                     Err(wgpu::SurfaceError::Lost | wgpu::SurfaceError::Outdated) => {
                         let size = state.window.inner_size();
-                        state.resize(size.width, size.height);
+                        state.resize(size, state.window.scale_factor());
                     }
                     Err(e) => {
                         log::error!("Unable to render {}", e);
