@@ -50,7 +50,6 @@ works.
 In broad strokes, there are two main types of shaders (excluding compute shaders
 for simplicity).
 
-<!--TODO: link NDC to header i'm gonna write about it later-->
 <ol>
   <li>
     <b>Vertex Shaders</b>
@@ -305,7 +304,7 @@ about a device's actual resolution. The conversion in matrix form is:
 
 $$
 \begin{pmatrix}
-\frac{2}{} & 0 & -1\\\\
+\frac{2}{w} & 0 & -1\\\\
 0 & \frac{-2}{h} & 1
 \end{pmatrix}
 \cdot
