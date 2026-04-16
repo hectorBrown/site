@@ -203,7 +203,7 @@ opacity of the line (it is passed straight through to the fragment shader).
 auto" alt="A diagram of the full path of vertices through an indexed and
   instanced drawing pipeline">
 
-## Buffering...
+## Buffering
 
 Up until now, I've been talking vaguely about "arrays" accessible to both the
 GPU and CPU. Of course, in practice, we need to set up these arrays and
@@ -335,11 +335,195 @@ the translation into the last column to follow convention. There is no real
 reason to do one or the other, but in 3D graphics, the fourth column (or
 w-coordinate) is typically reserved for translation.
 
-- Texture sampling
-- My code:
-  - Project structure
-  - Converting to Raw
-  - Pixel to NDC
-  - Staging buffers
-  - Drawing lines
-  - transformations as single matrices (incl NDC)
+## Textures and sampling
+
+It's all very well drawing coloured triangles, but obviously modern graphics are
+more complex than that. What if we want to draw an image to the screen, maybe
+like the boid sprites in my simulation? For that we need textures and samplers.
+
+Textures are images that live on the GPU. We first write the image data to a
+buffer, then create a "view" which determines which part of the texture we want
+to sample from (this could be the entire texture, or just some part of it).
+
+Samplers are a collection of rules and settings for sampling colours from a
+texture. You could think of them as an automated colour picker, that relies on a
+texture, and coordinates to return a colour that is drawn to the screen.
+
+The creation of a texture is not particularly difficult or interesting. You need
+to be aware of [colour spaces](https://en.wikipedia.org/wiki/Color_space), so
+that colours display to the screen in the way you expect. I'll leave the
+technical details to [this
+tutorial](https://sotrh.github.io/learn-wgpu/beginner/tutorial5-textures/).
+
+Here is the sampler I create:
+
+```rust
+let sampler = device.create_sampler(&wgpu::SamplerDescriptor {
+    address_mode_u: wgpu::AddressMode::ClampToEdge,
+    address_mode_v: wgpu::AddressMode::ClampToEdge,
+    address_mode_w: wgpu::AddressMode::ClampToEdge,
+    mag_filter: wgpu::FilterMode::Linear,
+    min_filter: wgpu::FilterMode::Nearest,
+    mipmap_filter: wgpu::FilterMode::Nearest,
+    ..Default::default()
+});
+```
+
+Lets go through these settings one by one:
+
+- `address_mode_u`, `address_mode_v`, and `address_mode_w` determine what
+  happens when the sampler tries to sample from a coordinate outside the bounds
+  of the texture (in the x, y, and z directions, respectively). In this case, we
+  just clamp to the edge, so it will return the colour of the nearest pixel on
+  the edge of the texture.
+- `mag_filter` determines how the sampler will act when the texture needs to be
+  magnified. We use linear interpolation here, which means we blend pixels
+  together to find the average colour, which gives a smooth result.
+- `min_filter` is similar, it determines how the sampler will act when the
+  texture needs to be made smaller. Here we just use the nearest pixel.
+- `mipmap_filter` is the same, but controls how we switch between [mipmap
+  levels](https://en.wikipedia.org/wiki/Mipmap). This setting is irrelevant, as
+  we don't use mipmaps.
+
+Here is what the fragment shader looks like:
+
+```wgsl
+@fragment
+fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
+    return textureSample(t_diffuse, s_diffuse, in.tex_coords);
+}
+```
+
+where `t_diffuse` is the texture, `s_diffuse` is the sampler, and
+`in.tex_coords` is an additional field on the vertex input of my sprite that
+maps its corners to the corners of the texture.
+
+```rust
+pub const VERTICES: &[Vertex] = &[
+    Vertex {
+        position: [-21.0 * BOID_SIZE, -30.5 * BOID_SIZE],
+        tex_coords: [0.0, 0.0],
+    }, // A
+    Vertex {
+        position: [21.0 * BOID_SIZE, -30.5 * BOID_SIZE],
+        tex_coords: [1.0, 0.0],
+    }, // B
+    Vertex {
+        position: [-21.0 * BOID_SIZE, 30.5 * BOID_SIZE],
+        tex_coords: [0.0, 1.0],
+    }, // C
+    Vertex {
+        position: [21.0 * BOID_SIZE, 30.5 * BOID_SIZE],
+        tex_coords: [1.0, 1.0],
+    }, // D
+];
+```
+
+You can see here that the vertex buffer for this shader is again a rectangle,
+but this time centered on the origin (so the texture displays with its center on
+the actual position of the boid), and with normalised `tex_coords` pinning each
+of its corners to a corner of the texture.
+
+## Staging belts
+
+I'll briefly mention staging belts, as they are a common optimisation technique
+for shaders like mine, that need to update large buffers every frame. Staging
+buffers mitigate [the performance hit associated with large allocations and
+deallocations of CPU-visible memory](../allocator) that are incurred by
+`queue.write_buffer`. They do this by managing a large pool of pre-allocated
+buffers, which you can write to free from the fear of being blocked by the GPU
+while it finishes a task. The staging belt automatically schedules the actual
+transfer of the data to the GPU when it is safe to do so. For such complex
+objects, they are remarkably easy to setup. Simply:
+
+<ol>
+<li>
+Create a staging belt:
+
+```rust
+let staging_belt = wgpu::util::StagingBelt::new(1024 * 100);
+```
+
+The input argument here is the block size, which is the size of the buffers
+that the staging belt will manage. This is more of an art than a science but
+the [wgpu documentation has recommendations](https://docs.rs/wgpu/latest/wgpu/util/struct.StagingBelt.html#method.new).
+
+</li>
+<li>
+Open a buffer view of the buffer you want to write to:
+
+```rust
+let mut network_lines_view = self.staging_belt.write_buffer(
+    &mut encoder,
+    &self.network_buffer,
+    0,
+    std::num::NonZeroU64::new(
+        (self.network_lines.len() * std::mem::size_of::<LineRaw>()) as u64,
+    )
+    .unwrap(),
+    &self.device,
+);
+```
+
+</li>
+<li>
+Copy to the buffer view:
+
+```rust
+network_lines_view.copy_from_slice(bytemuck::cast_slice(&self.network_lines));
+```
+
+</li>
+<li>
+Finally, let that view go out of scope, finish the staging belt, finish and
+submit the command encoder to the queue, and recall the staging belt:
+
+```rust
+self.staging_belt.finish();
+self.queue.submit(std::iter::once(encoder.finish()));
+self.staging_belt.recall();
+
+```
+
+</li>
+</ol>
+
+And suddenly your code is faster, as if by magic.
+
+## So how does the background actually work?
+
+My code is written in Rust, and compiled to
+[WebAssembly](https://webassembly.org/) with
+[wasm-pack](https://github.com/wasm-bindgen/wasm-pack). This allows me to hook
+wgpu into a canvas in the DOM of my homepage, and hardware-accelerate the
+animation.
+
+I largely repacked the [original code](../boids) into Rust, with a few slight
+modifications, optimisations, and bug fixes, but the core logic is still in
+place - and, still runs on the CPU, as WebGL doesn't support compute shaders. My
+hope is to eventually implement all the logic into a compute shader (as the
+problem is [embarassingly
+parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel)) which would
+avoid the performance cost of writing buffers, as well as processing the update
+logic for each boid asynchronously across many cores of the GPU, hopefully
+making things much faster and allowing me to simulate more boids.
+
+A lot of Rust boilerplate makes it possible to run two shaders, in order:
+
+1. `network.wgsl` draws the lines that appear between the boids when the
+   influence each other. I explained in a little detail earlier how these lines
+   are drawn in the [instancing section](#instancing-for-instance), but the main
+   point is that a transformation matrix is generated and passed to the GPU for
+   every line (i.e. every pair of boids close enough to each other) which
+   transforms a rectangle into a line of the correct length, width, angle, and
+   opacity.
+
+2. `sprite.wgsl` handles drawing the little boid sprites. It performs a similar
+   vertex shading to `network.wgsl` but its instancing is "per-boid" rather than
+   "per-line", and the transformation matrix associated with each instance is
+   that which will translate and rotate the original vertices of the sprite onto
+   its current position and direction. The fragment shader in this case is also
+   non-trivial, and it samples a `.png` texture of a boid using the [texture and
+   sampler techniques](#textures-and-sampling) I described earlier.
+
+You can browse the full code on [Github](https://github.com/hectorBrown/site/tree/master/rust/index-background).
