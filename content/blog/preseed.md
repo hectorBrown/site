@@ -13,14 +13,14 @@ km](https://en.wikipedia.org/wiki/Earth%27s_circumference) USB lead.
 
 ## What is a preseed?
 
-A `preseed.cfg` is a file used to automatically answer out a Debian installer's
-questions during installation, as fast as it can answer them. This allows me to
-get my parents to install my system on a new
+A `preseed.cfg` is a file used to automatically answer all a Debian installer's
+questions during installation, as fast as it can ask them. This allows me to
+get my parents to install an OS, SSH, and Wireguard keys on a new
 [N150](https://www.intel.com/content/www/us/en/products/sku/241636/intel-processor-n150-6m-cache-up-to-3-60-ghz/specifications.html)
-NUC I bought back in the UK without me being physically close to my system (what
-would have otherwise been a long and frustrating process, the weapons in our
-arsenal being a low-res video call and the USB port on a Raspberry Pi I have SSH
-access to).
+NUC I bought back in the UK without me being physically close to the system
+(what would have otherwise been a long and frustrating process, the only weapons
+in our arsenal being a low-res, laggy video call and the USB port on a Raspberry
+Pi I have SSH access to).
 
 ## Better late than never
 
