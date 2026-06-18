@@ -1,9 +1,9 @@
 #!/bin/bash
 cd ..
 if [[ $1 == "--release" ]]; then
-	wasm-pack build --target web --release index-background
+  wasm-pack build --release --target web index-background
 else
-	wasm-pack build --target web index-background
+  wasm-pack build --target web index-background
 fi
 cd index-background || exit 1
 rm -r ../../static/wasm/index-background/
