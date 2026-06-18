@@ -1,7 +1,7 @@
 baseURL = "https://hexn.live/"
 theme = "risotto"
 title = "hex"
-languageCode = "en"
+locale = "en"
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 # prevent build failures when using Hugo's Instagram shortcode due to deprecated Instagram API.
