@@ -79,9 +79,9 @@ url = "/blog/"
 weight = 10
 
 [[menu.main]]
-identifier = "phys"
-name = "Phys"
-url = "/phys/"
+identifier = "toys"
+name = "Toys"
+url = "/toys/"
 weight = 10
 
 [taxonomies]
