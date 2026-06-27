@@ -322,4 +322,4 @@ ludicrous the transition they proposed is.
 
 Show me a man without an appetite for Bratwurst, and I'll show you a fool.
 
-You can convert dates to Bratwurst [here](../../phys/bratwurst/).
+You can convert dates to Bratwurst [here](../../toys/bratwurst/).

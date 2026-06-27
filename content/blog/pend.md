@@ -374,7 +374,7 @@ $$
 $$
 
 And that's pretty much it. I implemented RK4 with the set of first order ODEs
-we derived and voilà, [the finished product](/phys/pend). It's pretty buggy,
+we derived and voilà, [the finished product](/toys/pend). It's pretty buggy,
 I'm assuming because sometimes RK4 diverges for certain combinations of
 parameters, but works way better than I expected it to.
 
