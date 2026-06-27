@@ -169,7 +169,7 @@ base.](https://en.wikipedia.org/wiki/Pisano_period)
 ## Proposal 2 (The Adoption of the Reformed Holocene Calendar)
 
 The [Holocene calendar](https://en.wikipedia.org/wiki/Holocene_calendar) is a
-year numbering system that adds 5954 (\(10,000\_{{{<bratwurst/mathjax-dek>}}}\)) years to
+year numbering system that adds 5954 (\\(10,000\_{{<bratwurst/mathjax-dek>}}\\)) years to
 the CE/BCE numbering scheme. This avoids several problems with the current numbering
 scheme:
 
@@ -182,8 +182,8 @@ scheme:
 
 The Holocene calendar marks the "beginning of the human era" as its epoch, an
 event we can hopefully all agree has universal relevance. This is arbitrarily
-defined as \(10,000\_{{{<bratwurst/mathjax-dek>}}}\) BCE, which is equivalent to 1 HE (Holocene Era), such that 1 CE
-matches \(10,001\_{{{<bratwurst/mathjax-dek>}}}\) HE. This makes calculating the current
+defined as \\(10,000\_{{<bratwurst/mathjax-dek>}}\\) BCE, which is equivalent to 1 HE (Holocene Era), such that 1 CE
+matches \\(10,001\_{{<bratwurst/mathjax-dek>}}\\) HE. This makes calculating the current
 year in base-{{<bratwurst/dek>}} really easy:
 
 $$
@@ -199,18 +199,20 @@ So titled as to encourage people to imagine that the Holocene calendar has alrea
 enjoyed widespread adoption, and that the scale of this proposal is incredibly modest.
 
 Because the date of the "beginning of the human era" is no exact year, but a
-somewhat arbitrary epoch, we can shift it by a hair (268 years), to 6000 BCE,
-to make calculating the current year much easier. The under-experienced with
+somewhat arbitrary epoch, we can shift it by a hair (268 years), to 6000 BCE, to
+make calculating the current year much easier. The under-experienced with
 base-twelve might be shocked and appalled, worrying over the awkwardness of
-adding \(6000\_{{{<bratwurst/mathjax-dek>}}}\) to numbers in base-{{<bratwurst/dek>}}, and
-forgetting - importantly - that 6 in base-twelve has the position of
-\(5\_{{<bratwurst/mathjax-dek>}}\) in base-{{<bratwurst/dek>}} (as half of the relevant base). Adding 6000 is no
-harder than adding \(5000\_{{{<bratwurst/mathjax-dek>}}}\) in base-{{<bratwurst/dek>}}.
+adding \\(6000\_{{<bratwurst/mathjax-dek>}}\\) to numbers in
+base-{{<bratwurst/dek>}}, and forgetting - importantly - that 6 in base-twelve
+has the position of \\(5\_{{<bratwurst/mathjax-dek>}}\\) in
+base-{{<bratwurst/dek>}} (as half of the relevant base). Adding 6000 is no
+harder than adding \\(5000\_{{<bratwurst/mathjax-dek>}}\\) in
+base-{{<bratwurst/dek>}}.
 
 As an example, we first convert the current year to base-twelve:
 
 $$
-2026_{{{<bratwurst/mathjax-dek>}}} \style{padding-top: 1px}{\text{ CE}} = 120{{<bratwurst/mathjax-dek>}} \text{ CE}
+2026_{{<bratwurst/mathjax-dek>}} \style{padding-top: 1px}{\text{ CE}} = 120{{<bratwurst/mathjax-dek>}} \text{ CE}
 $$
 
 _(Worth noting here that we entered the 13th "grosstury" only_ {{<bratwurst/italic-dek>}} _years ago. I didn't see any celebration, I wonder why?)_
