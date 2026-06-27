@@ -18,7 +18,7 @@ subscript is also in base twelve._
 
 {{<toc>}}
 
-## Proposal 1 (The Adoption of Base \(10\) (\\(12\_{{{<mathjax-dek>}}}\\)))
+## Proposal 1 (The Adoption of Base \(10\) (\\(12\_{{{<bratwurst/mathjax-dek>}}}\\)))
 
 ### Symbols
 
@@ -26,8 +26,8 @@ The largest outstanding issue with the adoption of base twelve, is the decision
 of which symbols to employ for the numbers ten and eleven. This decision is
 arbitrary, but of considerable importance. My proposal is this:
 
-- ten -> {{<dek>}} (pronounced "dek")
-- eleven -> {{<el>}} (pronounced "el")
+- ten -> {{<bratwurst/dek>}} (pronounced "dek")
+- eleven -> {{<bratwurst/el>}} (pronounced "el")
 - twelve -> 10 (pronounced "do")
 
 The numbers then proceed "do-one (11)", "do-two (12)", etc. until "two-do (20)",
@@ -35,7 +35,7 @@ which precedes "two-do-one" (21), and so on, until you reach "gro" (100).
 
 The spoken component of this system is [taken directly from the Dozenal society
 of America](https://dozenal.org/), and in that sense already enjoys widespread
-adoption. I am not aware, though, of anyone using {{<dek>}} and {{<el>}}. The
+adoption. I am not aware, though, of anyone using {{<bratwurst/dek>}} and {{<bratwurst/el>}}. The
 reasoning that brought me to these characters is threefold:
 
 1. A character should ideally be the transformation of an existing character,
@@ -51,7 +51,7 @@ reasoning that brought me to these characters is threefold:
 
 My symbols (mostly) satisfy these constraints:
 
-1. {{<dek>}} and {{<el>}} are the reflections about the y-axis of
+1. {{<bratwurst/dek>}} and {{<bratwurst/el>}} are the reflections about the y-axis of
 
 2. <div style="display: grid; grid-template-columns: 1fr 1fr">
    <div>See across. I certainly have never seen these before. Maybe they have some
@@ -59,7 +59,7 @@ My symbols (mostly) satisfy these constraints:
    are unambiguous at least.</div>
    <div><img style="margin: 1vw" src="/images/blog/bratwurst/dek.svg"> <img style="margin: 1vw" src="/images/blog/bratwurst/el.svg"></div></div>
 3. This is definitely the most difficult and personal of the three. I think
-   {{<el>}} is pretty clean personally. I can see {{<dek>}} getting confused
+   {{<bratwurst/el>}} is pretty clean personally. I can see {{<bratwurst/dek>}} getting confused
    with \(\lambda\), maybe, if the handwriting was really bad. They easily
    beat off other suggestions though, like using "a" and "b", or "\(\chi\)", and "<span
       style = "display: inline-block; transform: scaleX(-1);">3</span>" (which is a
@@ -71,7 +71,7 @@ My symbols (mostly) satisfy these constraints:
   <div style="display: flex; width: 100%; justify-content: center"><img style="" src="/images/blog/bratwurst/base-12-hands.png"></div>
   <i>Modified from photo by <a href="https://unsplash.com/@jibarox?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Quintero</a> on <a href="https://unsplash.com/photos/human-hand-qKspdY9XUzs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></i></div>
 
-Why base twelve? I ask you this, why base {{<dek>}}? "Because of our fingers!", you
+Why base twelve? I ask you this, why base {{<bratwurst/dek>}}? "Because of our fingers!", you
 say, betraying your naïveté. "Check this out", I reply: "simply point at each
 segment of your finger with your thumb to count to do, and increment the other
 hand for each do, to count all the way to gro." This system might seem like an
@@ -83,7 +83,7 @@ The big reason is that [10 is the 5th highly composite number
 divisors than all smaller positive integers (1,2,3,4,6). It is also divisible by
 every number in the [typical subitizing
 range](https://en.wikipedia.org/wiki/Subitizing). It serves as a good
-replacement for {{<dek>}} as it is only 2 larger. A smaller HCN base would
+replacement for {{<bratwurst/dek>}} as it is only 2 larger. A smaller HCN base would
 require more digits to encode the same amount of data, and the next HCN above 10
 is 20. 20 is great, but more-than-doubling our current base seems like a step
 too far. Additionally, we don't even gain a new distinct prime factor for this
@@ -97,20 +97,20 @@ Cast your gaze onto the beauty of base 10, the times table:
 
 <div style = "display: flex; justify-content: center">
 
-|               | 1         | 2          | 3   | 4   | 5         | 6   | 7          | 8   | 9   | {{<dek>}}  | {{<el>}}   | 10         |
-| ------------- | --------- | ---------- | --- | --- | --------- | --- | ---------- | --- | --- | ---------- | ---------- | ---------- |
-| **1**         | 1         | 2          | 3   | 4   | 5         | 6   | 7          | 8   | 9   | {{<dek>}}  | {{<el>}}   | 10         |
-| **2**         | 2         | 4          | 6   | 8   | {{<dek>}} | 10  | 12         | 14  | 16  | 18         | 1{{<dek>}} | 20         |
-| **3**         | 3         | 6          | 9   | 10  | 13        | 16  | 19         | 20  | 23  | 26         | 29         | 30         |
-| **4**         | 4         | 8          | 10  | 14  | 18        | 20  | 24         | 28  | 30  | 34         | 38         | 40         |
-| **5**         | 5         | {{<dek>}}  | 13  | 18  | 21        | 26  | 2{{<el>}}  | 34  | 39  | 42         | 47         | 50         |
-| **6**         | 6         | 10         | 16  | 20  | 26        | 30  | 36         | 40  | 46  | 50         | 56         | 60         |
-| **7**         | 7         | 12         | 19  | 24  | 2{{<el>}} | 36  | 41         | 48  | 53  | 5{{<dek>}} | 65         | 70         |
-| **8**         | 8         | 14         | 20  | 28  | 34        | 40  | 48         | 54  | 60  | 68         | 74         | 80         |
-| **9**         | 9         | 16         | 23  | 30  | 39        | 46  | 53         | 60  | 69  | 76         | 83         | 90         |
-| **{{<dek>}}** | {{<dek>}} | 18         | 26  | 34  | 42        | 50  | 5{{<dek>}} | 68  | 76  | 84         | 92         | {{<dek>}}0 |
-| **{{<el>}}**  | {{<el>}}  | 1{{<dek>}} | 29  | 38  | 47        | 56  | 65         | 74  | 83  | 92         | {{<dek>}}1 | {{<el>}}0  |
-| **10**        | 10        | 20         | 30  | 40  | 50        | 60  | 70         | 80  | 90  | {{<dek>}}0 | {{<el>}}0  | 100        |
+|                         | 1                   | 2                    | 3   | 4   | 5                   | 6   | 7                    | 8   | 9   | {{<bratwurst/dek>}}  | {{<bratwurst/el>}}   | 10                   |
+| ----------------------- | ------------------- | -------------------- | --- | --- | ------------------- | --- | -------------------- | --- | --- | -------------------- | -------------------- | -------------------- |
+| **1**                   | 1                   | 2                    | 3   | 4   | 5                   | 6   | 7                    | 8   | 9   | {{<bratwurst/dek>}}  | {{<bratwurst/el>}}   | 10                   |
+| **2**                   | 2                   | 4                    | 6   | 8   | {{<bratwurst/dek>}} | 10  | 12                   | 14  | 16  | 18                   | 1{{<bratwurst/dek>}} | 20                   |
+| **3**                   | 3                   | 6                    | 9   | 10  | 13                  | 16  | 19                   | 20  | 23  | 26                   | 29                   | 30                   |
+| **4**                   | 4                   | 8                    | 10  | 14  | 18                  | 20  | 24                   | 28  | 30  | 34                   | 38                   | 40                   |
+| **5**                   | 5                   | {{<bratwurst/dek>}}  | 13  | 18  | 21                  | 26  | 2{{<bratwurst/el>}}  | 34  | 39  | 42                   | 47                   | 50                   |
+| **6**                   | 6                   | 10                   | 16  | 20  | 26                  | 30  | 36                   | 40  | 46  | 50                   | 56                   | 60                   |
+| **7**                   | 7                   | 12                   | 19  | 24  | 2{{<bratwurst/el>}} | 36  | 41                   | 48  | 53  | 5{{<bratwurst/dek>}} | 65                   | 70                   |
+| **8**                   | 8                   | 14                   | 20  | 28  | 34                  | 40  | 48                   | 54  | 60  | 68                   | 74                   | 80                   |
+| **9**                   | 9                   | 16                   | 23  | 30  | 39                  | 46  | 53                   | 60  | 69  | 76                   | 83                   | 90                   |
+| **{{<bratwurst/dek>}}** | {{<bratwurst/dek>}} | 18                   | 26  | 34  | 42                  | 50  | 5{{<bratwurst/dek>}} | 68  | 76  | 84                   | 92                   | {{<bratwurst/dek>}}0 |
+| **{{<bratwurst/el>}}**  | {{<bratwurst/el>}}  | 1{{<bratwurst/dek>}} | 29  | 38  | 47                  | 56  | 65                   | 74  | 83  | 92                   | {{<bratwurst/dek>}}1 | {{<bratwurst/el>}}0  |
+| **10**                  | 10                  | 20                   | 30  | 40  | 50                  | 60  | 70                   | 80  | 90  | {{<bratwurst/dek>}}0 | {{<bratwurst/el>}}0  | 100                  |
 
 </div>
 
@@ -118,14 +118,14 @@ Let it wash over you for a moment. There you go.
 
 All those repeating patterns... Wow, look at how easy it is to tell if something
 is divisible by 3: just check if the final digit is 0,3,6, or 9. The same goes
-for 2 (0,2,4,6,8,{{<dek>}}), 4 (0,4,8), and 6 (0,6).
+for 2 (0,2,4,6,8,{{<bratwurst/dek>}}), 4 (0,4,8), and 6 (0,6).
 
-Little tricks akin to those in base-{{<dek>}} also exist, you can check
-divisibility by {{<el>}} by summing the digits to {{<el>}}
-(3+8 = 6+5 = {{<deK>}}+1 = {{<el>}}). A number if divisible by 8 if either, it
+Little tricks akin to those in base-{{<bratwurst/dek>}} also exist, you can check
+divisibility by {{<bratwurst/el>}} by summing the digits to {{<bratwurst/el>}}
+(3+8 = 6+5 = {{<bratwurst/dek>}}+1 = {{<bratwurst/el>}}). A number if divisible by 8 if either, it
 ends in a 4 and begins with an odd digit, or ends with a 0 or 8 and begins with
 an even digit. It isn't shown here, but all the multiples of 11 have the same
-pleasing quality that multiples of {{<el>}} have in base-{{<deK>}} (11, 22, 33,
+pleasing quality that multiples of {{<bratwurst/el>}} have in base-{{<bratwurst/dek>}} (11, 22, 33,
 etc.)
 
 In my schooling at least, we were made to learn our times tables up to 10
@@ -137,7 +137,7 @@ In case that wasn't enough to convince you, look how the Fibonacci sequence
 progresses:
 
 $$
-0, 1, 1, 2, 3, 5, 8, 11, 19, 2{{<mathjax-dek>}}, 47,\dots
+0, 1, 1, 2, 3, 5, 8, 11, 19, 2{{<bratwurst/mathjax-dek>}}, 47,\dots
 $$
 
 Seems normal enough, but then:
@@ -159,7 +159,7 @@ But in case you did need more reason, look what happens when you get to the
 </style>
 
 $$
-\dots,22{{<mathjax-dek>}}00,37501,5{{<mathjax-dek>}}301,95802,133{{<mathjax-el>}}03,209705,\dots
+\dots,22{{<bratwurst/mathjax-dek>}}00,37501,5{{<bratwurst/mathjax-dek>}}301,95802,133{{<bratwurst/mathjax-el>}}03,209705,\dots
 $$
 
 The last two digits start their own little microcosm of the sequence again! This
@@ -169,7 +169,7 @@ base.](https://en.wikipedia.org/wiki/Pisano_period)
 ## Proposal 2 (The Adoption of the Reformed Holocene Calendar)
 
 The [Holocene calendar](https://en.wikipedia.org/wiki/Holocene_calendar) is a
-year numbering system that adds 5954 (\(10,000\_{{{<mathjax-dek>}}}\)) years to
+year numbering system that adds 5954 (\(10,000\_{{{<bratwurst/mathjax-dek>}}}\)) years to
 the CE/BCE numbering scheme. This avoids several problems with the current numbering
 scheme:
 
@@ -182,12 +182,12 @@ scheme:
 
 The Holocene calendar marks the "beginning of the human era" as its epoch, an
 event we can hopefully all agree has universal relevance. This is arbitrarily
-defined as \(10,000\_{{{<mathjax-dek>}}}\) BCE, which is equivalent to 1 HE (Holocene Era), such that 1 CE
-matches \(10,001\_{{{<mathjax-dek>}}}\) HE. This makes calculating the current
-year in base-{{<dek>}} really easy:
+defined as \(10,000\_{{{<bratwurst/mathjax-dek>}}}\) BCE, which is equivalent to 1 HE (Holocene Era), such that 1 CE
+matches \(10,001\_{{{<bratwurst/mathjax-dek>}}}\) HE. This makes calculating the current
+year in base-{{<bratwurst/dek>}} really easy:
 
 $$
-2026_{{{<mathjax-dek>}}} \style{padding-top: 1px}{\text{ CE}} = 12026_{{{<mathjax-dek>}}} \text{ HE}
+2026_{{{<bratwurst/mathjax-dek>}}} \style{padding-top: 1px}{\text{ CE}} = 12026_{{{<bratwurst/mathjax-dek>}}} \text{ HE}
 $$
 
 Unfortunately, adding 5954 to the current year is not nearly as easy, so I
@@ -202,26 +202,26 @@ Because the date of the "beginning of the human era" is no exact year, but a
 somewhat arbitrary epoch, we can shift it by a hair (268 years), to 6000 BCE,
 to make calculating the current year much easier. The under-experienced with
 base-twelve might be shocked and appalled, worrying over the awkwardness of
-adding \(6000\_{{{<mathjax-dek>}}}\) to numbers in base-{{<dek>}}, and
+adding \(6000\_{{{<bratwurst/mathjax-dek>}}}\) to numbers in base-{{<bratwurst/dek>}}, and
 forgetting - importantly - that 6 in base-twelve has the position of
-\(5\_{{<mathjax-dek>}}\) in base-{{<dek>}} (as half of the relevant base). Adding 6000 is no
-harder than adding \(5000\_{{{<mathjax-dek>}}}\) in base-{{<dek>}}.
+\(5\_{{<bratwurst/mathjax-dek>}}\) in base-{{<bratwurst/dek>}} (as half of the relevant base). Adding 6000 is no
+harder than adding \(5000\_{{{<bratwurst/mathjax-dek>}}}\) in base-{{<bratwurst/dek>}}.
 
 As an example, we first convert the current year to base-twelve:
 
 $$
-2026_{{{<mathjax-dek>}}} \style{padding-top: 1px}{\text{ CE}} = 120{{<mathjax-dek>}} \text{ CE}
+2026_{{{<bratwurst/mathjax-dek>}}} \style{padding-top: 1px}{\text{ CE}} = 120{{<bratwurst/mathjax-dek>}} \text{ CE}
 $$
 
-_(Worth noting here that we entered the 13th "grosstury" only_ {{<italic-dek>}} _years ago. I didn't see any celebration, I wonder why?)_
+_(Worth noting here that we entered the 13th "grosstury" only_ {{<bratwurst/italic-dek>}} _years ago. I didn't see any celebration, I wonder why?)_
 
 We then simply add 6000 to the year:
 
 $$
-120{{<mathjax-dek>}} \style{padding-top: 1px}{\text{ CE}} = 720{{<mathjax-dek>}} \text{ RHE}
+120{{<bratwurst/mathjax-dek>}} \style{padding-top: 1px}{\text{ CE}} = 720{{<bratwurst/mathjax-dek>}} \text{ RHE}
 $$
 
-Welcome to the year 720{{<dek>}}!
+Welcome to the year 720{{<bratwurst/dek>}}!
 
 ## Proposal 3 (The Adoption of the International Fixed Calendar)
 
@@ -232,21 +232,21 @@ and adopt 11 equally sized, 24 day months:
 
 <div style = "display: flex; justify-content: center">
 
-| Month     | Name      |
-| --------- | --------- |
-| 1         | January   |
-| 2         | February  |
-| 3         | March     |
-| 4         | April     |
-| 5         | May       |
-| 6         | June      |
-| 7         | **Sol**   |
-| 8         | July      |
-| 9         | August    |
-| {{<dek>}} | September |
-| {{<el>}}  | October   |
-| 10        | November  |
-| 11        | December  |
+| Month               | Name      |
+| ------------------- | --------- |
+| 1                   | January   |
+| 2                   | February  |
+| 3                   | March     |
+| 4                   | April     |
+| 5                   | May       |
+| 6                   | June      |
+| 7                   | **Sol**   |
+| 8                   | July      |
+| 9                   | August    |
+| {{<bratwurst/dek>}} | September |
+| {{<bratwurst/el>}}  | October   |
+| 10                  | November  |
+| 11                  | December  |
 
 </div>
 
@@ -255,12 +255,12 @@ June and July. Each month then looks like this:
 
 <div style = "display: flex; justify-content: center">
 
-|        | Mon        | Tue       | Wed       | Thu      | Fri | Sat | Sun |
-| ------ | ---------- | --------- | --------- | -------- | --- | --- | --- |
-| Week 1 | 1          | 2         | 3         | 4        | 5   | 6   | 7   |
-| Week 2 | 8          | 9         | {{<dek>}} | {{<el>}} | 10  | 11  | 12  |
-| Week 3 | 13         | 14        | 15        | 16       | 17  | 18  | 19  |
-| Week 4 | 1{{<dek>}} | 1{{<el>}} | 20        | 21       | 22  | 23  | 24  |
+|        | Mon                  | Tue                 | Wed                 | Thu                | Fri | Sat | Sun |
+| ------ | -------------------- | ------------------- | ------------------- | ------------------ | --- | --- | --- |
+| Week 1 | 1                    | 2                   | 3                   | 4                  | 5   | 6   | 7   |
+| Week 2 | 8                    | 9                   | {{<bratwurst/dek>}} | {{<bratwurst/el>}} | 10  | 11  | 12  |
+| Week 3 | 13                   | 14                  | 15                  | 16                 | 17  | 18  | 19  |
+| Week 4 | 1{{<bratwurst/dek>}} | 1{{<bratwurst/el>}} | 20                  | 21                 | 22  | 23  | 24  |
 
 </div>
 

@@ -1,5 +1,5 @@
 {{- $num := add .Year 10368 -}}
-{{ $result := partial "to-base-12.html" $num }}
+{{ $result := partial "bratwurst/to-base-12.html" $num }}
 
 {{- $y := .Year -}}
 {{- $m := int (.Format "1") -}}
@@ -27,10 +27,10 @@
   {{- if and $isLeap (gt $doy 168) -}}{{- $doy = sub $doy 1 -}}{{- end -}}
   {{- $monthNum = add (div $doy 28) 1 -}}
   {{- $dayNum = add (mod $doy 28) 1 -}}
-  {{- $monthStr := partial "to-base-12.html" $monthNum -}}
+  {{- $monthStr := partial "bratwurst/to-base-12.html" $monthNum -}}
   {{- $monthStr = replace $monthStr "<span class=\"dek-char\">h</span>" "h" -}}
   {{- $monthStr = replace $monthStr "<span class=\"el-char\">F</span>" "F" -}}
-  {{- $dayStr := partial "to-base-12.html" $dayNum -}}
+  {{- $dayStr := partial "bratwurst/to-base-12.html" $dayNum -}}
   {{- $dayStr = replace $dayStr "<span class=\"dek-char\">h</span>" "h" -}}
   {{- $dayStr = replace $dayStr "<span class=\"el-char\">F</span>" "F" -}}
   {{- $monthDayStr = printf "%2s-%2s" $monthStr $dayStr -}}
