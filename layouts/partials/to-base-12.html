@@ -1,0 +1,22 @@
+{{ $num := .}}
+
+{{- $result := "" -}}
+{{- $digits := dict "0" "0" "1" "1" "2" "2" "3" "3" "4" "4" "5" "5" "6" "6" "7" "7" "8" "8" "9" "9" "10" "<span class=\"dek-char\">h</span>" "11" "<span class=\"el-char\">F</span>" -}}
+
+{{- /* Handle the edge case for zero */ -}}
+{{- if eq $num 0 -}}
+  {{- $result = "0" -}}
+{{- else -}}
+  {{- /* Loop to calculate base 12 positions */ -}}
+  {{- range seq 20 -}}
+    {{- if gt $num 0 -}}
+      {{- $remainder := mod $num 12 -}}
+      {{- $key := string $remainder -}}
+      {{- $digitValue := index $digits $key -}}
+      {{- $result = printf "%s%s" $digitValue $result -}}
+      {{- $num = div $num 12 -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $result | safeHTML -}}

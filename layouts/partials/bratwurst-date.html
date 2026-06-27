@@ -1,0 +1,46 @@
+{{- $num := add .Year 10368 -}}
+{{ $result := partial "to-base-12.html" $num }}
+
+{{- $y := .Year -}}
+{{- $m := int (.Format "1") -}}
+{{- $d := .Day -}}
+
+{{- $isLeap := and (eq (mod $y 4) 0) (or (ne (mod $y 100) 0) (eq (mod $y 400) 0)) -}}
+{{- $daysBeforeMonth := slice 0 31 59 90 120 151 181 212 243 273 304 334 -}}
+{{- $doy := add (index $daysBeforeMonth (sub $m 1)) (sub $d 1) -}}
+{{- if and $isLeap (gt $m 2) -}}{{- $doy = add $doy 1 -}}{{- end -}}
+
+{{- $monthNum := 0 -}}
+{{- $dayNum := 0 -}}
+{{- $monthDayStr := "" -}}
+
+{{- if and $isLeap (eq $doy 168) -}}
+  {{- /* Leap Day (0-0) */ -}}
+  {{- $monthDayStr = "LD" -}}
+{{- else if eq $doy 364 -}}
+  {{- /* Year Day (0-0) */ -}}
+  {{- $monthDayStr = "YD" -}}
+{{- else if and $isLeap (eq $doy 365) -}}
+  {{- /* Year Day on a Leap Year (0-0) */ -}}
+  {{- $monthDayStr = "YD" -}}
+{{- else -}}
+  {{- if and $isLeap (gt $doy 168) -}}{{- $doy = sub $doy 1 -}}{{- end -}}
+  {{- $monthNum = add (div $doy 28) 1 -}}
+  {{- $dayNum = add (mod $doy 28) 1 -}}
+  {{- $monthStr := partial "to-base-12.html" $monthNum -}}
+  {{- $monthStr = replace $monthStr "<span class=\"dek-char\">h</span>" "h" -}}
+  {{- $monthStr = replace $monthStr "<span class=\"el-char\">F</span>" "F" -}}
+  {{- $dayStr := partial "to-base-12.html" $dayNum -}}
+  {{- $dayStr = replace $dayStr "<span class=\"dek-char\">h</span>" "h" -}}
+  {{- $dayStr = replace $dayStr "<span class=\"el-char\">F</span>" "F" -}}
+  {{- $monthDayStr = printf "%2s-%2s" $monthStr $dayStr -}}
+  {{- $monthDayStr = replace $monthDayStr " " "0" -}}
+  {{- $monthDayStr = replace $monthDayStr "h" "<span class=\"dek-char\">h</span>" -}}
+  {{- $monthDayStr = replace $monthDayStr "F" "<span class=\"el-char\">F</span>" -}}
+{{- end -}}
+
+{{- $result = printf "%s-%s" $result $monthDayStr -}}
+
+{{- $result = printf "<a style = \"color: var(--muted)\" href=\"./bratwurst\">%s</a>" $result -}}
+
+{{- $result | safeHTML -}}

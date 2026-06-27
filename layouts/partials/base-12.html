@@ -1,0 +1,27 @@
+<style>
+  .dek-char {
+    display: inline-block;
+    transform: scaleX(-1);
+  }
+  .el-char {
+    display: inline-block;
+    transform: scaleX(-1);
+  }
+  .italic-dek-char {
+    display: inline-block;
+    transform: skewX(-15deg) scaleX(-1); /* Flips horizontally */
+  }
+  .italic-el-char {
+    display: inline-block;
+    font-style: italic;
+    transform: skewx(-15deg) scaleX(-1);
+  }
+</style>
+<script>
+  window.MathJax = {
+    loader: { load: ['[tex]/html'] },
+    tex: {
+      packages: { '[+]': ['html'] }
+    }
+  };
+</script>

@@ -16,6 +16,7 @@ enableRobotsTXT = true
 
 [params]
 noindex = false
+math = false
 
 [params.theme]
 palette = "gruvbox-dark"
@@ -121,3 +122,12 @@ disableInlineCSS = true
 
 [pagination]
 pagerSize = 3
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
