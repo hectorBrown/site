@@ -57,7 +57,7 @@ My symbols (mostly) satisfy these constraints:
    <div>See across. I certainly have never seen these before. Maybe they have some
    use somewhere, but honestly who even uses 7-segment displays anymore. They
    are unambiguous at least.</div>
-   <div><img style="margin: 1vw" src="/images/blog/bratwurst/dek.svg"> <img style="margin: 1vw" src="/images/blog/bratwurst/el.svg"></div></div>
+   <div><img style="margin: 1vw" src="dek.svg"> <img style="margin: 1vw" src="el.svg"></div></div>
 3. This is definitely the most difficult and personal of the three. I think
    {{<bratwurst/el>}} is pretty clean personally. I can see {{<bratwurst/dek>}} getting confused
    with \(\lambda\), maybe, if the handwriting was really bad. They easily
@@ -68,7 +68,7 @@ My symbols (mostly) satisfy these constraints:
 ### Why would you do this to yourself?
 
 <div style="float: right; max-width: 50%; margin-left: 1vw; margin-right: 1vw">
-  <div style="display: flex; width: 100%; justify-content: center"><img style="" src="/images/blog/bratwurst/base-12-hands.png"></div>
+  <div style="display: flex; width: 100%; justify-content: center"><img style="" src="base-12-hands.png"></div>
   <i>Modified from photo by <a href="https://unsplash.com/@jibarox?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Quintero</a> on <a href="https://unsplash.com/photos/human-hand-qKspdY9XUzs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></i></div>
 
 Why base twelve? I ask you this, why base {{<bratwurst/dek>}}? "Because of our fingers!", you
@@ -322,4 +322,4 @@ ludicrous the transition they proposed is.
 
 Show me a man without an appetite for Bratwurst, and I'll show you a fool.
 
-You can convert dates to Bratwurst [here](../../toys/bratwurst/).
+You can convert dates to Bratwurst [here](/toys/bratwurst/).

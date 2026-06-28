@@ -70,7 +70,7 @@ renders to:
 <div id="eg-1-parent" style="width: 100%; height: auto;"></div>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> <!--
 load p5.js from CDN-->
-<script src="/scripts/blog/p5js/eg-1.js"></script>
+<script src="eg-1.js"></script>
 
 _I have omitted some of the lines that deal with canvas sizing and placement,
 but I'll come on to that in a second. For

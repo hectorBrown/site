@@ -38,7 +38,7 @@ well as running my Nextcloud and Immich instances, poor thing).
    }
 </style>
 <div style="overflow: auto; width: 100%">
-  <img src="/images/blog/tdarr/pretdarr.png" class="half-images" alt="Pre-Tdarr
+  <img src="pretdarr.svg" class="half-images" alt="Pre-Tdarr
   media stack setup"/>
 
 This diagram shows a simplified version of how my media server used to work. My
@@ -84,7 +84,7 @@ can produce output in-place or into an output folder, and each library has some
 set transcoding rules. Those rules can be very simple (run an `ffmpeg` command),
 or complex (run some conditional flow). This is mine:
 
-<img src="/images/blog/tdarr/tdarrflow.png" alt="My current Tdarr flow"
+<img src="tdarrflow.png" alt="My current Tdarr flow"
 style="width: 100%" />
 
 I have [another program](https://www.bazarr.media/) that grabs subtitles for me,

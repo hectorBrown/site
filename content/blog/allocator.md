@@ -20,7 +20,7 @@ more general use case.
 
 ## Instantiating the allocator
 
-![Diagram of the allocator after instantiation](/images/blog/allocator/instantiated.svg#center)
+![Diagram of the allocator after instantiation](instantiated.svg#center)
 
 This is a sketch of what we want the allocator to look like immediately after
 instantiation. And this is how we achieve it:
@@ -89,7 +89,7 @@ bytes to the pointer.
 
 ## Allocating memory
 
-![Diagram of the allocator after one allocation](/images/blog/allocator/allocated.svg#center)
+![Diagram of the allocator after one allocation](allocated.svg#center)
 
 This is how the allocator looks after one allocation. We have moved the free
 pointer to the next block (the one that was indicated by the data inside the
@@ -120,13 +120,13 @@ next block.
 Let's fast forward a bit to the state of the allocator after three allocations,
 which is shown below.
 
-![Diagram of the allocator after three allocations](/images/blog/allocator/deallocated_1.svg#center)
+![Diagram of the allocator after three allocations](deallocated_1.svg#center)
 
 We've proceeded as before, and allocated three blocks in order, moving the free
 pointer each time so that now it rests on the fourth block. Now, we want to
 deallocate the second block, after which the allocator should look like this:
 
-![Diagram of the allocator after deallocation](/images/blog/allocator/deallocated_2.svg#center)
+![Diagram of the allocator after deallocation](deallocated_2.svg#center)
 
 By far the simplest of the three operations, we just point the block we are
 deallocating to the current free block, and then set the free pointer to point

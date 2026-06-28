@@ -3,18 +3,20 @@ title: "My favourite places on the web"
 date: 2023-04-01T18:13:20+01:00
 draft: false
 ---
+
 Pretty self explanatory. Here's a long list of some of the coolest places
 online. I really wish I'd known about a lot of these earlier. I've tried to
 focus on sites that might be a bit more obscure, leaving out the really obvious
 ones that we all use often. It's a bit of an eclectic, self-indulgent set, but
 I think all these sites are worth knowing about so… in no particular order:
+
 <!--more-->
 
 {{< toc >}}
 
 ## Advent of Code <a href="https://adventofcode.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/advent-of-code.png" style="width: 100%"
+<img src="advent-of-code.png" style="width: 100%"
   alt="Screenshot of the Advent of Code homepage"></img>
 
 Advent of Code is an advent calendar with a new coding challenge for each day.
@@ -36,7 +38,7 @@ private one for your friends.
 
 If you're interested you can take a look at <a
   href="https://github.com/hectorBrown/aoc2022" target="_blank">my solutions
-  for 2022</a> (other years are available in repos with similar names), and a
+for 2022</a> (other years are available in repos with similar names), and a
 work-in-progress <a href="https://github.com/hectorBrown/aocstat"
   target="_blank">terminal client</a> that I've been adding to sporadically.
 
@@ -78,7 +80,7 @@ willing to bet they're pretty good.
 
 Some comics are related to projects that are much more than just an image, like
 the <a href="https://xkcd.com/color/rgb/" target="_blank">xkcd colour
-  survey</a>, or <a href="https://geohashing.site/geohashing/Main_Page"
+survey</a>, or <a href="https://geohashing.site/geohashing/Main_Page"
   target="_blank">geohashing</a>.
 
 The best idea, if you want to stay up-to-date, is to subscribe to the [RSS
@@ -88,11 +90,12 @@ feed](https://xkcd.com/rss.xml), or <a href="https://xkcd.com/newsletter/"
 _There's also the <a
   href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xkcd.html"
   target="_blank">matplotlib xkcd mode</a>._
+
 </div>
 
 ## 10minutemail <a href="https://10minutemail.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/10-minute-mail.png" style="width: 100%"
+<img src="10-minute-mail.png" style="width: 100%"
   alt="Screenshot of the 10minutemail homepage"></img>
 
 A bit of a departure from the last one, this one is very practical, but has
@@ -107,7 +110,7 @@ bound to be others.
 
 ## ArchWiki <a href="https://wiki.archlinux.org/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/archwiki.png" style="width: 100%"
+<img src="archwiki.png" style="width: 100%"
   alt="Screenshot of the Archwiki homepage"></img>
 
 It's hard to overstate how valuable of a resource the ArchWiki is for any Linux
@@ -124,7 +127,7 @@ users, they are, in my experience, always helpful.
 
 ## Wolfram Alpha <a href="https://www.wolframalpha.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/wolfram-alpha.png" style="width: 100%" alt="Screenshot of the Wolfram Alpha homepage"></img>
+<img src="wolfram-alpha.png" style="width: 100%" alt="Screenshot of the Wolfram Alpha homepage"></img>
 
 Wolfram Alpha is single-handedly doing my degree for me. Hand it pretty much any
 mathematical, scientific, technological, or general trivia question (in natural
@@ -137,7 +140,7 @@ documentation for.
 
 ## VimGolf <a href="https://www.vimgolf.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/vimgolf.png" style="width: 100%"
+<img src="vimgolf.png" style="width: 100%"
   alt="Screenshot of the VimGolf homepage"></img>
 
 If you're completely new to vim, I'd recommend `vimtutor`, but if you have been
@@ -162,15 +165,15 @@ A couple tips that might boost you a spot on the leaderboard:
 - Never `:wq`, always `ZZ`.
 - `{` and `}` move the cursor by paragraph.
 - `Q` enters ex mode, which allows you to run a series of commands without the
-leading `:`s.
+  leading `:`s.
 - Read up on <a href="https://learnvim.irian.to/basics/registers"
   target="_blank">registers</a>, especially the special ones.
 - <a href="https://learnvim.irian.to/basics/macros" target="_blank">Macros</a>
-are essential, both in golf, and everywhere else.
+  are essential, both in golf, and everywhere else.
 
 ## Project Euler <a href="https://projecteuler.net/about" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/project-euler.png" style="width: 100%"
+<img src="project-euler.png" style="width: 100%"
   alt="Screenshot of the Project Euler homepage"></img>
 
 Another set of coding challenges, this time with a mathematical slant. Again,
@@ -180,7 +183,7 @@ problems to try.
 
 ## regex101 <a href="https://regex101.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/regex101.png" style="width: 100%"
+<img src="regex101.png" style="width: 100%"
   alt="Screenshot of the regex101 homepage"></img>
 
 This site changed my life. Before I knew about it, I lived, like most people
@@ -193,7 +196,7 @@ validate text.
 
 The other great thing is that this site will make you better at regex even when
 you're not using it. The more you enjoy writing it, the more you write, and the
-more you write, the better you get. My new skills with grep, and vim's `/`  and
+more you write, the better you get. My new skills with grep, and vim's `/` and
 `:s` mean I can produce more efficient (and general) code, faster.
 
 ## keyserver.ubuntu.com <a href="https://keyserver.ubuntu.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
@@ -240,7 +243,7 @@ gpg --keyserver keyserver.ubuntu.com --send-keys yourkeyID
 
 ## F-Droid <a href="https://f-droid.org/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/f-droid.png" style="width: 100%" alt="A
+<img src="f-droid.png" style="width: 100%" alt="A
   screenshot of the F-Droid homepage"></img>
 
 Again, technically on the web, but maybe not something you'd use on your PC.
@@ -255,7 +258,7 @@ the way myself.
 
 ## Nerd Fonts <a href="https://www.nerdfonts.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
 
-<img src="/images/blog/best-sites/nerd-fonts.png" style="width: 100%"
+<img src="nerd-fonts.png" style="width: 100%"
   alt="Screenshot of the Nerd Fonts homepage"></img>
 
 Nerd Fonts aggregates all your favourite developer fonts, patches them with a stupid

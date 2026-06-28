@@ -8,7 +8,7 @@ draft: true
 <div id="fft-parent" style="width: 100%; height: auto;"></div>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> <!-- load p5.js from CDN-->
 <script src="https://cdn.jsdelivr.net/npm/mathjs@14.1.0/lib/browser/math.min.js"></script>
-<script src="/scripts/phys/fft/fft.js"></script>
+<script src="fft.js"></script>
 
 <style>
     #control-panel {

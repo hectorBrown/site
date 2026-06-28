@@ -7,7 +7,7 @@ math: true
 
 <div id="pend-parent" style="width: 100%; height: auto;"></div>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> <!-- load p5.js from CDN-->
-<script src="/scripts/phys/pend/pend.js"></script>
+<script src="pend.js"></script>
 
 <style>
     #control-panel {

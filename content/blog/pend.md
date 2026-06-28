@@ -10,7 +10,7 @@ domain. I, not knowing better, used Newtonian mechanics; modelling all the
 forces applied to the bob, and then a very primitive forward-difference method
 to propagate the system in time. This worked better than you would think, in
 the end the pendulum looked pretty good. The
-[code](/scripts/blog/pend/old_pendulum.js) was messy, though. I had to
+[code](old_pendulum.js) was messy, though. I had to
 constantly bump the bob back into a fixed radius of the anchor, since errors
 (floating point, forward-difference approximation) would cause the bar
 connecting them to telescope outwards.
@@ -47,7 +47,7 @@ of classical mechanics can be. The main reasons I like it:
     }
 </style>
 
-1. <img id="angle-img" src="/images/blog/pend/angles.png" style="float:right"
+1. <img id="angle-img" src="angles.png" style="float:right"
       alt="Diagram of a double pendulum"/>Lagrangian mechanics allows the use of
    generalised coordinates. While it's true that you can always switch the
    coordinate system you use to do Newtonian mechanics, this normally comes with

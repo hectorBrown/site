@@ -54,7 +54,7 @@ for simplicity).
 <ol>
   <li>
     <b>Vertex Shaders</b>
-    <img src="/images/blog/webgpu/vertex.svg" class="float-images" alt="A diagram of a
+    <img src="vertex.svg" class="float-images" alt="A diagram of a
       vertex shader producing instanced points">
     <p>These typically run first, and are responsible for transforming input
       points onto output points. I know that sounds a little vague, so to make
@@ -70,7 +70,7 @@ for simplicity).
   </li>
   <li>
     <b>Fragment Shaders</b>
-    <img src="/images/blog/webgpu/tri.svg" class="float-images" alt="A diagram of a
+    <img src="tri.svg" class="float-images" alt="A diagram of a
       triangle being rendered by the GPU">
     <p>These take the vertices from the vertex shaders as input, typically in
       groups of 3 that form triangles, and draw colours in the area defined by
@@ -97,7 +97,7 @@ happening. Because of this, a lot of optimisations we'll see are to do with
 reducing the amount of data you need to copy. Indexed drawing is the first
 "compression" technique we'll see.
 
-<img src="/images/blog/webgpu/indexed.svg" class="float-images" alt="A diagram
+<img src="indexed.svg" class="float-images" alt="A diagram
   of indexed drawing">
 
 If we want to draw two triangles with only four points, as in the digram
@@ -199,7 +199,7 @@ LineRaw {
 where our instance array also includes an alpha field that determines the
 opacity of the line (it is passed straight through to the fragment shader).
 
-<img src="/images/blog/webgpu/instancing.svg" style="display: block; margin: 0
+<img src="instancing.svg" style="display: block; margin: 0
 auto" alt="A diagram of the full path of vertices through an indexed and
   instanced drawing pipeline">
 
@@ -297,7 +297,7 @@ calculation for every vertex. Speaking of NDC coordinates...
 ## Normalized Device Coordinates (NDC)
 
 ![Diagram of the difference coordinate systems (pixel and
-NDC)](/images/blog/webgpu/ndc.svg)
+NDC)](ndc.svg)
 
 NDC coordinates are the native coordinate system of the GPU, they literally
 normalise the relation between position and screen position without any concern

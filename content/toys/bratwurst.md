@@ -82,7 +82,7 @@ Pick a date: <input id="date_input" type="date"></input>
 
 <button id="convert_button">Convert</button>
 
-<script src="/scripts/phys/bratwurst/bratwurst.js"></script>
+<script src="bratwurst.js"></script>
 
 ---
 
