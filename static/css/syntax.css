@@ -17,7 +17,7 @@
 /* KeywordPseudo */ .chroma .kp { color: #fe8019 }
 /* KeywordReserved */ .chroma .kr { color: #fe8019 }
 /* KeywordType */ .chroma .kt { color: #fabd2f }
-/* Name */ .chroma .n {  }
+.chroma .n { color: #ebdbb2; }       /* Light foreground baseline */
 /* NameAttribute */ .chroma .na { color: #b8bb26; font-weight: bold }
 /* NameBuiltin */ .chroma .nb { color: #fabd2f }
 /* NameBuiltinPseudo */ .chroma .bp {  }
@@ -30,8 +30,8 @@
 /* NameFunctionMagic */ .chroma .fm {  }
 /* NameLabel */ .chroma .nl { color: #fb4934 }
 /* NameNamespace */ .chroma .nn {  }
-/* NameOther */ .chroma .nx {  }
-/* NameProperty */ .chroma .py {  }
+.chroma .nx { color: #8ec07c; }      /* Gruvbox Aqua (makes method calls like .cos() pop) */
+.chroma .py { color: #fabd2f; }      /* Gruvbox Yellow */
 /* NameTag */ .chroma .nt { color: #fb4934 }
 /* NameVariable */ .chroma .nv {  }
 /* NameVariableClass */ .chroma .vc {  }

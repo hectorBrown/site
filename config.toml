@@ -71,8 +71,6 @@ icon = "fa-solid fa-key"
 title = "PGP Key"
 url = "/pgp.txt"
 
-[markup.highlight]
-noClasses = false
 
 [menu]
 
@@ -93,9 +91,6 @@ category = "categories"
 tag = "tags"
 series = "series"
 
-# For hugo >= 0.60.0, enable inline HTML
-[markup.goldmark.renderer]
-unsafe = true
 
 [privacy]
 
@@ -129,9 +124,14 @@ pagerSize = 3
 
 [markup]
   [markup.goldmark]
+# For hugo >= 0.60.0, enable inline HTML
+    [markup.goldmark.renderer]
+      unsafe = true
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]
         enable = true
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)']]
+  [markup.highlight]
+    noClasses = false
