@@ -16,10 +16,12 @@
         <p>
             {{ if .Params.author }}By {{ .Params.author }}{{ if .Date }}, {{ end }}{{ end }}
             {{ if .Date }}<span style="color: var(--logo)">Published:</span><br>
-  {{ .Date.Format "2006-01-02" }} <span style = "color: var(--muted)">({{ partial "bratwurst/date.html" .Date}})</span>{{ end }}
-            {{ if .Date }}
-  <span style="color: var(--highlight)">Last Updated:</span><br>
-  {{ .Lastmod.Format "2006-01-02" }} <span style = "color: var(--muted)">({{ partial "bratwurst/date.html" .Lastmod}})</span>{{ end }}
+              {{ .Date.Format "2006-01-02" }} <span style = "color: var(--muted)">({{ partial "bratwurst/date.html" .Date}})</span><br>
+            {{ end }}
+            {{ if .Lastmod }}
+              <span style="color: var(--highlight)">Last Updated:</span><br>
+              {{ .Lastmod.Format "2006-01-02" }} <span style = "color: var(--muted)">({{ partial "bratwurst/date.html" .Lastmod}})</span>
+            {{ end }}
         </p>
     {{ end }}
 {{ end }}
