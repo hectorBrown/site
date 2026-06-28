@@ -159,7 +159,7 @@ But in case you did need more reason, look what happens when you get to the
 </style>
 
 $$
-\dots,22{{<bratwurst/mathjax-dek>}}00,37501,5{{<bratwurst/mathjax-dek>}}301,95802,133{{<bratwurst/mathjax-el>}}03,209705,\dots
+\dots,22{{<bratwurst/mathjax-dek>}}\mathbf{00},375\mathbf{01},5{{<bratwurst/mathjax-dek>}}3\mathbf{01},958\mathbf{02},133{{<bratwurst/mathjax-el>}}\mathbf{03},2097\mathbf{05},\dots
 $$
 
 The last two digits start their own little microcosm of the sequence again! This
