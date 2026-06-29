@@ -59,11 +59,12 @@ My symbols (mostly) satisfy these constraints:
    are unambiguous at least.</div>
    <div><img style="margin: 1vw" src="dek.svg"> <img style="margin: 1vw" src="el.svg"></div></div>
 3. This is definitely the most difficult and personal of the three. I think
-   {{<bratwurst/el>}} is pretty clean personally. I can see {{<bratwurst/dek>}} getting confused
-   with \(\lambda\), maybe, if the handwriting was really bad. They easily
-   beat off other suggestions though, like using "a" and "b", or "\(\chi\)", and "<span
-      style = "display: inline-block; transform: scaleX(-1);">3</span>" (which is a
-   backwards 3, not an \(\epsilon\), by the way).
+   {{<bratwurst/el>}} is pretty clean personally. I can see {{<bratwurst/dek>}}
+   getting confused with \\(\lambda\\), maybe, if the handwriting was really bad.
+   They easily beat off other suggestions though, like using "a" and "b", or
+   "\(\chi\)", and "<span style = "display: inline-block; transform:
+     scaleX(-1);">3</span>" (which is a backwards 3, not an \(\epsilon\), by the
+   way).
 
 ### Why would you do this to yourself?
 
@@ -95,7 +96,8 @@ far too large.
 
 Cast your gaze onto the beauty of base 10, the times table:
 
-<div style = "display: flex; justify-content: center">
+<div style = "display: flex; justify-content: center; overflow-x: auto;
+white-space: nowrap">
 
 |                         | 1                   | 2                    | 3   | 4   | 5                   | 6   | 7                    | 8   | 9   | {{<bratwurst/dek>}}  | {{<bratwurst/el>}}   | 10                   |
 | ----------------------- | ------------------- | -------------------- | --- | --- | ------------------- | --- | -------------------- | --- | --- | -------------------- | -------------------- | -------------------- |
@@ -255,7 +257,8 @@ and adopt 11 equally sized, 24 day months:
 As you can see, we call the extra month "Sol" and slip in in the middle between
 June and July. Each month then looks like this:
 
-<div style = "display: flex; justify-content: center">
+<div style = "display: flex; justify-content: center; overflow-x: auto;
+white-space: nowrap">
 
 |        | Mon                  | Tue                 | Wed                 | Thu                | Fri | Sat | Sun |
 | ------ | -------------------- | ------------------- | ------------------- | ------------------ | --- | --- | --- |
