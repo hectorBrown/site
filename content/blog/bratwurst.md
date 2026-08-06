@@ -51,7 +51,8 @@ reasoning that brought me to these characters is threefold:
 
 My symbols (mostly) satisfy these constraints:
 
-1. {{<bratwurst/dek>}} and {{<bratwurst/el>}} are the reflections about the y-axis of
+1. {{<bratwurst/dek>}} and {{<bratwurst/el>}} are the reflections about the
+   y-axis of h and F.
 
 2. <div style="display: grid; grid-template-columns: 1fr 1fr">
    <div>See across. I certainly have never seen these before. Maybe they have some
