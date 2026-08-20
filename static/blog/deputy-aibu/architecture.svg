@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210.04047mm"
+   height="152.97906mm"
+   viewBox="0 0 210.04047 152.97906"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="ArrowWideRounded"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:round"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         id="path2" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker10"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path10" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker9"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker9-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path9-5" />
+    </marker>
+  </defs>
+  <rect
+     style="fill:#665c54;stroke:#665c54;stroke-width:0.908284"
+     id="rect2"
+     width="176.3185"
+     height="60.046261"
+     x="16.618481"
+     y="0.454142"
+     ry="5.3664536" />
+  <rect
+     style="fill:#83a598;stroke:#83a598;stroke-width:0.859999"
+     id="rect1"
+     width="47.981678"
+     height="34.126984"
+     x="23.499268"
+     y="16.521036"
+     ry="4.8110504" />
+  <rect
+     style="fill:#b8bb26;stroke:#b8bb26;stroke-width:0.859999"
+     id="rect1-3"
+     width="47.981678"
+     height="34.126984"
+     x="80.786888"
+     y="16.521036"
+     ry="4.8110504" />
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="88.576767"
+     y="36.607136"
+     id="text1"><tspan
+       id="tspan1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="88.576767"
+       y="36.607136">SHARED</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="147.07512"
+     y="36.607136"
+     id="text1-5"><tspan
+       id="tspan1-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:Sans-serif;-inkscape-font-specification:Sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="147.07512"
+       y="36.607136">SERVER</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="33.634396"
+     y="36.607136"
+     id="text1-5-7"><tspan
+       id="tspan1-9-3"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="33.634396"
+       y="36.607136">CLIENT</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="73.082741"
+     y="10.559788"
+     id="text1-5-7-5"><tspan
+       id="tspan1-9-3-3"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="73.082741"
+       y="10.559788">CODE SOURCES</tspan></text>
+  <rect
+     style="fill:#665c54;stroke:#665c54;stroke-width:0.814763"
+     id="rect2-6"
+     width="141.65817"
+     height="60.139782"
+     x="34.558235"
+     y="92.4319"
+     ry="5.3748116" />
+  <rect
+     style="fill:#83a598;stroke:#83a598;stroke-width:0.859999"
+     id="rect1-3-6"
+     width="47.981678"
+     height="34.126984"
+     x="47.920105"
+     y="104.90796"
+     ry="4.8110504" />
+  <rect
+     style="fill:#d3869b;stroke:#d3869b;stroke-width:0.859999"
+     id="rect1-1"
+     width="47.981678"
+     height="34.126984"
+     x="138.07451"
+     y="16.521036"
+     ry="4.8110504" />
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="57.445641"
+     y="124.99406"
+     id="text1-5-7-2"><tspan
+       id="tspan1-9-3-8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="57.445641"
+       y="124.99406">CLIENT</tspan></text>
+  <rect
+     style="fill:#d3869b;stroke:#d3869b;stroke-width:0.859999"
+     id="rect1-1-1"
+     width="47.981678"
+     height="34.126984"
+     x="113.65368"
+     y="104.90796"
+     ry="4.8110504" />
+  <path
+     style="fill:#fabd2f;fill-opacity:1;stroke:#fabd2f;stroke-width:1.86;stroke-dasharray:1.86, 1.86;stroke-dashoffset:0;marker-end:url(#marker10)"
+     d="M 104.77773,50.64802 V 112.3443"
+     id="path6" />
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="122.65428"
+     y="124.99406"
+     id="text1-5-9"><tspan
+       id="tspan1-9-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:Sans-serif;-inkscape-font-specification:Sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="122.65428"
+       y="124.99406">SERVER</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="147.07512"
+     y="36.607136"
+     id="text1-5-9-3"><tspan
+       id="tspan1-9-2-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:Sans-serif;-inkscape-font-specification:Sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="147.07512"
+       y="36.607136">SERVER</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:8.46667px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="94.427216"
+     y="147.99985"
+     id="text1-5-7-5-3"><tspan
+       id="tspan1-9-3-3-7"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="94.427216"
+       y="147.99985">APPS</tspan></text>
+  <path
+     style="fill:#d5c4a1;fill-opacity:1;stroke:#d5c4a1;stroke-width:1.86;stroke-dasharray:none;marker-end:url(#Triangle)"
+     d="M 47.490106,50.64802 62.048549,99.152605"
+     id="path3" />
+  <path
+     style="fill:#d5c4a1;fill-opacity:1;stroke:#d5c4a1;stroke-width:1.86;stroke-dasharray:none;marker-end:url(#marker9)"
+     d="M 89.008558,51.078019 76.15953,98.303835"
+     id="path4" />
+  <path
+     style="fill:#d5c4a1;fill-opacity:1;stroke:#d5c4a1;stroke-width:1.86;stroke-dasharray:none;marker-end:url(#Triangle-7)"
+     d="M 162.06536,50.648023 147.50691,99.152605"
+     id="path3-3" />
+  <path
+     style="fill:#d5c4a1;fill-opacity:1;stroke:#d5c4a1;stroke-width:1.86;stroke-dasharray:none;marker-end:url(#marker9-4)"
+     d="m 120.5469,51.078022 12.84903,47.225813"
+     id="path4-6" />
+  <path
+     style="fill:#fabd2f;fill-opacity:1;stroke:#fabd2f;stroke-width:1.65691;stroke-dasharray:none;marker-start:url(#ArrowWideRounded);marker-end:url(#ArrowWideRounded)"
+     d="m 97.73419,128.03411 h 14.08708"
+     id="path5" />
+  <rect
+     style="fill:#665c54;fill-opacity:1;stroke:#665c54;stroke-width:1.96385;stroke-dasharray:none;stroke-dashoffset:0"
+     id="rect12"
+     width="74.478508"
+     height="13.044814"
+     x="67.538467"
+     y="69.967125"
+     ry="3.9430172" />
+  <rect
+     style="fill:#665c54;fill-opacity:1;stroke:#665c54;stroke-width:1.76666;stroke-dasharray:none;stroke-dashoffset:0"
+     id="rect12-4"
+     width="59.375282"
+     height="13.242002"
+     x="149.78185"
+     y="69.872055"
+     ry="4.0026207" />
+  <text
+     xml:space="preserve"
+     style="font-size:7.05556px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="156.03444"
+     y="79.011894"
+     id="text1-5-7-55-6"><tspan
+       id="tspan1-9-3-4-9"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="156.03444"
+       y="79.011894">COMPILES TO</tspan></text>
+  <rect
+     style="fill:#665c54;fill-opacity:1;stroke:#665c54;stroke-width:1.76666;stroke-dasharray:none;stroke-dashoffset:0"
+     id="rect12-4-7"
+     width="59.375282"
+     height="13.242002"
+     x="0.88332999"
+     y="69.872055"
+     ry="4.0026207" />
+  <text
+     xml:space="preserve"
+     style="font-size:7.05556px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="7.1359286"
+     y="79.011894"
+     id="text1-5-7-55-6-8"><tspan
+       id="tspan1-9-3-4-9-6"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#ebdbb2;stroke:none;stroke-width:0.86"
+       x="7.1359286"
+       y="79.011894">COMPILES TO</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:7.05556px;writing-mode:lr-tb;direction:ltr;fill:#ebdbb2;stroke:none;stroke-width:0.859999"
+     x="70.071426"
+     y="79.008369"
+     id="text1-5-7-55-5"><tspan
+       id="tspan1-9-3-4-2"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#fabd2f;stroke:none;stroke-width:0.86"
+       x="70.071426"
+       y="79.008369">DEFINES INTERFACE</tspan></text>
+</svg>
