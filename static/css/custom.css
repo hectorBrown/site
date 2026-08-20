@@ -51,6 +51,16 @@ body {
     margin-top: 1vw;
     margin-bottom: 1vw;
 }
+.page__body ul ul,
+.page__body ul ol,
+.page__body ol ul,
+.page__body ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  /* Retain standard left padding for visual hierarchy without extra margin */
+  margin-left: 0; 
+}
 .page__aside {
    z-index: 0;
 }
