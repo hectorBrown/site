@@ -223,3 +223,95 @@ set query_command="echo %s | xargs khard email --parsable --"
 ```
 
 And all should be well.
+
+_[Update 2026-08-23]_
+
+Hello again.
+
+I've overhauled my mail system -- maybe overhauled is an overstatement. I've
+streamlined it.
+
+Mail delivery is now instant! With the help of
+[goimapnotify](https://gitlab.com/shackra/goimapnotify), configured like so:
+
+```yaml
+host: "127.0.0.1"
+port: 1143
+tls: false
+tlsOptions:
+  rejectUnauthorized: false
+  starttls: false
+username: "hectorjbrown@protonmail.com"
+passwordCmd: "pass hectorjbrown@protonmail.com"
+onNewMail: "~/.local/bin/mailsync"
+```
+
+And syncing is now also instant, with the help of `inotify` in the form of
+`mail-watch-local.sh`:
+
+```sh
+#!/bin/sh
+MAIL_DIR="$HOME/.mail"
+LOCK_FILE="/tmp/mail_sync.lock"
+
+while true; do
+  # Wait for Mutt to change a file
+  inotifywait -r -e move -e create -e delete "$MAIL_DIR" >/dev/null 2>&1
+
+  # 1. Skip if goimapnotify is currently syncing remote mail
+  if [ -f "$LOCK_FILE" ]; then
+    continue
+  fi
+
+  # 2. Skip if another instance of mbsync is already running
+  if pgrep -x "mbsync" >/dev/null; then
+    continue
+  fi
+
+  # Create lock, sync local changes upstream, then clean up
+  touch "$LOCK_FILE"
+  mbsync -a >/dev/null 2>&1
+  sleep 2
+  rm -f "$LOCK_FILE"
+done
+```
+
+which dodges the whole nasty `nohup` business above, and means I don't need a
+cron job to sync my mail anymore.
+
+They are both managed with user-scoped systemd services `goimapnotify.service`:
+
+```systemd
+[Unit]
+Description=Goimapnotify background mail listener
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/goimapnotify -conf %h/.config/goimapnotify/goimapnotify.yaml
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+```
+
+and `mail-watch-local.service`:
+
+```systemd
+[Unit]
+Description=Watch local Maildir
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/mail-watch-local.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+```
+
+which are both enabled on startup. It's been smooth so far, I think this is the
+best version yet.
